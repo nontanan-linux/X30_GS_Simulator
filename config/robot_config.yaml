@@ -1,0 +1,5 @@
+robot:
+  length_m: 1.5
+  width_m: 1.0
+  image_path: "../resource/gs_cat_robot.png"
+  icon_path: "../resource/cat_robot_03.png"

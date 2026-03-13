@@ -1,0 +1,46 @@
+[
+    {
+        "Node_info": "add_home01",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 3,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -6.8148069,
+        "PosY": -0.9638829,
+        "PosZ": 0.0711079,
+        "AngleYaw": 2.5576706,
+        "Value": 1,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "add_home02",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 3,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -9.0337849,
+        "PosY": 0.520895,
+        "PosZ": 0.1056159,
+        "AngleYaw": 1.6917663,
+        "Value": 2,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    }
+]
