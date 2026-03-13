@@ -1,22 +1,20 @@
 [
     {
-        "Node_info": "ChargeOut",
-        "MapName": "1st_floor",
-        "Zone": "wet3",
+        "Node_info": "charge_p",
         "MapID": 0,
-        "Gait": 0,
-        "NavMode": 0,
+        "Gait": 7,
+        "NavMode": 1,
         "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
+        "Terrain": 3,
+        "PointInfo": 1,
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
-        "PosX": 41.83852,
-        "PosY": -16.159822,
-        "PosZ": -0.2800744,
-        "AngleYaw": -0.0763338,
-        "Value": 0,
+        "PosX": 43.598648,
+        "PosY": -27.204496,
+        "PosZ": -0.2865812,
+        "AngleYaw": -1.5969032,
+        "Value": 1,
         "CamPTZ": [
             0.0,
             0.0,
@@ -24,79 +22,7 @@
         ]
     },
     {
-        "Node_info": "via-h2-00",
-        "MapName": "1st_floor",
-        "Zone": "wet3",
-        "MapID": 0,
-        "Gait": 0,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 42.040424,
-        "PosY": -2.4565096,
-        "PosZ": -0.2638025,
-        "AngleYaw": 1.6052006,
-        "Value": 2,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "via-h2-01",
-        "MapName": "1st_floor",
-        "Zone": "wet3",
-        "MapID": 0,
-        "Gait": 0,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 42.082191,
-        "PosY": 3.0155897,
-        "PosZ": -0.1809712,
-        "AngleYaw": -3.0645533,
-        "Value": 3,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "via-h2-02",
-        "MapName": "1st_floor",
-        "Zone": "wet3",
-        "MapID": 0,
-        "Gait": 0,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 36.154926,
-        "PosY": 2.6156983,
-        "PosZ": -0.1384768,
-        "AngleYaw": -3.1348433,
-        "Value": 4,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "via82",
+        "Node_info": "dry_via_01",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -118,7 +44,7 @@
         ]
     },
     {
-        "Node_info": "via83",
+        "Node_info": "dry_via_02",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -140,7 +66,7 @@
         ]
     },
     {
-        "Node_info": "via84",
+        "Node_info": "dry_via_03",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -162,7 +88,7 @@
         ]
     },
     {
-        "Node_info": "via85",
+        "Node_info": "dry_via_04",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -184,7 +110,7 @@
         ]
     },
     {
-        "Node_info": "via86",
+        "Node_info": "dry_via_05",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -206,7 +132,7 @@
         ]
     },
     {
-        "Node_info": "via87",
+        "Node_info": "dry_via_06",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -228,7 +154,7 @@
         ]
     },
     {
-        "Node_info": "via88",
+        "Node_info": "dry_via_07",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -250,7 +176,7 @@
         ]
     },
     {
-        "Node_info": "via89_SD1O",
+        "Node_info": "dry_via_SD1O",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -272,7 +198,7 @@
         ]
     },
     {
-        "Node_info": "via90_SD1C",
+        "Node_info": "dry_via_SD1C",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -294,7 +220,7 @@
         ]
     },
     {
-        "Node_info": "via91",
+        "Node_info": "dry_via_08",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -316,7 +242,7 @@
         ]
     },
     {
-        "Node_info": "via92",
+        "Node_info": "dry_via_09",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -338,7 +264,7 @@
         ]
     },
     {
-        "Node_info": "via93_SD2O",
+        "Node_info": "dry_via_SD2O",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -360,7 +286,7 @@
         ]
     },
     {
-        "Node_info": "via94_SD2C",
+        "Node_info": "dry_via_SD2C",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -382,7 +308,7 @@
         ]
     },
     {
-        "Node_info": "via95_SD3O",
+        "Node_info": "dry_via_SD3O",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -404,7 +330,7 @@
         ]
     },
     {
-        "Node_info": "via96_SD3C",
+        "Node_info": "dry_via_SD3C",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -426,7 +352,7 @@
         ]
     },
     {
-        "Node_info": "via97",
+        "Node_info": "dry_via_10",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -448,7 +374,7 @@
         ]
     },
     {
-        "Node_info": "via98",
+        "Node_info": "dry_via_11",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -470,7 +396,7 @@
         ]
     },
     {
-        "Node_info": "via99",
+        "Node_info": "dry_via_12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -492,7 +418,7 @@
         ]
     },
     {
-        "Node_info": "via100",
+        "Node_info": "dry_via_13",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -514,7 +440,7 @@
         ]
     },
     {
-        "Node_info": "via101",
+        "Node_info": "dry_via_14",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -536,7 +462,7 @@
         ]
     },
     {
-        "Node_info": "via102",
+        "Node_info": "dry_via_15",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -690,7 +616,7 @@
         ]
     },
     {
-        "Node_info": "via103",
+        "Node_info": "dry_via_16",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -712,7 +638,7 @@
         ]
     },
     {
-        "Node_info": "via104",
+        "Node_info": "dry_via_17",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -822,7 +748,7 @@
         ]
     },
     {
-        "Node_info": "via105",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -844,7 +770,7 @@
         ]
     },
     {
-        "Node_info": "via106",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -910,7 +836,7 @@
         ]
     },
     {
-        "Node_info": "via107",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -932,7 +858,7 @@
         ]
     },
     {
-        "Node_info": "via108",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -954,7 +880,7 @@
         ]
     },
     {
-        "Node_info": "via109",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -976,7 +902,7 @@
         ]
     },
     {
-        "Node_info": "via110",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -1020,7 +946,7 @@
         ]
     },
     {
-        "Node_info": "via111",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -1042,7 +968,7 @@
         ]
     },
     {
-        "Node_info": "via112",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -1064,7 +990,7 @@
         ]
     },
     {
-        "Node_info": "via113",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -1086,7 +1012,7 @@
         ]
     },
     {
-        "Node_info": "via114_tube",
+        "Node_info": "dry_via_tube",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -1350,7 +1276,7 @@
         ]
     },
     {
-        "Node_info": "via115",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1394,7 +1320,7 @@
         ]
     },
     {
-        "Node_info": "via116",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1416,7 +1342,7 @@
         ]
     },
     {
-        "Node_info": "via117",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1438,7 +1364,7 @@
         ]
     },
     {
-        "Node_info": "via118",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1548,7 +1474,7 @@
         ]
     },
     {
-        "Node_info": "via119_before_2nd",
+        "Node_info": "dry_via_before_2nd",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1570,7 +1496,7 @@
         ]
     },
     {
-        "Node_info": "via120",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1592,7 +1518,7 @@
         ]
     },
     {
-        "Node_info": "via121",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1614,7 +1540,7 @@
         ]
     },
     {
-        "Node_info": "via122",
+        "Node_info": "dry_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1636,7 +1562,7 @@
         ]
     },
     {
-        "Node_info": "via123",
+        "Node_info": "dry3_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1724,7 +1650,7 @@
         ]
     },
     {
-        "Node_info": "via124",
+        "Node_info": "dry3_via",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1834,7 +1760,7 @@
         ]
     },
     {
-        "Node_info": "via125",
+        "Node_info": "dry3_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2142,7 +2068,7 @@
         ]
     },
     {
-        "Node_info": "via126",
+        "Node_info": "dry3_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2274,7 +2200,7 @@
         ]
     },
     {
-        "Node_info": "via127",
+        "Node_info": "dry3_via",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2340,7 +2266,7 @@
         ]
     },
     {
-        "Node_info": "via128_h",
+        "Node_info": "dry3_via_h",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,

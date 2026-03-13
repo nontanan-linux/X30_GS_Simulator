@@ -17,6 +17,48 @@ try:
 except ImportError:
     HAS_GUI = False
 
+class CustomDropdown(ctk.CTkToplevel):
+    def __init__(self, master, x, y, sections, width=180):
+        super().__init__(master)
+        self.overrideredirect(True)
+        self.configure(fg_color="#00264d") # Match the navbar color
+        self.attributes("-topmost", True)
+        
+        # Main frame
+        self.frame = ctk.CTkFrame(self, fg_color="#00264d", border_color="white", border_width=2, corner_radius=10)
+        self.frame.pack(fill="both", expand=True)
+        
+        total_height = 0
+        for section_name, items in sections.items():
+            # Section Header
+            header = ctk.CTkLabel(self.frame, text=section_name, font=ctk.CTkFont(size=12, weight="bold"), 
+                                 text_color="gray70", anchor="w")
+            header.pack(fill="x", padx=15, pady=(10, 2))
+            total_height += 30
+            
+            for item_name, command in items:
+                btn = ctk.CTkButton(self.frame, text=item_name, fg_color="transparent", 
+                                   hover_color="#00366d", anchor="w", height=30,
+                                   corner_radius=5, command=lambda c=command: self.select(c))
+                btn.pack(fill="x", padx=5, pady=2)
+                total_height += 34
+            
+            # Add separator logic (except after last section)
+            if list(sections.keys())[-1] != section_name:
+                sep = ctk.CTkFrame(self.frame, height=2, fg_color="white")
+                sep.pack(fill="x", padx=10, pady=5)
+                total_height += 12
+        
+        self.geometry(f"{width}x{total_height + 10}+{x}+{y}")
+        
+        # Close logic
+        self.bind("<FocusOut>", lambda e: self.destroy())
+        self.after(10, self.focus_force)
+
+    def select(self, command):
+        self.destroy()
+        if command: command()
+
 class SimulationApp(ctk.CTk if HAS_GUI else object):
     def __init__(self, args):
         self.args = args
@@ -24,10 +66,10 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.sim_stop_flag = False
         self.is_paused = False
         self.sim_thread = None
-        self.out = None
         self.selected_wp_idx = None
         self.goal_pose_mode = 0  # 0: Off, 1: Select Pos, 2: Select Yaw
         self.temp_goal = None  # {start_u, start_v, current_u, current_v}
+        self.file_menu = None
 
         # Load robot config
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -91,7 +133,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             'default_zoom': 1.0,
             'default_offset_x': 0,
             'default_offset_y': 0,
-            'follow_robot': True
+            'follow_robot': False
         }
         
         self.maps = {} # type: dict[int, dict]
@@ -120,44 +162,110 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             else:
                 print("Error: No waypoints file specified for headless mode.")
 
+    def show_file_menu(self, event=None):
+        if self.file_menu and self.file_menu.winfo_exists():
+            self.file_menu.destroy()
+            self.file_menu = None
+            return
+        
+        # Calculate position below the "File" button
+        btn = self.menu_buttons["File"]
+        x = btn.winfo_rootx()
+        y = btn.winfo_rooty() + btn.winfo_height() + 5
+        
+        sections = {
+            "Import": [
+                ("Import Map", self.browse_folder),
+                ("Import Waypoints", self.browse_json)
+            ],
+            "Export": [
+                ("Export Waypoints", self.export_waypoints),
+                ("Export as Image", self.export_as_image)
+            ]
+        }
+        
+        self.file_menu = CustomDropdown(self, x, y, sections, width=200)
+
+
     def setup_ui(self):
-        # Top panel for controls
-        self.control_frame = ctk.CTkFrame(self, height=140)
-        self.control_frame.pack(fill="x", padx=10, pady=(10, 5))
+        # Layer 1: Top Navbar (Branded Color)
+        self.navbar_top = ctk.CTkFrame(self, height=60, fg_color="#00264d", corner_radius=0)
+        self.navbar_top.pack(fill="x")
         
+        # Menu Buttons (Dark Blue Background, White Border)
+        self.menu_buttons = {}
+        menu_items = ["File", "Create", "Edit", "View", "Simulate"]
+        for item in menu_items:
+            if item == "File":
+                cmd = self.show_file_menu
+            elif item == "Simulate":
+                cmd = self.start_simulation
+            else:
+                cmd = None
+                
+            btn = ctk.CTkButton(self.navbar_top, text=item, width=90, height=35, 
+                               fg_color="#00264d", border_color="white", border_width=2,
+                               text_color="white", corner_radius=10, 
+                               font=ctk.CTkFont(size=15, weight="bold"),
+                               command=cmd)
+            btn.pack(side="left", padx=10, pady=12)
+            self.menu_buttons[item] = btn
+            
+            # File menu is now click-only per user request
+
+        # Logo Placeholder (Right Side) - Replacement with Image
+        try:
+            logo_path = os.path.join(os.path.dirname(__file__), "..", "resource", "gensurv-logo.jpg")
+            if os.path.exists(logo_path):
+                raw_img = Image.open(logo_path)
+                # Resize to fit height (60px navbar - padding)
+                h = 40
+                w = int(raw_img.width * (h / raw_img.height))
+                self.logo_img = ctk.CTkImage(light_image=raw_img, dark_image=raw_img, size=(w, h))
+                logo_label = ctk.CTkLabel(self.navbar_top, image=self.logo_img, text="")
+            else:
+                logo_label = ctk.CTkLabel(self.navbar_top, text="GENSURV ROBOTICS", 
+                                         text_color="white", font=ctk.CTkFont(size=14, weight="bold"))
+        except Exception as e:
+            print(f"Logo error: {e}")
+            logo_label = ctk.CTkLabel(self.navbar_top, text="GENSURV ROBOTICS", 
+                                     text_color="white", font=ctk.CTkFont(size=14, weight="bold"))
+        
+        logo_label.pack(side="right", padx=20)
+
+        # Layer 2: White Strip (Now contains controls)
+        self.navbar_bottom = ctk.CTkFrame(self, fg_color="white", corner_radius=0)
+        self.navbar_bottom.pack(fill="x")
+        
+        # Add blue bottom border to Layer 2
+        self.navbar_bottom_border = ctk.CTkFrame(self, height=2, fg_color="#002b5b", corner_radius=0)
+        self.navbar_bottom_border.pack(fill="x")
+
         # Row 1: Map Folder
-        self.map_row = ctk.CTkFrame(self.control_frame, fg_color="transparent")
-        self.map_row.pack(fill="x", padx=10, pady=5)
+        self.map_row = ctk.CTkFrame(self.navbar_bottom, height=1, fg_color="transparent")
+        self.map_row.pack(fill="x", padx=10, pady=(5, 1))
         
-        ctk.CTkLabel(self.map_row, text="Map Dir:").pack(side="left", padx=5)
+        ctk.CTkLabel(self.map_row, text="Map Dir:", text_color="black").pack(side="left", padx=5)
         self.folder_var = ctk.StringVar(value=self.args.map_folder)
-        self.folder_entry = ctk.CTkEntry(self.map_row, textvariable=self.folder_var, width=250)
+        self.folder_entry = ctk.CTkEntry(self.map_row, textvariable=self.folder_var, width=300)
         self.folder_entry.pack(side="left", padx=5)
-        self.folder_browse_btn = ctk.CTkButton(self.map_row, text="Browse...", width=80, command=self.browse_folder)
-        self.folder_browse_btn.pack(side="left", padx=5)
-        self.folder_load_btn = ctk.CTkButton(self.map_row, text="Update Map", width=80, command=self.on_folder_change)
+        self.folder_load_btn = ctk.CTkButton(self.map_row, text="Update Map", width=100, command=self.on_folder_change)
         self.folder_load_btn.pack(side="left", padx=5)
 
         # Row 2: Waypoints
-        self.wp_row = ctk.CTkFrame(self.control_frame, fg_color="transparent")
-        self.wp_row.pack(fill="x", padx=10, pady=5)
+        self.wp_row = ctk.CTkFrame(self.navbar_bottom, height=1, fg_color="transparent")
+        self.wp_row.pack(fill="x", padx=10, pady=1)
         
-        ctk.CTkLabel(self.wp_row, text="Waypoints File:").pack(side="left", padx=5)
+        ctk.CTkLabel(self.wp_row, text="Waypoints File:", text_color="black").pack(side="left", padx=5)
         self.json_path_var = ctk.StringVar(value="")
-        self.wp_entry = ctk.CTkEntry(self.wp_row, textvariable=self.json_path_var, width=250)
+        self.wp_entry = ctk.CTkEntry(self.wp_row, textvariable=self.json_path_var, width=500)
         self.wp_entry.pack(side="left", padx=5)
-        self.wp_browse_btn = ctk.CTkButton(self.wp_row, text="Select JSON...", width=100, command=self.browse_json)
-        self.wp_browse_btn.pack(side="left", padx=5)
-        self.wp_reload_btn = ctk.CTkButton(self.wp_row, text="Reload", width=60, command=self.reload_waypoints)
+        self.wp_reload_btn = ctk.CTkButton(self.wp_row, text="Reload", width=80, command=self.reload_waypoints)
         self.wp_reload_btn.pack(side="left", padx=5)
         
-        self.wp_var = ctk.StringVar(value="Start from WP")
-        self.wp_menu = ctk.CTkOptionMenu(self.wp_row, values=["No waypoints loaded"], variable=self.wp_var, width=200)
-        self.wp_menu.pack(side="left", padx=5)
-        
         # Row 3: Simulation Controls
-        self.sim_row = ctk.CTkFrame(self.control_frame, fg_color="transparent")
-        self.sim_row.pack(fill="x", padx=10, pady=5)
+        self.sim_row = ctk.CTkFrame(self.navbar_bottom, height=1, fg_color="transparent")
+        self.sim_row.pack(fill="x", padx=10, pady=1)
 
         self.start_btn = ctk.CTkButton(self.sim_row, text="Start", fg_color="green", hover_color="darkgreen", command=self.start_simulation, width=60)
         self.start_btn.pack(side="left", padx=5)
@@ -174,16 +282,23 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.goal_pose_btn = ctk.CTkButton(self.sim_row, text="2D Goal Pose", command=self.toggle_goal_pose_mode, width=100, fg_color="gray70", text_color="black")
         self.goal_pose_btn.pack(side="left", padx=5)
         
-        self.follow_var = ctk.BooleanVar(value=True)
-        self.follow_cb = ctk.CTkCheckBox(self.sim_row, text="Follow Robot", variable=self.follow_var, command=self.on_follow_toggle, state="disabled")
+        self.follow_var = ctk.BooleanVar(value=False)
+        self.follow_cb = ctk.CTkCheckBox(self.sim_row, text="Follow Robot", variable=self.follow_var, command=self.on_follow_toggle, state="disabled", text_color="black")
         self.follow_cb.pack(side="left", padx=10)
         
-        self.status_label = ctk.CTkLabel(self.sim_row, text="Ready. Please load a Map Directory and a Waypoints JSON.")
+        self.status_label = ctk.CTkLabel(self.sim_row, text="Ready. Please load a Map Directory and a Waypoints JSON.", text_color="black")
         self.status_label.pack(side="left", padx=15)
         
-        self.toggle_sidebar_btn = ctk.CTkButton(self.sim_row, text="Sidebar >", width=80, command=self.toggle_sidebar)
+        self.toggle_sidebar_btn = ctk.CTkButton(self.sim_row, text="Sidebar >", width=80, 
+                                                fg_color="#2D2D2D", hover_color="darkred",
+                                                command=self.toggle_sidebar)
         self.toggle_sidebar_btn.pack(side="right", padx=5)
         self.sidebar_visible = True
+
+        # Row 4: Floor Selection (Dynamic)
+        self.floor_row = ctk.CTkFrame(self.navbar_bottom, height=1, fg_color="transparent")
+        self.floor_row.pack(fill="x", padx=10, pady=(0, 3))
+        self.floor_buttons = {}
         
         # Main container for Canvas and Sidebar
         self.main_container = ctk.CTkFrame(self, fg_color="transparent")
@@ -199,41 +314,65 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.canvas.pack(side="left", fill="both", expand=True)
         self.paned_window.add(self.canvas_frame, weight=1)
         
-        # Sidebar for info
-        self.sidebar = ctk.CTkFrame(self.paned_window, width=450)
+        # Sidebar for info (Exact Template 02 Style: #b71836 + Black Text)
+        self.sidebar = ctk.CTkFrame(self.paned_window, width=450, fg_color="#b71836", corner_radius=0)
         self.sidebar.pack_propagate(False)
         self.paned_window.add(self.sidebar, weight=0)
         
-        ctk.CTkLabel(self.sidebar, text="Waypoint Information", font=ctk.CTkFont(size=16, weight="bold")).pack(pady=10)
+        ctk.CTkLabel(self.sidebar, text="Waypoint Information", 
+                     text_color="#000000",
+                     font=ctk.CTkFont(size=20, weight="bold")).pack(pady=(10, 5))
         
         # Search row
         self.search_row = ctk.CTkFrame(self.sidebar, fg_color="transparent")
-        self.search_row.pack(fill="x", padx=10, pady=5)
+        self.search_row.pack(fill="x", padx=20, pady=2)
         
-        self.search_entry = ctk.CTkEntry(self.search_row, placeholder_text="Name or Index...", width=180)
-        self.search_entry.pack(side="left", padx=(0, 5))
+        self.search_entry = ctk.CTkEntry(self.search_row, placeholder_text="Name or Index...", 
+                                         width=250, height=35,
+                                         fg_color="#b71836", border_color="#00264d", border_width=3,
+                                         text_color="#000000", placeholder_text_color="#333333",
+                                         corner_radius=0)
+        self.search_entry.pack(side="left", padx=(0, 10))
         self.search_entry.bind("<Return>", lambda e: self.perform_search())
         
-        self.search_btn = ctk.CTkButton(self.search_row, text="Search", width=60, command=self.perform_search)
+        self.search_btn = ctk.CTkButton(self.search_row, text="Search", width=80, height=35,
+                                       fg_color="#00264d", hover_color="#001a35",
+                                       text_color="#FFFFFF", corner_radius=5,
+                                       command=self.perform_search)
         self.search_btn.pack(side="left")
         
-        self.info_text = ctk.CTkTextbox(self.sidebar, width=280, height=250)
-        self.info_text.pack(padx=10, pady=5, fill="both", expand=True)
+        # Suble Separator Line (Black for high contrast on Red)
+        ctk.CTkFrame(self.sidebar, height=2, fg_color="#000000").pack(fill="x", padx=20, pady=10)
+        
+        self.info_text = ctk.CTkTextbox(self.sidebar, width=400,
+                                        fg_color="#b71836", text_color="#000000",
+                                        border_color="#00264d", border_width=2,
+                                        font=ctk.CTkFont(size=14, weight="bold"),
+                                        corner_radius=0)
+        self.info_text.pack(padx=20, pady=5, fill="both", expand=True)
         self.info_text.configure(state="disabled")
         
-        self.info_label = ctk.CTkLabel(self.sidebar, text="Click a waypoint to see details.", wraplength=250)
-        self.info_label.pack(pady=5, padx=10)
         
-        # Label to show inspection image
-        self.image_label = ctk.CTkLabel(self.sidebar, text="")
-        self.image_label.pack(pady=5, padx=10, fill="both", expand=False)
+        # Inspection Photo Frame (Initially Hidden)
+        self.image_frame = ctk.CTkFrame(self.sidebar, fg_color="#b71836", corner_radius=0)
+        # self.image_frame is not packed yet
+        
+        self.image_label = ctk.CTkLabel(self.image_frame, text="")
+        self.image_label.pack(fill="both", expand=True)
 
     def update_sidebar(self, idx):
+        # Reset Layout: Hide inspection frame and make info box expand
+        if hasattr(self, 'image_frame'):
+            self.image_frame.pack_forget()
+        
+        self.info_text.pack_forget()
+        self.info_text.configure(height=400) # Reset to larger context height
+        self.info_text.pack(padx=20, pady=5, fill="both", expand=True)
+
         if idx is None or idx >= len(self.path_nodes):
             self.info_text.configure(state="normal")
             self.info_text.delete("1.0", "end")
             self.info_text.configure(state="disabled")
-            self.info_label.configure(text="No waypoint selected.")
             return
 
         current_node = self.path_nodes[idx]
@@ -272,14 +411,11 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         else:
             self.info_text.insert("end", "None (End node)\n")
 
-        self.info_text.tag_config("header", foreground="#3a86ff") # Blue color for headers
+        self.info_text.tag_config("header", foreground="#00264d") # Branded Blue for all headers
         self.info_text.configure(state="disabled")
         
-        info = f"Index: {idx}\nName: {current_node.get('Node_info')}\nFloor: {current_node.get('MapID',0)+1}"
-        self.info_label.configure(text=info)
-        
         # Load and display inspection image if available
-        self.image_label.configure(image="", text="") # Clear previous
+        self.image_label.configure(image="", text="No Photo Available") # Clear previous
         
         node_info = current_node.get('Node_info', '')
         if node_info and isinstance(node_info, str):
@@ -295,15 +431,27 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             if matched_file:
                 try:
                     pil_img = Image.open(matched_file)
-                    # Resize to fit sidebar (width ~400)
-                    basewidth = 400
-                    wpercent = (basewidth / float(pil_img.size[0]))
-                    hsize = int((float(pil_img.size[1]) * float(wpercent)))
-                    pil_img = pil_img.resize((basewidth, hsize), Image.Resampling.LANCZOS)
+                    # Resize to fit sidebar area (max width 380, max height 450)
+                    max_w = 380
+                    max_h = 450
+                    curr_w, curr_h = pil_img.size
+                    ratio = min(max_w / curr_w, max_h / curr_h)
+                    new_w = int(curr_w * ratio)
+                    new_h = int(curr_h * ratio)
                     
-                    img_tk = ctk.CTkImage(light_image=pil_img, dark_image=pil_img, size=(basewidth, hsize))
+                    pil_img = pil_img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                    
+                    img_tk = ctk.CTkImage(light_image=pil_img, dark_image=pil_img, size=(new_w, new_h))
                     self.image_label.configure(image=img_tk, text="")
                     self.image_label.image = img_tk  # keep reference
+                    
+                    # Layout Shift: Shrink info text and reveal photo
+                    self.info_text.pack_forget()
+                    self.info_text.configure(height=250)
+                    self.info_text.pack(padx=20, pady=5, fill="x", expand=False)
+                    
+                    # Show the frame now that we have an image
+                    self.image_frame.pack(pady=20, padx=20, fill="both", expand=True)
                 except Exception as e:
                     print(f"Error loading image {matched_file}: {e}")
                     self.image_label.configure(text="Error loading image.")
@@ -454,6 +602,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             return
             
         self.current_map_id = 0 if 0 in self.maps else list(self.maps.keys())[0]
+        self.update_floor_selector()
         if HAS_GUI and not self.args.headless:
             self.status_label.configure(text=f"Maps loaded from {os.path.basename(folder)}. Please load Waypoints.")
 
@@ -507,11 +656,10 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                 m1 = p1.get('MapID', 0)
                 m2 = p2.get('MapID', 0)
                 
-                # Draw lines ONLY if both points are on the current displayed floor mid
-                if m1 == mid and m2 == mid:
-                    u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], mid)
-                    u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], mid)
-                    cv2.line(b_map, (int(u1), int(v1)), (int(u2), int(v2)), (200, 200, 200), 2)
+                # Draw all segments of the global path on every map (no MapID gating)
+                u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], mid)
+                u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], mid)
+                cv2.line(b_map, (int(u1), int(v1)), (int(u2), int(v2)), (200, 200, 200), 2)
                     
             # Draw waypoints for ALL floors on this map (for context)
             for node in self.path_nodes:
@@ -532,14 +680,9 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                 end_u = int(u + arrow_len * math.cos(yaw))
                 end_v = int(v - arrow_len * math.sin(yaw))
                 
-                # If the waypoint is on ANOTHER floor, draw it slightly smaller or transparent (outline only)
-                if node_mid == mid:
-                    cv2.circle(b_map, (int(u), int(v)), 4, color, -1)
-                    cv2.arrowedLine(b_map, (int(u), int(v)), (end_u, end_v), color, 2, tipLength=0.4)
-                else:
-                    # Ghost waypoint from another floor
-                    cv2.circle(b_map, (int(u), int(v)), 2, color, 1)
-                    cv2.line(b_map, (int(u), int(v)), (end_u, end_v), color, 1)
+                # Always draw solid waypoint as arrow (separation by color only)
+                cv2.circle(b_map, (int(u), int(v)), 4, color, -1)
+                cv2.arrowedLine(b_map, (int(u), int(v)), (end_u, end_v), color, 2, tipLength=0.4)
                     
             self.base_maps[mid] = b_map
 
@@ -554,6 +697,35 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         if file_path:
             self.json_path_var.set(file_path)
             self.load_waypoints_from_file(file_path)
+
+    def export_waypoints(self):
+        if not self.path_nodes:
+            self.status_label.configure(text="No waypoints to export.")
+            return
+        file_path = filedialog.asksaveasfilename(initialdir=".", 
+                                               defaultextension=".json",
+                                               filetypes=[("JSON files", "*.json")])
+        if file_path:
+            try:
+                with open(file_path, 'w') as f:
+                    json.dump(self.path_nodes, f, indent=4)
+                self.status_label.configure(text=f"Exported to {os.path.basename(file_path)}")
+            except Exception as e:
+                self.status_label.configure(text=f"Export failed: {e}")
+
+    def export_as_image(self):
+        if not hasattr(self, 'last_frame') or self.last_frame is None:
+            self.status_label.configure(text="No map image to export.")
+            return
+        file_path = filedialog.asksaveasfilename(initialdir=".", 
+                                               defaultextension=".png",
+                                               filetypes=[("PNG files", "*.png"), ("JPEG files", "*.jpg")])
+        if file_path:
+            try:
+                cv2.imwrite(file_path, self.last_frame)
+                self.status_label.configure(text=f"Image saved to {os.path.basename(file_path)}")
+            except Exception as e:
+                self.status_label.configure(text=f"Save failed: {e}")
 
     def reload_waypoints(self):
         file_path = self.json_path_var.get()
@@ -577,17 +749,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         with open(json_file, 'r') as f:
             waypoints = json.load(f)
 
-        start_idx = 0
-        for i, node in enumerate(waypoints):
-            if 'charge' in str(node.get('Node_info', '')).lower():
-                start_idx = i
-                break
-                
-        self.path_nodes = []
-        for i in range(start_idx, len(waypoints)):
-            node = waypoints[i]
-            if 'test' not in str(node.get('Node_info', '')).lower():
-                self.path_nodes.append(node)
+        self.path_nodes = waypoints # Keep all points exactly as they are in the JSON
 
         if not self.path_nodes:
             print("No valid waypoints found in file.")
@@ -596,15 +758,9 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             return
 
         # Build list of points so UI dropdown is populated
-        wp_names = []
-        for i, node in enumerate(self.path_nodes):
-            flr = f"(Flr {node.get('MapID',0)+1})"
-            wp_names.append(f"{i}: {node['Node_info']} {flr}")
-            
         if not self.args.headless and HAS_GUI:
             try:
-                self.wp_menu.configure(values=wp_names)
-                self.wp_var.set(wp_names[0])
+                self.status_label.configure(text=f"Loaded {len(self.path_nodes)} waypoints.")
                 self.follow_cb.configure(state="normal")
             except: pass
             
@@ -614,9 +770,44 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         if self.maps:
             self.switch_to_map(self.path_nodes[0].get('MapID', 0))
             self.render_initial_map()
+            self.update_floor_selector()
         else:
             if HAS_GUI and not self.args.headless:
                 self.status_label.configure(text=f"Loaded {len(self.path_nodes)} waypoints. Waiting for a valid Map Folder to be loaded.")
+
+    def update_floor_selector(self):
+        if not HAS_GUI or self.args.headless: return
+        
+        # Clear existing buttons
+        for btn in self.floor_buttons.values():
+            btn.destroy()
+        self.floor_buttons = {}
+        
+        if not self.maps: return
+        
+        # Clear existing label if it exists to prevent duplicates
+        for widget in self.floor_row.winfo_children():
+            if isinstance(widget, ctk.CTkLabel) and (widget.cget("text") == "Manual Floor:" or widget.cget("text") == "Floor"):
+                widget.destroy()
+        
+        ctk.CTkLabel(self.floor_row, text="Manual Floor:", text_color="black").pack(side="left", padx=5)
+        
+        for mid in sorted(self.maps.keys()):
+            # Use display name (Floor 1, Floor 2...) or Map index
+            btn_text = f"Floor {mid + 1}"
+            btn = ctk.CTkButton(self.floor_row, text=btn_text, width=80, height=28,
+                               fg_color="gray80", text_color="black",
+                               command=lambda m=mid: self.on_floor_btn_click(m))
+            btn.pack(side="left", padx=3)
+            self.floor_buttons[mid] = btn
+            
+        # Highlight current
+        if self.current_map_id in self.floor_buttons:
+            self.floor_buttons[self.current_map_id].configure(fg_color="#00264d", text_color="white")
+
+    def on_floor_btn_click(self, map_id):
+        self.switch_to_map(map_id)
+        self.render_initial_map() # Force re-render of current state on this floor
 
     def switch_to_map(self, map_id):
         if map_id not in self.maps:
@@ -625,6 +816,13 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.current_map_id = map_id
         m = self.maps[map_id]
         
+        # Highlight floor buttons if they exist
+        for mid, btn in self.floor_buttons.items():
+            if mid == map_id:
+                btn.configure(fg_color="#00264d", text_color="white")
+            else:
+                btn.configure(fg_color="gray80", text_color="black")
+
         if not self.args.headless and HAS_GUI:
             # Only auto-reset view if NOT following robot and NOT in simulation
             is_simulating = self.sim_thread and self.sim_thread.is_alive()
@@ -685,45 +883,40 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             self.play_pause_btn.configure(text="Play" if self.is_paused else "Pause")
             self.status_label.configure(text="Paused." if self.is_paused else "Running...")
 
-    def stop_simulation(self):
+    def finalize_simulation(self, status="Finished."):
         self.sim_stop_flag = True
         self.is_paused = False
-        if self.out:
-            self.out.release()
-            self.out = None
-        self.start_btn.configure(state="normal")
         
-        # Reset selection to the first waypoint (Charge)
-        if self.path_nodes and hasattr(self, 'wp_menu'):
-            try:
-                vals = self.wp_menu.cget("values")
-                if vals:
-                    self.wp_var.set(vals[0])
-            except: pass
-        self.folder_entry.configure(state="normal")
-        self.folder_browse_btn.configure(state="normal")
-        self.folder_load_btn.configure(state="normal")
-        self.wp_entry.configure(state="normal")
-        self.wp_browse_btn.configure(state="normal")
-        self.wp_reload_btn.configure(state="normal")
-        self.wp_menu.configure(state="normal")
+        # Reset GUI controls
+        self.start_btn.configure(state="normal")
         self.play_pause_btn.configure(state="disabled", text="Pause")
         self.stop_btn.configure(state="disabled")
-        self.status_label.configure(text="Stopped.")
+        
+        self.folder_entry.configure(state="normal")
+        self.folder_load_btn.configure(state="normal")
+        self.wp_entry.configure(state="normal")
+        self.wp_reload_btn.configure(state="normal")
+        
+        if hasattr(self, 'menu_buttons'):
+            if 'Simulate' in self.menu_buttons:
+                self.menu_buttons['Simulate'].configure(state="normal")
+        
+        self.status_label.configure(text=status)
         self.render_initial_map()
+
+    def stop_simulation(self):
+        self.finalize_simulation(status="Stopped.")
+        
+        # Reset selection to the first waypoint (Charge)
+        # (Selection menu removed, always starts from 0)
+        pass
 
     def start_simulation(self):
         if not self.base_maps: return
         if self.sim_thread and self.sim_thread.is_alive():
             return
             
-        selected_wp_str = self.wp_var.get()
         start_idx = 0
-        if ':' in selected_wp_str:
-            try:
-                start_idx = int(selected_wp_str.split(':')[0])
-            except ValueError:
-                pass
 
         self.sim_stop_flag = False
         self.is_paused = False
@@ -735,25 +928,14 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         # Disable controls while running
         self.start_btn.configure(state="disabled")
         self.folder_entry.configure(state="disabled")
-        self.folder_browse_btn.configure(state="disabled")
         self.folder_load_btn.configure(state="disabled")
         self.wp_entry.configure(state="disabled")
-        self.wp_browse_btn.configure(state="disabled")
         self.wp_reload_btn.configure(state="disabled")
-        self.wp_menu.configure(state="disabled")
         self.play_pause_btn.configure(state="normal", text="Pause")
         self.stop_btn.configure(state="normal")
+        if hasattr(self, 'menu_buttons') and 'Simulate' in self.menu_buttons:
+            self.menu_buttons['Simulate'].configure(state="disabled")
         self.status_label.configure(text="Starting...")
-
-        json_name = os.path.basename(self.json_path_var.get()).replace(".json", "")
-        output_video = self.args.output if self.args.output else f'simulation_{json_name}.mp4'
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        
-        # The writer resolution must be fixed. 
-        # But maps might be different sizes! Let's pick the max dimensions or layer 0.
-        out_w = max(m['width'] for m in self.maps.values())
-        out_h = max(m['height'] for m in self.maps.values())
-        self.out = cv2.VideoWriter(output_video, fourcc, 30.0, (out_w, out_h))
 
         self.sim_thread = threading.Thread(target=self.run_simulation_loop, args=(start_idx,), daemon=True)
         self.sim_thread.start()
@@ -775,8 +957,6 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
     def on_closing(self):
         self.app_quit_flag = True
         self.sim_stop_flag = True
-        if self.out:
-            self.out.release()
         self.destroy()
 
     def on_mouse_down(self, event):
@@ -824,19 +1004,23 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
 
         hit_found = False
         for i, node in enumerate(self.path_nodes):
-            if node.get('MapID', 0) == self.current_map_id:
-                u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
-                dist = math.hypot(u - img_x, v - img_y)
-                # Detection radius adjusted by zoom (approx 10 pixels in screen space)
-                if dist < 10 / self.view_state['zoom']:
-                    self.selected_wp_idx = i
-                    self.update_sidebar(i)
-                    hit_found = True
-                    if hasattr(self, 'last_frame'):
-                        self.update_canvas(self.last_frame)
-                    break
+            node_mid = node.get('MapID', 0)
+            # Check if this node is "hit" on the CURRENT map view
+            u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
+            dist = math.hypot(u - img_x, v - img_y)
+            
+            # Detection radius adjusted by zoom (approx 10 pixels in screen space)
+            if dist < 10 / self.view_state['zoom']:
+                self.selected_wp_idx = i
+                self.update_sidebar(i)
+                hit_found = True
+                if hasattr(self, 'last_frame'):
+                    self.update_canvas(self.last_frame)
+                break
         
         if not hit_found:
+            if not self.maps: return # Disable panning if no map loaded
+            
             self.view_state['dragging'] = True
             self.view_state['drag_start_x'] = event.x
             self.view_state['drag_start_y'] = event.y
@@ -856,6 +1040,8 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             return
 
         if self.view_state['dragging']:
+            if not self.maps: return
+            
             # Manual pan disables follow mode
             if self.view_state['follow_robot']:
                 self.view_state['follow_robot'] = False
@@ -871,6 +1057,8 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                 self.update_canvas(self.last_frame)
 
     def on_mouse_wheel(self, event):
+        if not self.maps: return # Disable zoom if no map loaded
+        
         x = event.x
         y = event.y
         zoom_factor = 1.0
@@ -892,10 +1080,13 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         key = event.keysym.lower() if hasattr(event, 'keysym') else ""
         if key == 'q' or key == 'escape':
             self.on_closing()
-        elif key == 'r':
-            self.reset_view()
         elif key == 'f':
             self.attributes("-fullscreen", not self.attributes("-fullscreen"))
+        
+        if not self.maps: return # Interaction guards
+        
+        if key == 'r':
+            self.reset_view()
         elif key == 'space':
             if self.sim_thread and self.sim_thread.is_alive():
                 self.toggle_pause()
@@ -938,17 +1129,15 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         for j in range(i):
             p1 = self.path_nodes[j]
             p2 = self.path_nodes[j+1]
-            if p1.get('MapID',0) == self.current_map_id and p2.get('MapID',0) == self.current_map_id:
-                u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], self.current_map_id)
-                u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], self.current_map_id)
-                cv2.line(frame, (int(u1), int(v1)), (int(u2), int(v2)), (0, 255, 0), 3)
+            u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], self.current_map_id)
+            u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], self.current_map_id)
+            cv2.line(frame, (int(u1), int(v1)), (int(u2), int(v2)), (0, 255, 0), 3)
 
         if i < len(self.path_nodes) - 1:
             p1 = self.path_nodes[i]
             p2 = self.path_nodes[i+1]
-            if p1.get('MapID',0) == self.current_map_id and p2.get('MapID',0) == self.current_map_id:
-                u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], self.current_map_id)
-                cv2.line(frame, (int(u1), int(v1)), (int(u), int(v)), (0, 255, 0), 3)
+            u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], self.current_map_id)
+            cv2.line(frame, (int(u1), int(v1)), (int(u), int(v)), (0, 255, 0), 3)
             move_text = f"{self.path_nodes[i]['Node_info']} -> {self.path_nodes[i+1]['Node_info']}"
         else:
             move_text = "Finished"
@@ -966,23 +1155,16 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
 
         cv2.putText(frame, f"State: {status_text} | Path: {move_text}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
         cv2.putText(frame, f"Waypoints: {len(self.path_nodes)} | Layer: {self.current_map_id}", (50, 90), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
-        cv2.putText(frame, "Controls: [Scroll] Zoom | [Drag] Pan | [Space] Pause", (50, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 2)
+        
+        if self.maps:
+            controls = "Controls: [Scroll] Zoom | [Drag] Pan | [Space] Pause"
+        else:
+            controls = "Controls: [Space] Pause"
+        cv2.putText(frame, controls, (50, 130), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 2)
 
         self.last_frame = frame
         
-        if write_frame and self.out:
-            # We must output a video frame of exactly the video writer's size
-            out_w, out_h = self.out.get(cv2.CAP_PROP_FRAME_WIDTH), self.out.get(cv2.CAP_PROP_FRAME_HEIGHT)
-            out_w, out_h = int(out_w), int(out_h)
-            h, w = frame.shape[:2]
-            
-            # Pad or crop to fit the writer bounds
-            if w == out_w and h == out_h:
-                self.out.write(frame)
-            else:
-                out_frame = np.zeros((out_h, out_w, 3), dtype=np.uint8)
-                out_frame[0:min(h, out_h), 0:min(w, out_w)] = frame[0:min(h, out_h), 0:min(w, out_w)]
-                self.out.write(out_frame)
+        # No video output
 
         if not self.args.headless and HAS_GUI:
             try:
@@ -1056,13 +1238,12 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             # Draw highlight for selected waypoint
             if self.selected_wp_idx is not None:
                 node = self.path_nodes[self.selected_wp_idx]
-                if node.get('MapID', 0) == self.current_map_id:
-                    u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
-                    # Convert to screen space
-                    sc_x = int(u * self.view_state['zoom'] + self.view_state['offset_x'])
-                    sc_y = int(v * self.view_state['zoom'] + self.view_state['offset_y'])
-                    cv2.circle(disp_frame, (sc_x, sc_y), 15, (0, 0, 255), 2)
-                    cv2.circle(disp_frame, (sc_x, sc_y), 2, (0, 0, 255), -1)
+                u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
+                # Convert to screen space
+                sc_x = int(u * self.view_state['zoom'] + self.view_state['offset_x'])
+                sc_y = int(v * self.view_state['zoom'] + self.view_state['offset_y'])
+                cv2.circle(disp_frame, (sc_x, sc_y), 15, (0, 0, 255), 2)
+                cv2.circle(disp_frame, (sc_x, sc_y), 2, (0, 0, 255), -1)
 
             # Draw temporary goal pose arrow
             if self.temp_goal:
@@ -1138,17 +1319,12 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                 self.switch_to_map(m1)
                 
             u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], m1)
-            u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], m2)
             
-            # If changing floor, just jump to the start of the next floor or do a fake transition
+            # If changing floor, drive to the transition point on the CURRENT map first
             if m1 != m2:
-                # Elevator simulation
-                if not self.render_frame_func(u1, v1, current_yaw, i, f"Changing to Floor {m2+1}"): break
-                for t in range(30): # Wait 1 sec
-                     if not self.render_frame_func(u1, v1, current_yaw, i, "Elevator..."): break
-                self.switch_to_map(m2)
-                if not self.render_frame_func(u2, v2, current_yaw, i, f"Arrived Floor {m2+1}"): break
-                continue
+                u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], m1)
+            else:
+                u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], m2)
 
             dist = math.hypot(u2-u1, v2-v1)
             # Use fixed pixel steps so speed is consistent across resolutions
@@ -1167,8 +1343,18 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             for t in range(1, steps+1):
                 u = u1 + (u2-u1)*t/steps
                 v = v1 + (v2-v1)*t/steps
-                if not self.render_frame_func(u, v, current_yaw, i, "Moving"): break
-                    
+                msg = f"Approaching Transition (Flr {m2+1})" if m1 != m2 else "Moving"
+                if not self.render_frame_func(u, v, current_yaw, i, msg): break
+                
+            # Phase 2.5: Handle Map Switch (Elevator/Stairs)
+            if m1 != m2:
+                for t in range(30): # Wait 1 sec
+                     if not self.render_frame_func(u2, v2, current_yaw, i, f"Transitioning to Floor {m2+1}..."): break
+                self.switch_to_map(m2)
+                # Find new pixel coords on the NEW map to show arrival
+                u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], m2)
+                if not self.render_frame_func(u2, v2, current_yaw, i, f"Arrived Floor {m2+1}"): break
+
             # Phase 3: Inspect
             name = p2['Node_info'].lower()
             p_info = p2.get('PointInfo', 0)
@@ -1212,23 +1398,11 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                     break
             
             if not self.args.headless and HAS_GUI:
-                try:
-                    self.play_pause_btn.configure(state="disabled")
-                    self.start_btn.configure(state="normal")
-                    self.stop_btn.configure(state="disabled")
-                    self.folder_entry.configure(state="normal")
-                    self.folder_browse_btn.configure(state="normal")
-                    self.folder_load_btn.configure(state="normal")
-                    self.wp_entry.configure(state="normal")
-                    self.wp_browse_btn.configure(state="normal")
-                    self.wp_menu.configure(state="normal")
-                    self.status_label.configure(text="Finished.")
-                except:
-                    pass
+                self.after(0, lambda: self.finalize_simulation(status="Finished."))
+        else:
+            # If stopped/quit, ensure cleanup is done
+            pass
 
-        if self.out: 
-            self.out.release()
-            self.out = None
         print("Simulation loop finished.")
 
 def main():
@@ -1239,7 +1413,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--waypoints', type=str, default=default_waypoints, help='Path to JSON file')
     parser.add_argument('--speed', type=int, default=5)
-    parser.add_argument('--output', type=str, default='')
     parser.add_argument('--map_folder', type=str, default=default_map, help='Folder containing jueying*.pgm and yaml')
     parser.add_argument('--headless', action='store_true')
     args = parser.parse_args()
