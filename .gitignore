@@ -1,2 +1,27 @@
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Media
 *.mp4
+*.avi
+*.mkv
+*.png
+*.jpg
+*.jpeg
+*.pgm
+
+# Exceptions for necessary resources
+!resource/gs_cat_robot.png
+!resource/maps/**/*.pgm
+!resource/maps/**/*.png
+!scripts/*.png
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
