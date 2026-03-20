@@ -2,7 +2,7 @@
     {
         "Node_info": "ChargeOut",
         "MapName": "1st_floor",
-        "Zone": "wet3",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -26,7 +26,7 @@
     {
         "Node_info": "via-h2-00",
         "MapName": "1st_floor",
-        "Zone": "wet3",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -50,7 +50,7 @@
     {
         "Node_info": "via-h2-01",
         "MapName": "1st_floor",
-        "Zone": "wet3",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -74,7 +74,7 @@
     {
         "Node_info": "via-h2-02",
         "MapName": "1st_floor",
-        "Zone": "wet3",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -96,8 +96,9 @@
         ]
     },
     {
-        "Node_info": "via1",
+        "Node_info": "via30",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -119,8 +120,9 @@
         ]
     },
     {
-        "Node_info": "via30",
+        "Node_info": "via31",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -142,8 +144,9 @@
         ]
     },
     {
-        "Node_info": "via31_1nd",
+        "Node_info": "via32-1nd",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -165,8 +168,9 @@
         ]
     },
     {
-        "Node_info": "via32_2nd",
+        "Node_info": "via33-2nd",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 7,
         "NavMode": 0,
@@ -188,8 +192,9 @@
         ]
     },
     {
-        "Node_info": "via33_2nd",
+        "Node_info": "via34-2nd",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -211,8 +216,9 @@
         ]
     },
     {
-        "Node_info": "via34_leaked07_crawl",
+        "Node_info": "via35-leaked07-crawl",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -234,8 +240,10 @@
         ]
     },
     {
-        "Node_info": "wet12_acoustic_leaked07",
+        "Node_info": "wet12-acoustic-leaked07",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
+        "Inspection": "leakage_inspection",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -257,8 +265,10 @@
         ]
     },
     {
-        "Node_info": "wet12_acoustic_vibration08",
+        "Node_info": "wet12-acoustic-vibration08",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
+        "Inspection": "vibration_inspection",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -280,8 +290,10 @@
         ]
     },
     {
-        "Node_info": "wet12_visual_thermal12",
+        "Node_info": "wet12-visual-thermal12",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
+        "Inspection": "thermal_inspection",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -303,8 +315,9 @@
         ]
     },
     {
-        "Node_info": "via35_vibration09_crawl",
+        "Node_info": "via36-vibration09-crawl",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -326,8 +339,10 @@
         ]
     },
     {
-        "Node_info": "wet12_acoustic_vibration09",
+        "Node_info": "wet12-acoustic-vibration09",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
+        "Inspection": "vibration_inspection",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -349,8 +364,9 @@
         ]
     },
     {
-        "Node_info": "via36_thermal13_crawl",
+        "Node_info": "via37-thermal13-crawl",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -372,8 +388,10 @@
         ]
     },
     {
-        "Node_info": "wet12_visual_thermal13",
+        "Node_info": "wet12-visual-thermal13",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
+        "Inspection": "thermal_inspection",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -395,8 +413,9 @@
         ]
     },
     {
-        "Node_info": "wet12_via_asset_2nd",
+        "Node_info": "wet12-via-asset-2nd",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -418,8 +437,9 @@
         ]
     },
     {
-        "Node_info": "via37_asset02_crawl",
+        "Node_info": "via38-asset02-crawl",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -441,8 +461,10 @@
         ]
     },
     {
-        "Node_info": "wet12_visual_asset02",
+        "Node_info": "wet12-visual-asset02",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
+        "Inspection": "asset_inspection",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -464,8 +486,9 @@
         ]
     },
     {
-        "Node_info": "via38_down1_2nd",
+        "Node_info": "via39-down1-2nd",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -487,8 +510,9 @@
         ]
     },
     {
-        "Node_info": "via39_down2_2nd",
+        "Node_info": "via40-down2-2nd",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -510,8 +534,9 @@
         ]
     },
     {
-        "Node_info": "via40_down3_2nd",
+        "Node_info": "via41-down3-2nd",
         "MapName": "2nd_floor",
+        "Zone": "wet12",
         "MapID": 2,
         "Gait": 2,
         "NavMode": 0,
@@ -533,8 +558,9 @@
         ]
     },
     {
-        "Node_info": "via41_down4_2nd",
+        "Node_info": "via42-down4-2nd",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 7,
         "NavMode": 0,
@@ -556,8 +582,9 @@
         ]
     },
     {
-        "Node_info": "via_2h_01",
+        "Node_info": "via43",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -579,8 +606,9 @@
         ]
     },
     {
-        "Node_info": "via_2h_x0",
+        "Node_info": "via-2h-x0",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -602,8 +630,9 @@
         ]
     },
     {
-        "Node_info": "via_2h_x1",
+        "Node_info": "via-2h-x1",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -625,8 +654,9 @@
         ]
     },
     {
-        "Node_info": "via_2h_x2",
+        "Node_info": "via-2h-x2",
         "MapName": "1st_floor",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -650,7 +680,7 @@
     {
         "Node_info": "via-2h-x3",
         "MapName": "1st_floor",
-        "Zone": "wet3",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -674,7 +704,7 @@
     {
         "Node_info": "ChargeIn",
         "MapName": "1st_floor",
-        "Zone": "wet3",
+        "Zone": "wet12",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,

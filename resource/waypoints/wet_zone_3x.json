@@ -96,7 +96,7 @@
         ]
     },
     {
-        "Node_info": "via42",
+        "Node_info": "via44",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -120,7 +120,7 @@
         ]
     },
     {
-        "Node_info": "via43",
+        "Node_info": "via45",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -144,7 +144,7 @@
         ]
     },
     {
-        "Node_info": "via44",
+        "Node_info": "via46",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -168,7 +168,7 @@
         ]
     },
     {
-        "Node_info": "via45",
+        "Node_info": "via47",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -192,7 +192,7 @@
         ]
     },
     {
-        "Node_info": "via46",
+        "Node_info": "via48",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -216,7 +216,7 @@
         ]
     },
     {
-        "Node_info": "via47_asset03_crawl",
+        "Node_info": "via49_asset03_crawl",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -290,7 +290,7 @@
         ]
     },
     {
-        "Node_info": "via48",
+        "Node_info": "via50",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -314,7 +314,7 @@
         ]
     },
     {
-        "Node_info": "via49",
+        "Node_info": "via51",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -338,7 +338,7 @@
         ]
     },
     {
-        "Node_info": "via50",
+        "Node_info": "via52",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -387,7 +387,7 @@
         ]
     },
     {
-        "Node_info": "via51_thermal14_crawl",
+        "Node_info": "via53_thermal14_crawl",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -461,7 +461,7 @@
         ]
     },
     {
-        "Node_info": "via52",
+        "Node_info": "via54",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -510,7 +510,7 @@
         ]
     },
     {
-        "Node_info": "via53_vibration10_crawl",
+        "Node_info": "via55_vibration11_crawl",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -534,7 +534,7 @@
         ]
     },
     {
-        "Node_info": "wet3-acoustic-vibration10",
+        "Node_info": "wet3-acoustic-vibration11",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "vibration_inspection",
@@ -583,7 +583,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal15",
+        "Node_info": "wet3-visual-thermal16",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -608,7 +608,7 @@
         ]
     },
     {
-        "Node_info": "wet3-acoustic-vibration11",
+        "Node_info": "wet3-acoustic-vibration12",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "vibration_inspection",
@@ -633,7 +633,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal16",
+        "Node_info": "wet3-visual-thermal17",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -658,7 +658,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal17",
+        "Node_info": "wet3-visual-thermal18",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -683,7 +683,7 @@
         ]
     },
     {
-        "Node_info": "wet3-acoustic-vibration12",
+        "Node_info": "wet3-acoustic-vibration13",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "vibration_inspection",
@@ -708,7 +708,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal18",
+        "Node_info": "wet3-visual-thermal19",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -758,7 +758,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal19",
+        "Node_info": "wet3-visual-thermal20",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -783,7 +783,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal20",
+        "Node_info": "wet3-visual-thermal21",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -858,7 +858,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal21",
+        "Node_info": "wet3-visual-thermal22",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -908,7 +908,7 @@
         ]
     },
     {
-        "Node_info": "via54",
+        "Node_info": "via56",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -932,7 +932,7 @@
         ]
     },
     {
-        "Node_info": "via55",
+        "Node_info": "via57",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -956,7 +956,7 @@
         ]
     },
     {
-        "Node_info": "via56",
+        "Node_info": "via58",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -980,7 +980,7 @@
         ]
     },
     {
-        "Node_info": "via57",
+        "Node_info": "via59",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1004,7 +1004,7 @@
         ]
     },
     {
-        "Node_info": "via58",
+        "Node_info": "via60",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1028,7 +1028,7 @@
         ]
     },
     {
-        "Node_info": "via59",
+        "Node_info": "via61",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1077,7 +1077,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal22",
+        "Node_info": "wet3-visual-thermal23",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1302,7 +1302,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal23",
+        "Node_info": "wet3-visual-thermal24",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1327,7 +1327,7 @@
         ]
     },
     {
-        "Node_info": "via60",
+        "Node_info": "via62",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1351,7 +1351,7 @@
         ]
     },
     {
-        "Node_info": "via61_vibration13_crawl",
+        "Node_info": "via63_vibration13_crawl",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1375,7 +1375,7 @@
         ]
     },
     {
-        "Node_info": "wet3-acoustic-vibration13",
+        "Node_info": "wet3-acoustic-vibration17",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "vibration_inspection",
@@ -1400,7 +1400,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal24",
+        "Node_info": "wet3-visual-thermal25",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1425,7 +1425,7 @@
         ]
     },
     {
-        "Node_info": "via62",
+        "Node_info": "via64",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1474,7 +1474,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal25",
+        "Node_info": "wet3-visual-thermal26",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1499,7 +1499,7 @@
         ]
     },
     {
-        "Node_info": "via63",
+        "Node_info": "via65",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1523,7 +1523,7 @@
         ]
     },
     {
-        "Node_info": "via64",
+        "Node_info": "via66",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1547,7 +1547,7 @@
         ]
     },
     {
-        "Node_info": "via65",
+        "Node_info": "via67",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1596,7 +1596,7 @@
         ]
     },
     {
-        "Node_info": "via66",
+        "Node_info": "via68",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1645,7 +1645,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal26",
+        "Node_info": "wet3-visual-thermal27",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1695,7 +1695,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal27",
+        "Node_info": "wet3-visual-thermal28",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1795,7 +1795,7 @@
         ]
     },
     {
-        "Node_info": "via67",
+        "Node_info": "via69",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1819,7 +1819,7 @@
         ]
     },
     {
-        "Node_info": "via68",
+        "Node_info": "via70",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -1868,7 +1868,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal28",
+        "Node_info": "wet3-visual-thermal29",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1918,7 +1918,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal29",
+        "Node_info": "wet3-visual-thermal30",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1968,7 +1968,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal30",
+        "Node_info": "wet3-visual-thermal31",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -1993,7 +1993,7 @@
         ]
     },
     {
-        "Node_info": "via69",
+        "Node_info": "via71",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2017,7 +2017,7 @@
         ]
     },
     {
-        "Node_info": "via70",
+        "Node_info": "via72",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2066,7 +2066,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal31",
+        "Node_info": "wet3-visual-thermal32",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -2116,7 +2116,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal32",
+        "Node_info": "wet3-visual-thermal33",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -2141,7 +2141,7 @@
         ]
     },
     {
-        "Node_info": "via71_vibration14_crawl",
+        "Node_info": "via73_vibration14_crawl",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2165,7 +2165,7 @@
         ]
     },
     {
-        "Node_info": "wet3-acoustic-vibration14",
+        "Node_info": "wet3-acoustic-vibration28",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "vibration_inspection",
@@ -2190,7 +2190,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal33",
+        "Node_info": "wet3-visual-thermal34",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -2215,7 +2215,7 @@
         ]
     },
     {
-        "Node_info": "via72",
+        "Node_info": "via74",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2239,7 +2239,7 @@
         ]
     },
     {
-        "Node_info": "via73",
+        "Node_info": "via75",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2263,7 +2263,7 @@
         ]
     },
     {
-        "Node_info": "via74",
+        "Node_info": "via76",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2287,7 +2287,7 @@
         ]
     },
     {
-        "Node_info": "via75",
+        "Node_info": "via77",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2311,7 +2311,7 @@
         ]
     },
     {
-        "Node_info": "via76_leaked13_crawl",
+        "Node_info": "via78_leaked13_crawl",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2360,7 +2360,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal34",
+        "Node_info": "wet3-visual-thermal35",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -2385,7 +2385,7 @@
         ]
     },
     {
-        "Node_info": "via77",
+        "Node_info": "via79",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2409,7 +2409,7 @@
         ]
     },
     {
-        "Node_info": "via78",
+        "Node_info": "via80",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2433,7 +2433,7 @@
         ]
     },
     {
-        "Node_info": "wet3-visual-thermal35",
+        "Node_info": "wet3-visual-thermal36",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "Inspection": "thermal_inspection",
@@ -2458,7 +2458,7 @@
         ]
     },
     {
-        "Node_info": "via79",
+        "Node_info": "via81",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2482,7 +2482,7 @@
         ]
     },
     {
-        "Node_info": "via80",
+        "Node_info": "via82",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2506,7 +2506,7 @@
         ]
     },
     {
-        "Node_info": "via81",
+        "Node_info": "via83",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -2602,7 +2602,7 @@
         ]
     },
     {
-        "Node_info": "via-2h-x4",
+        "Node_info": "via-2h-x3",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,

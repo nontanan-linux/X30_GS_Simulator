@@ -59,6 +59,47 @@ class CustomDropdown(ctk.CTkToplevel):
         self.destroy()
         if command: command()
 
+class CreateWaypointPopup(ctk.CTkToplevel):
+    def __init__(self, master, on_create, on_cancel):
+        super().__init__(master)
+        self.overrideredirect(True)
+        self.configure(fg_color="#ffffff")
+        self.attributes("-topmost", True)
+        
+        # Border Frame
+        self.main_frame = ctk.CTkFrame(self, fg_color="#ffffff", corner_radius=15, border_width=2, border_color="#00264d")
+        self.main_frame.pack(fill="both", expand=True)
+        
+        # Header
+        self.header = ctk.CTkLabel(self.main_frame, text="Create Waypoints", font=ctk.CTkFont(size=18, weight="bold"), text_color="#00264d")
+        self.header.pack(pady=(20, 10), padx=20)
+        
+        # Body
+        self.input_label = ctk.CTkLabel(self.main_frame, text="Filename:", text_color="black")
+        self.input_label.pack(pady=(10, 0), padx=20, anchor="w")
+        self.input_field = ctk.CTkEntry(self.main_frame, placeholder_text="e.g. mission_01", width=300, height=40, text_color="black", fg_color="white")
+        self.input_field.pack(pady=(5, 20), padx=20)
+        
+        # Footer
+        self.footer = ctk.CTkFrame(self.main_frame, fg_color="transparent")
+        self.footer.pack(pady=(0, 20), padx=20, fill="x")
+        
+        self.cancel_btn = ctk.CTkButton(self.footer, text="Cancel", fg_color="gray70", hover_color="gray60", text_color="black", command=on_cancel)
+        self.cancel_btn.pack(side="left", padx=(0, 10), expand=True, fill="x")
+        
+        self.create_btn = ctk.CTkButton(self.footer, text="Create", fg_color="#00264d", hover_color="#00366d", text_color="white", command=lambda: on_create(self.input_field.get()))
+        self.create_btn.pack(side="left", padx=(10, 0), expand=True, fill="x")
+        
+        # Center the popup
+        self.update_idletasks()
+        w = 350
+        h = 250
+        x = master.winfo_rootx() + (master.winfo_width() // 2) - (w // 2)
+        y = master.winfo_rooty() + (master.winfo_height() // 2) - (h // 2)
+        self.geometry(f"{w}x{h}+{x}+{y}")
+        
+        self.input_field.focus_force()
+
 class SimulationApp(ctk.CTk if HAS_GUI else object):
     def __init__(self, args):
         self.args = args
@@ -70,6 +111,11 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.goal_pose_mode = 0  # 0: Off, 1: Select Pos, 2: Select Yaw
         self.temp_goal = None  # {start_u, start_v, current_u, current_v}
         self.file_menu = None
+        self.create_menu = None
+        self.insert_idx = None
+        self.selected_edge_idx = None
+        self.dragging_wp_idx = None
+        self.rotating_wp_idx = None
 
         # Load robot config
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -96,7 +142,8 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         if HAS_GUI and not args.headless:
             super().__init__()
             ctk.set_appearance_mode("Dark")
-            self.title("Robot Path Simulation")
+            self.title("")
+            self.overrideredirect(False)
             
             # Set window icon
             try:
@@ -186,6 +233,91 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         
         self.file_menu = CustomDropdown(self, x, y, sections, width=200)
 
+    def show_create_menu(self, event=None):
+        if self.create_menu and self.create_menu.winfo_exists():
+            self.create_menu.destroy()
+            self.create_menu = None
+            return
+        
+        # Calculate position below the "Create" button
+        btn = self.menu_buttons["Create"]
+        x = btn.winfo_rootx()
+        y = btn.winfo_rooty() + btn.winfo_height() + 5
+        
+        sections = {
+            "Waypoints": [
+                ("Create Waypoint", self.open_create_waypoint_popup)
+            ]
+        }
+        
+        self.create_menu = CustomDropdown(self, x, y, sections, width=180)
+
+    def open_create_waypoint_popup(self):
+        if not self.maps:
+            self.status_label.configure(text="Error: Please load Map Directory before creating waypoints.")
+            return
+
+        # Create Overlay (Semi-transparent)
+        self.overlay = ctk.CTkToplevel(self)
+        self.overlay.overrideredirect(True)
+        self.overlay.attributes("-alpha", 0.1) # Much lighter
+        self.overlay.configure(fg_color="black")
+        
+        # Match main window geometry
+        x = self.winfo_rootx()
+        y = self.winfo_rooty()
+        w = self.winfo_width()
+        h = self.winfo_height()
+        self.overlay.geometry(f"{w}x{h}+{x}+{y}")
+        self.overlay.wait_visibility() # Ensure it's ready for alpha on Linux
+        self.overlay.lift()
+        
+        # Create Popup
+        self.popup = CreateWaypointPopup(self, self.on_create_waypoint, self.close_create_waypoint_popup)
+        self.popup.lift()
+
+    def close_create_waypoint_popup(self):
+        if hasattr(self, 'popup'):
+            self.popup.destroy()
+        if hasattr(self, 'overlay'):
+            self.overlay.destroy()
+
+    def on_create_waypoint(self, filename):
+        if not filename:
+            self.status_label.configure(text="Error: Filename cannot be empty.")
+            return
+        
+        if not filename.endswith(".json"):
+            filename += ".json"
+            
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        tmp_dir = os.path.join(script_dir, "../tmp")
+        if not os.path.exists(tmp_dir):
+            os.makedirs(tmp_dir)
+            
+        file_path = os.path.join(tmp_dir, filename)
+        
+        try:
+            with open(file_path, 'w') as f:
+                json.dump([], f, indent=4)
+            
+            self.status_label.configure(text=f"Created new waypoint file: {filename}")
+            
+            # Update UI
+            self.json_path_var.set(file_path)
+            self.load_waypoints_from_file(file_path)
+            
+            # Close popup
+            self.close_create_waypoint_popup()
+            
+            # Auto-show sidebar and clear for first point
+            self.ensure_sidebar_visible()
+            self.set_sidebar_mode("editor")
+            self.clear_editor_for_new_point()
+            
+        except Exception as e:
+            self.status_label.configure(text=f"Error creating file: {e}")
+
 
     def setup_ui(self):
         # Layer 1: Top Navbar (Branded Color)
@@ -198,8 +330,12 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         for item in menu_items:
             if item == "File":
                 cmd = self.show_file_menu
+            elif item == "Create":
+                cmd = self.show_create_menu
             elif item == "Simulate":
                 cmd = self.start_simulation
+            elif item == "Edit":
+                cmd = self.toggle_edit_controls
             else:
                 cmd = None
                 
@@ -295,10 +431,29 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.toggle_sidebar_btn.pack(side="right", padx=5)
         self.sidebar_visible = True
 
-        # Row 4: Floor Selection (Dynamic)
         self.floor_row = ctk.CTkFrame(self.navbar_bottom, height=1, fg_color="transparent")
         self.floor_row.pack(fill="x", padx=10, pady=(0, 3))
         self.floor_buttons = {}
+
+        # Row 5: Edit Controls (Initially Hidden)
+        self.edit_controls_row = ctk.CTkFrame(self.navbar_bottom, height=1, fg_color="transparent")
+        self.edit_controls_visible = False
+        self.edit_mode = "none" # "none", "insert", "edit_point"
+
+        self.insert_point_btn = ctk.CTkButton(self.edit_controls_row, text="InsertPoint", width=120, height=35,
+                                              fg_color="#b71836", hover_color="#90122a", text_color="white",
+                                              command=lambda: self.set_edit_mode("insert"))
+        self.insert_point_btn.pack(side="left", padx=5, pady=5)
+
+        self.insert_line_btn = ctk.CTkButton(self.edit_controls_row, text="InsertPoint2Line", width=140, height=35,
+                                              fg_color="#b71836", hover_color="#90122a", text_color="white",
+                                              command=lambda: self.set_edit_mode("insert_line"))
+        self.insert_line_btn.pack(side="left", padx=5, pady=5)
+
+        self.edit_point_btn = ctk.CTkButton(self.edit_controls_row, text="EditPoint", width=120, height=35,
+                                            fg_color="#b71836", hover_color="#90122a", text_color="white",
+                                            command=lambda: self.set_edit_mode("edit_point"))
+        self.edit_point_btn.pack(side="left", padx=5, pady=5)
         
         # Main container for Canvas and Sidebar
         self.main_container = ctk.CTkFrame(self, fg_color="transparent")
@@ -344,13 +499,190 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         # Suble Separator Line (Black for high contrast on Red)
         ctk.CTkFrame(self.sidebar, height=2, fg_color="#000000").pack(fill="x", padx=20, pady=10)
         
-        self.info_text = ctk.CTkTextbox(self.sidebar, width=400,
+        # --- Mode 1: Informational (Original) ---
+        self.info_frame = ctk.CTkFrame(self.sidebar, fg_color="transparent")
+        self.info_frame.pack(fill="both", expand=True)
+        
+        self.info_text = ctk.CTkTextbox(self.info_frame, width=400, height=300,
                                         fg_color="#b71836", text_color="#000000",
                                         border_color="#00264d", border_width=2,
                                         font=ctk.CTkFont(size=14, weight="bold"),
                                         corner_radius=0)
         self.info_text.pack(padx=20, pady=5, fill="both", expand=True)
         self.info_text.configure(state="disabled")
+
+        # Inspection Photo Frame (Initially Hidden)
+        self.image_frame = ctk.CTkFrame(self.info_frame, fg_color="#FFFFFF", border_width=2, border_color="#00264d")
+        
+        self.image_label = ctk.CTkLabel(self.image_frame, text="No Photo Available", 
+                                        text_color="black", font=ctk.CTkFont(size=12, weight="bold"))
+        self.image_label.pack(fill="both", expand=True)
+
+        # --- Mode 2: Editor (Waypoint Editor) ---
+        self.editor_master_frame = ctk.CTkFrame(self.sidebar, fg_color="transparent")
+        # Note: editor_master_frame is packed only when in editor mode
+        
+        # Waypoint Editor Container (Scrollable)
+        self.editor_frame = ctk.CTkScrollableFrame(self.editor_master_frame, fg_color="#b71836", corner_radius=0, 
+                                                 scrollbar_button_color="#00264d",
+                                                 scrollbar_button_hover_color="#00366d")
+        self.editor_frame.pack(padx=10, pady=5, fill="both", expand=True)
+
+        self.editor_fields = {}
+        
+        # 1. Coordinates Group
+        self.editor_fields["PosX"] = self.create_editor_field("PosX")
+        self.editor_fields["PosY"] = self.create_editor_field("PosY")
+        self.editor_fields["PosZ"] = self.create_editor_field("PosZ", "0.0")
+        self.editor_fields["AngleYaw"] = self.create_editor_field("AngleYaw (Yaw)")
+
+        # 2. Node Info Group
+        self.editor_fields["Node_info"] = self.create_editor_field("Node Info", "Waypoint_1")
+        self.editor_fields["MapID"] = self.create_editor_field("Map ID", "0")
+        self.editor_fields["MapName"] = self.create_editor_field("Map Name", "1st_floor")
+        self.editor_fields["Zone"] = self.create_editor_field("Zone", "wet1")
+
+        # 3. Dropdowns
+        
+        self.gait_map = {"Walking": 0, "Off-Road": 1, "Slope": 2, "Perceptual Stair": 4, "Multi-Frame Stair": 6, "Multi-Frame 45 Stair": 7}
+        self.editor_fields["Gait"] = self.create_editor_dropdown("Gait", list(self.gait_map.keys()))
+
+        self.nav_mode_map = {"Straight": 0, "Auto": 1}
+        self.editor_fields["NavMode"] = self.create_editor_dropdown("Nav Mode", list(self.nav_mode_map.keys()))
+
+        self.speed_map = {"Normal": 0, "Low": 1, "High": 2}
+        self.editor_fields["Speed"] = self.create_editor_dropdown("Speed", list(self.speed_map.keys()))
+
+        self.terrain_map = {"Solid": 0, "Grid": 1, "Multi-Frame": 3}
+        self.editor_fields["Terrain"] = self.create_editor_dropdown("Terrain", list(self.terrain_map.keys()))
+
+        self.point_info_map = {"Transition": 0, "Task": 1, "Standing": 2, "Charge": 3}
+        self.editor_fields["PointInfo"] = self.create_editor_dropdown("Point Info", list(self.point_info_map.keys()))
+
+        self.obs_mode_map = {"Enable": 0, "Disable": 1}
+        self.editor_fields["ObsMode"] = self.create_editor_dropdown("Obs Mode", list(self.obs_mode_map.keys()))
+
+        self.manner_map = {"Forward": 0, "Backward": 1}
+        self.editor_fields["Manner"] = self.create_editor_dropdown("Manner", list(self.manner_map.keys()))
+
+        self.posture_map = {"Normal": 0, "Crawl": 1}
+        self.editor_fields["Posture"] = self.create_editor_dropdown("Posture", list(self.posture_map.keys()))
+
+        # Reverse maps for updating UI from data
+        self.gait_rev_map = {v: k for k, v in self.gait_map.items()}
+        self.nav_mode_rev_map = {v: k for k, v in self.nav_mode_map.items()}
+        self.speed_rev_map = {v: k for k, v in self.speed_map.items()}
+        self.terrain_rev_map = {v: k for k, v in self.terrain_map.items()}
+        self.point_info_rev_map = {v: k for k, v in self.point_info_map.items()}
+        self.obs_mode_rev_map = {v: k for k, v in self.obs_mode_map.items()}
+        self.manner_rev_map = {v: k for k, v in self.manner_map.items()}
+        self.posture_rev_map = {v: k for k, v in self.posture_map.items()}
+
+        # Save Button
+        self.save_point_btn = ctk.CTkButton(self.editor_master_frame, text="Save Point", height=50,
+                                           fg_color="#00264d", hover_color="#001a35",
+                                           text_color="#FFFFFF", corner_radius=10,
+                                           font=ctk.CTkFont(size=16, weight="bold"),
+                                           command=self.save_waypoint_to_list)
+        self.save_point_btn.pack(pady=20, padx=20, fill="x")
+
+        self.sidebar_mode = "info" # "info" or "editor"
+
+    def create_editor_section(self, title):
+        label = ctk.CTkLabel(self.editor_frame, text=f"-- {title} --", font=ctk.CTkFont(weight="bold"), text_color="#000000")
+        label.pack(pady=(10, 5))
+
+    def create_editor_field(self, label_text, default_val=""):
+        frame = ctk.CTkFrame(self.editor_frame, fg_color="transparent")
+        frame.pack(fill="x", padx=10, pady=2)
+        ctk.CTkLabel(frame, text=label_text, text_color="#000000", width=120, anchor="w").pack(side="left")
+        entry = ctk.CTkEntry(frame, height=30, fg_color="#FFFFFF", text_color="#000000", border_color="#00264d")
+        entry.insert(0, default_val)
+        entry.pack(side="left", fill="x", expand=True)
+        return entry
+
+    def create_editor_dropdown(self, label_text, options):
+        frame = ctk.CTkFrame(self.editor_frame, fg_color="transparent")
+        frame.pack(fill="x", padx=10, pady=2)
+        ctk.CTkLabel(frame, text=label_text, text_color="#000000", width=120, anchor="w").pack(side="left")
+        dropdown = ctk.CTkOptionMenu(frame, values=options, fg_color="#00264d", button_color="#00264d", 
+                                     button_hover_color="#00366d", text_color="white", height=30)
+        dropdown.pack(side="left", fill="x", expand=True)
+        return dropdown
+
+    def save_waypoint_to_list(self):
+        try:
+            # Collect data
+            # Determine CamPTZ: keep existing if editing, else use default
+            cam_ptz = [0.0, 0.0, 0.0]
+            if self.selected_wp_idx is not None and self.selected_wp_idx < len(self.path_nodes):
+                cam_ptz = self.path_nodes[self.selected_wp_idx].get("CamPTZ", [0.0, 0.0, 0.0])
+
+            node = {
+                "Node_info": self.editor_fields["Node_info"].get(),
+                "MapName": self.editor_fields["MapName"].get(),
+                "Zone": self.editor_fields["Zone"].get(),
+                "MapID": int(self.editor_fields["MapID"].get()),
+                "Gait": self.gait_map[self.editor_fields["Gait"].get()],
+                "NavMode": self.nav_mode_map[self.editor_fields["NavMode"].get()],
+                "Speed": self.speed_map[self.editor_fields["Speed"].get()],
+                "Terrain": self.terrain_map[self.editor_fields["Terrain"].get()],
+                "PointInfo": self.point_info_map[self.editor_fields["PointInfo"].get()],
+                "ObsMode": self.obs_mode_map[self.editor_fields["ObsMode"].get()],
+                "Manner": self.manner_map[self.editor_fields["Manner"].get()],
+                "Posture": self.posture_map[self.editor_fields["Posture"].get()],
+                "PosX": float(self.editor_fields["PosX"].get()),
+                "PosY": float(self.editor_fields["PosY"].get()),
+                "PosZ": float(self.editor_fields["PosZ"].get()),
+                "AngleYaw": float(self.editor_fields["AngleYaw"].get()),
+                "Value": 0,
+                "CamPTZ": cam_ptz
+            }
+            
+            # Add or Update
+            if self.selected_wp_idx is not None:
+                self.path_nodes[self.selected_wp_idx] = node
+                self.status_label.configure(text=f"Updated point: {node['Node_info']}")
+            elif hasattr(self, 'insert_idx') and self.insert_idx is not None:
+                self.path_nodes.insert(self.insert_idx, node)
+                self.status_label.configure(text=f"Inserted new point: {node['Node_info']}")
+                self.insert_idx = None # Reset
+            else:
+                self.path_nodes.append(node)
+                self.status_label.configure(text=f"Added new point: {node['Node_info']}")
+            
+            # Save to file (Sandboxing: always save to tmp to protect originals)
+            json_file = self.json_path_var.get()
+            if json_file:
+                # Determine tmp path
+                script_dir = os.path.dirname(os.path.abspath(__file__))
+                tmp_dir = os.path.join(script_dir, "../tmp")
+                if not os.path.exists(tmp_dir):
+                    os.makedirs(tmp_dir)
+                
+                # If not already in a 'tmp' folder, redirect
+                if "tmp" not in os.path.dirname(json_file):
+                    timestamp = time.strftime("%Y%m%d_%H%M%S")
+                    base_name = os.path.splitext(os.path.basename(json_file))[0]
+                    filename = f"{base_name}_edit_{timestamp}.json"
+                    json_file = os.path.join(tmp_dir, filename)
+                    self.json_path_var.set(json_file) # Update UI to reflect the "Live" file in tmp
+                    self.status_label.configure(text=f"Protection: Redirected save to {json_file}")
+
+                # Re-index Value for all nodes sequentially before saving
+                for i, n in enumerate(self.path_nodes):
+                    n['Value'] = i
+
+                with open(json_file, 'w') as f:
+                    json.dump(self.path_nodes, f, indent=4)
+                self.status_label.configure(text=f"Saved point: {node['Node_info']} to {os.path.basename(json_file)}")
+            
+            # Refresh visualization
+            self.precalculate_path_base_maps()
+            self.render_initial_map()
+            
+        except Exception as e:
+            self.status_label.configure(text=f"Save Error: {e}")
         
         
         # Inspection Photo Frame (Initially Hidden)
@@ -360,69 +692,52 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.image_label = ctk.CTkLabel(self.image_frame, text="")
         self.image_label.pack(fill="both", expand=True)
 
+    def set_sidebar_mode(self, mode):
+        self.sidebar_mode = mode
+        if mode == "info":
+            self.editor_master_frame.pack_forget()
+            self.info_frame.pack(fill="both", expand=True)
+        else:
+            self.info_frame.pack_forget()
+            self.editor_master_frame.pack(fill="both", expand=True)
+
     def update_sidebar(self, idx):
-        # Reset Layout: Hide inspection frame and make info box expand
+        # Reset Layout
         if hasattr(self, 'image_frame'):
             self.image_frame.pack_forget()
         
-        self.info_text.pack_forget()
-        self.info_text.configure(height=400) # Reset to larger context height
-        self.info_text.pack(padx=20, pady=5, fill="both", expand=True)
-
         if idx is None or idx >= len(self.path_nodes):
-            self.info_text.configure(state="normal")
-            self.info_text.delete("1.0", "end")
-            self.info_text.configure(state="disabled")
+            if self.sidebar_mode == "info":
+                self.info_text.configure(state="normal")
+                self.info_text.delete("1.0", "end")
+                self.info_text.configure(state="disabled")
             return
 
         current_node = self.path_nodes[idx]
         
-        # Build info text
-        self.info_text.configure(state="normal")
-        self.info_text.delete("1.0", "end")
-        
-        # --- Previous Waypoint ---
-        self.info_text.insert("end", "=== PREVIOUS WAYPOINT ===\n", "header")
-        if idx > 0:
-            prev = self.path_nodes[idx-1]
-            p_name = prev.get('Node_info', 'N/A')
-            p_info = (f"Name: {p_name}\n"
-                      f"X: {prev.get('PosX'):.2f} | Y: {prev.get('PosY'):.2f}\n"
-                      f"Yaw: {prev.get('AngleYaw', 0):.2f}\n"
-                      f"MapID: {prev.get('MapID', 0)} | Posture: {prev.get('Posture', 'N/A')}\n\n")
-            self.info_text.insert("end", p_info)
-        else:
-            self.info_text.insert("end", "None (Start node)\n\n")
+        if self.sidebar_mode == "info":
+            # --- Informational View ---
+            self.info_text.configure(state="normal")
+            self.info_text.delete("1.0", "end")
+            self.info_text.insert("end", "=== CURRENT WAYPOINT ===\n", "header")
+            self.info_text.insert("end", json.dumps(current_node, indent=2) + "\n\n")
+            
+            # Neighbors
+            if idx > 0:
+                prev = self.path_nodes[idx-1]
+                self.info_text.insert("end", f"Previous: {prev.get('Node_info')}\n")
+            if idx < len(self.path_nodes) - 1:
+                nxt = self.path_nodes[idx+1]
+                self.info_text.insert("end", f"Next: {nxt.get('Node_info')}\n")
 
-        # --- Current Waypoint (Full JSON) ---
-        self.info_text.insert("end", "=== CURRENT WAYPOINT ===\n", "header")
-        self.info_text.insert("end", json.dumps(current_node, indent=2) + "\n\n")
-        
-        # --- Next Waypoint ---
-        self.info_text.insert("end", "=== NEXT WAYPOINT ===\n", "header")
-        if idx < len(self.path_nodes) - 1:
-            nxt = self.path_nodes[idx+1]
-            n_name = nxt.get('Node_info', 'N/A')
-            n_info = (f"Name: {n_name}\n"
-                      f"X: {nxt.get('PosX'):.2f} | Y: {nxt.get('PosY'):.2f}\n"
-                      f"Yaw: {nxt.get('AngleYaw', 0):.2f}\n"
-                      f"MapID: {nxt.get('MapID', 0)} | Posture: {nxt.get('Posture', 'N/A')}\n")
-            self.info_text.insert("end", n_info)
-        else:
-            self.info_text.insert("end", "None (End node)\n")
+            self.info_text.tag_config("header", foreground="#00264d")
+            self.info_text.configure(state="disabled")
 
-        self.info_text.tag_config("header", foreground="#00264d") # Branded Blue for all headers
-        self.info_text.configure(state="disabled")
-        
-        # Load and display inspection image if available
-        self.image_label.configure(image="", text="No Photo Available") # Clear previous
-        
-        node_info = current_node.get('Node_info', '')
-        if node_info and isinstance(node_info, str):
-            # Look for matching file in resource/maps/picture
+            # Image logic
             pic_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../resource/maps/picture')
+            node_info = current_node.get('Node_info', '')
             matched_file = None
-            if os.path.exists(pic_dir):
+            if os.path.exists(pic_dir) and node_info:
                 for f in os.listdir(pic_dir):
                     if f.lower().endswith(('.png', '.jpg', '.jpeg')) and node_info.lower() in f.lower():
                         matched_file = os.path.join(pic_dir, f)
@@ -431,34 +746,47 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             if matched_file:
                 try:
                     pil_img = Image.open(matched_file)
-                    # Resize to fit sidebar area (max width 380, max height 450)
-                    max_w = 380
-                    max_h = 450
+                    max_w, max_h = 380, 450
                     curr_w, curr_h = pil_img.size
                     ratio = min(max_w / curr_w, max_h / curr_h)
-                    new_w = int(curr_w * ratio)
-                    new_h = int(curr_h * ratio)
-                    
+                    new_w, new_h = int(curr_w * ratio), int(curr_h * ratio)
                     pil_img = pil_img.resize((new_w, new_h), Image.Resampling.LANCZOS)
-                    
                     img_tk = ctk.CTkImage(light_image=pil_img, dark_image=pil_img, size=(new_w, new_h))
                     self.image_label.configure(image=img_tk, text="")
-                    self.image_label.image = img_tk  # keep reference
-                    
-                    # Layout Shift: Shrink info text and reveal photo
-                    self.info_text.pack_forget()
-                    self.info_text.configure(height=250)
-                    self.info_text.pack(padx=20, pady=5, fill="x", expand=False)
-                    
-                    # Show the frame now that we have an image
+                    self.image_label.image = img_tk
                     self.image_frame.pack(pady=20, padx=20, fill="both", expand=True)
-                except Exception as e:
-                    print(f"Error loading image {matched_file}: {e}")
-                    self.image_label.configure(text="Error loading image.")
-            else:
-                self.image_label.configure(text="")
+                except: pass
         else:
-            self.image_label.configure(text="")
+            # --- Editor View ---
+            self.populate_editor_fields(current_node)
+
+    def populate_editor_fields(self, node):
+        self.editor_fields["Node_info"].delete(0, "end")
+        self.editor_fields["Node_info"].insert(0, str(node.get("Node_info", "")))
+        self.editor_fields["MapID"].delete(0, "end")
+        self.editor_fields["MapID"].insert(0, str(node.get("MapID", 0)))
+        self.editor_fields["MapName"].delete(0, "end")
+        self.editor_fields["MapName"].insert(0, str(node.get("MapName", "")))
+        self.editor_fields["Zone"].delete(0, "end")
+        self.editor_fields["Zone"].insert(0, str(node.get("Zone", "")))
+        self.editor_fields["PosX"].delete(0, "end")
+        self.editor_fields["PosX"].insert(0, f"{node.get('PosX', 0):.4f}")
+        self.editor_fields["PosY"].delete(0, "end")
+        self.editor_fields["PosY"].insert(0, f"{node.get('PosY', 0):.4f}")
+        self.editor_fields["PosZ"].delete(0, "end")
+        self.editor_fields["PosZ"].insert(0, f"{node.get('PosZ', 0):.4f}")
+        self.editor_fields["AngleYaw"].delete(0, "end")
+        self.editor_fields["AngleYaw"].insert(0, f"{node.get('AngleYaw', 0):.4f}")
+
+        # Dropdowns
+        self.editor_fields["Gait"].set(self.gait_rev_map.get(node.get("Gait", 0), "Walking"))
+        self.editor_fields["NavMode"].set(self.nav_mode_rev_map.get(node.get("NavMode", 0), "Straight"))
+        self.editor_fields["Speed"].set(self.speed_rev_map.get(node.get("Speed", 0), "Normal"))
+        self.editor_fields["Terrain"].set(self.terrain_rev_map.get(node.get("Terrain", 0), "Solid"))
+        self.editor_fields["PointInfo"].set(self.point_info_rev_map.get(node.get("PointInfo", 0), "Transition"))
+        self.editor_fields["ObsMode"].set(self.obs_mode_rev_map.get(node.get("ObsMode", 0), "Enable"))
+        self.editor_fields["Manner"].set(self.manner_rev_map.get(node.get("Manner", 0), "Forward"))
+        self.editor_fields["Posture"].set(self.posture_rev_map.get(node.get("Posture", 0), "Normal"))
 
     def clear_sidebar_image(self):
         if hasattr(self, 'image_label'):
@@ -473,6 +801,91 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             self.paned_window.add(self.sidebar, weight=0)
             self.toggle_sidebar_btn.configure(text="Sidebar >")
             self.sidebar_visible = True
+
+    def toggle_edit_controls(self, event=None):
+        if self.edit_controls_visible:
+            self.edit_controls_row.pack_forget()
+            self.edit_controls_visible = False
+            self.set_edit_mode("none")
+            self.menu_buttons["Edit"].configure(fg_color="#00264d")
+        else:
+            self.edit_controls_row.pack(fill="x", padx=10, pady=1)
+            self.edit_controls_visible = True
+            self.menu_buttons["Edit"].configure(fg_color="#001a35") # Darker when active
+
+    def set_edit_mode(self, mode):
+        if self.edit_mode == mode:
+            mode = "none" # Toggle off if same clicked
+        
+        self.edit_mode = mode
+        
+        # Reset colors
+        self.insert_point_btn.configure(fg_color="#b71836")
+        self.insert_line_btn.configure(fg_color="#b71836")
+        self.edit_point_btn.configure(fg_color="#b71836")
+        
+        if mode == "insert":
+            self.insert_point_btn.configure(fg_color="#90122a")
+            self.status_label.configure(text="Append Mode: Click anywhere on map to add point to the end.")
+            self.insert_idx = None
+            if self.goal_pose_mode == 0:
+                self.toggle_goal_pose_mode()
+        if mode == "insert_line":
+            if self.selected_edge_idx is None:
+                self.status_label.configure(text="Please select an edge on the map first (Click a line until it turns blue).")
+                self.insert_line_btn.configure(fg_color="#b71836")
+                self.edit_mode = "none"
+                return
+            
+            self.insert_line_btn.configure(fg_color="#90122a")
+            self.status_label.configure(text=f"Insert Line Mode (Edge {self.selected_edge_idx} selected): Step 1 - Set position.")
+            self.insert_idx = self.selected_edge_idx
+            if self.goal_pose_mode == 0:
+                self.toggle_goal_pose_mode()
+        elif mode == "edit_point":
+            self.edit_point_btn.configure(fg_color="#90122a")
+            # Switch sidebar mode
+            self.ensure_sidebar_visible()
+            self.set_sidebar_mode("editor")
+            self.status_label.configure(text="Edit Mode: Click an existing waypoint on the map to edit.")
+        elif mode == "none":
+            # Reset modes if necessary
+            self.selected_edge_idx = None
+            if self.goal_pose_mode != 0:
+                self.goal_pose_mode = 0
+                self.temp_goal = None
+                self.goal_pose_btn.configure(fg_color="gray70", text_color="black")
+            self.set_sidebar_mode("info")
+            self.status_label.configure(text="Ready.")
+
+    def ensure_sidebar_visible(self):
+        if not self.sidebar_visible:
+            self.toggle_sidebar()
+
+    def clear_editor_for_new_point(self, name=None):
+        self.selected_wp_idx = None # Deselect
+        for entry in self.editor_fields.values():
+            if isinstance(entry, ctk.CTkEntry):
+                entry.delete(0, "end")
+        
+        # Set defaults
+        if name: self.editor_fields["Node_info"].insert(0, name)
+        else: self.editor_fields["Node_info"].insert(0, f"Waypoint_{len(self.path_nodes)+1}")
+        
+        self.editor_fields["MapID"].insert(0, str(self.current_map_id))
+        self.editor_fields["MapName"].insert(0, "1st_floor") # Default or dynamic?
+        self.editor_fields["Zone"].insert(0, "wet1")
+        self.editor_fields["PosZ"].insert(0, "0.0")
+        
+        # Reset dropdowns to first option
+        self.editor_fields["Gait"].set("Walking")
+        self.editor_fields["NavMode"].set("Straight")
+        self.editor_fields["Speed"].set("Normal")
+        self.editor_fields["Terrain"].set("Solid")
+        self.editor_fields["PointInfo"].set("Transition")
+        self.editor_fields["ObsMode"].set("Enable")
+        self.editor_fields["Manner"].set("Forward")
+        self.editor_fields["Posture"].set("Normal")
 
     def toggle_goal_pose_mode(self):
         if self.goal_pose_mode == 0:
@@ -959,6 +1372,30 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.sim_stop_flag = True
         self.destroy()
 
+    def point_to_line_dist(self, px, py, x1, y1, x2, y2):
+        line_len = math.hypot(x2 - x1, y2 - y1)
+        if line_len < 1e-6: return math.hypot(px - x1, py - y1)
+        
+        t = max(0, min(1, ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / (line_len**2)))
+        proj_x = x1 + t * (x2 - x1)
+        proj_y = y1 + t * (y2 - y1)
+        return math.hypot(px - proj_x, py - proj_y)
+
+    def get_closest_edge(self, px, py, threshold=15):
+        best_idx = None
+        min_dist = threshold
+        for i in range(len(self.path_nodes) - 1):
+            p1 = self.path_nodes[i]
+            p2 = self.path_nodes[i+1]
+            u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], self.current_map_id)
+            u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], self.current_map_id)
+            
+            dist = self.point_to_line_dist(px, py, u1, v1, u2, v2)
+            if dist < min_dist:
+                min_dist = dist
+                best_idx = i + 1 # Insert between i and i+1
+        return best_idx
+
     def on_mouse_down(self, event):
         # Hit detection for waypoints
         cw = self.canvas.winfo_width()
@@ -968,6 +1405,29 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         img_x = (event.x - self.view_state['offset_x']) / self.view_state['zoom']
         img_y = (event.y - self.view_state['offset_y']) / self.view_state['zoom']
         
+        if (self.edit_mode == "insert_line" and self.goal_pose_mode == 0) or (self.edit_mode == "none" and self.edit_controls_visible):
+            # Try to select an edge
+            idx = self.get_closest_edge(img_x, img_y)
+            if idx is not None:
+                self.selected_edge_idx = idx
+                self.status_label.configure(text=f"Edge {idx} selected. You can now use InsertPoint2Line.")
+                if hasattr(self, 'last_frame'): self.update_canvas(self.last_frame)
+                return
+            else:
+                if self.edit_mode == "insert_line":
+                    self.status_label.configure(text="Please click directly on a line between points to insert.")
+                    return
+                # If none mode, maybe deselect?
+                if self.selected_edge_idx is not None:
+                    self.selected_edge_idx = None
+                    if hasattr(self, 'last_frame'): self.update_canvas(self.last_frame)
+
+        if self.edit_mode == "insert" and self.goal_pose_mode == 0:
+            # Mode set to append
+            self.insert_idx = None
+            self.toggle_goal_pose_mode()
+            return
+
         if self.goal_pose_mode == 1:
             self.temp_goal = {'start_u': img_x, 'start_v': img_y, 'current_u': img_x, 'current_v': img_y}
             self.goal_pose_mode = 2
@@ -983,16 +1443,22 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             x, y = self.pixel_to_world(su, sv, self.current_map_id)
             yaw = -math.atan2(cv - sv, cu - su) # Screen space y is inverted
             
-            # Display results
-            self.info_text.configure(state="normal")
-            self.info_text.delete("1.0", "end")
-            self.info_text.insert("end", "=== MANUALLY SELECTED GOAL ===\n", "header")
-            self.info_text.insert("end", f"X: {x:.4f}\nY: {y:.4f}\nYaw (rad): {yaw:.4f}\nYaw (deg): {math.degrees(yaw):.2f}\n")
-            self.info_text.insert("end", f"MapID: {self.current_map_id}\n")
-            self.info_text.tag_config("header", foreground="#3a86ff")
-            self.info_text.configure(state="disabled")
+            # Display results in Sidebar Editor
+            self.ensure_sidebar_visible()
+            self.set_sidebar_mode("editor")
+            self.selected_wp_idx = None # Ensure we are creating a NEW one based on this pose
             
-            self.status_label.configure(text=f"Goal Set: X={x:.2f}, Y={y:.2f}, Yaw={yaw:.2f}")
+            self.editor_fields["PosX"].delete(0, "end")
+            self.editor_fields["PosX"].insert(0, f"{x:.4f}")
+            self.editor_fields["PosY"].delete(0, "end")
+            self.editor_fields["PosY"].insert(0, f"{y:.4f}")
+            self.editor_fields["AngleYaw"].delete(0, "end")
+            self.editor_fields["AngleYaw"].insert(0, f"{yaw:.4f}")
+            self.editor_fields["MapID"].delete(0, "end")
+            self.editor_fields["MapID"].insert(0, str(self.current_map_id))
+            
+            # Prompt user to fill Node Info and Save
+            self.status_label.configure(text=f"Pose Set. Fill 'Node Info' in Sidebar and click 'Save Point'.")
             
             self.goal_pose_mode = 0
             self.temp_goal = None
@@ -1004,16 +1470,36 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
 
         hit_found = False
         for i, node in enumerate(self.path_nodes):
-            node_mid = node.get('MapID', 0)
-            # Check if this node is "hit" on the CURRENT map view
             u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
-            dist = math.hypot(u - img_x, v - img_y)
+            dist_center = math.hypot(u - img_x, v - img_y)
             
-            # Detection radius adjusted by zoom (approx 10 pixels in screen space)
-            if dist < 10 / self.view_state['zoom']:
+            # 1. Check if we hit the arrow tip (for rotation) in EditMode
+            if self.edit_mode == "edit_point":
+                yaw = node.get('AngleYaw', 0)
+                arrow_len = 15
+                tip_u = u + arrow_len * math.cos(yaw)
+                tip_v = v - arrow_len * math.sin(yaw)
+                dist_tip = math.hypot(tip_u - img_x, tip_v - img_y)
+                
+                if dist_tip < 10 / self.view_state['zoom']:
+                    self.rotating_wp_idx = i
+                    self.selected_wp_idx = i
+                    self.update_sidebar(i)
+                    self.status_label.configure(text=f"Rotating Waypoint {i}...")
+                    hit_found = True
+                    break
+
+            # 2. Check if we hit the waypoint center (for dragging or selection)
+            if dist_center < 10 / self.view_state['zoom']:
                 self.selected_wp_idx = i
                 self.update_sidebar(i)
                 hit_found = True
+                
+                # Start dragging if in edit mode
+                if self.edit_mode == "edit_point":
+                    self.dragging_wp_idx = i
+                    self.status_label.configure(text=f"Dragging Waypoint {i}...")
+                
                 if hasattr(self, 'last_frame'):
                     self.update_canvas(self.last_frame)
                 break
@@ -1021,12 +1507,22 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         if not hit_found:
             if not self.maps: return # Disable panning if no map loaded
             
+            # LOCK PANNING: If any edit mode is active, do not allow map dragging
+            if self.edit_mode != "none":
+                return
+            
             self.view_state['dragging'] = True
             self.view_state['drag_start_x'] = event.x
             self.view_state['drag_start_y'] = event.y
 
     def on_mouse_up(self, event):
         self.view_state['dragging'] = False
+        if self.dragging_wp_idx is not None:
+            self.status_label.configure(text=f"Repositioned Waypoint {self.dragging_wp_idx}")
+            self.dragging_wp_idx = None
+        if self.rotating_wp_idx is not None:
+            self.status_label.configure(text=f"Rotated Waypoint {self.rotating_wp_idx}")
+            self.rotating_wp_idx = None
 
     def on_mouse_move(self, event):
         img_x = (event.x - self.view_state['offset_x']) / self.view_state['zoom']
@@ -1037,6 +1533,44 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             self.temp_goal['current_v'] = img_y
             if hasattr(self, 'last_frame'):
                 self.update_canvas(self.last_frame)
+            return
+
+        if self.rotating_wp_idx is not None:
+            # Update waypoint orientation based on vector from center to mouse
+            node = self.path_nodes[self.rotating_wp_idx]
+            u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
+            
+            dx = img_x - u
+            dy = v - img_y # Image Y is inverted
+            
+            new_yaw = math.atan2(dy, dx)
+            node['AngleYaw'] = new_yaw
+            
+            # Update sidebar field in real-time
+            self.editor_fields["AngleYaw"].delete(0, "end")
+            self.editor_fields["AngleYaw"].insert(0, f"{new_yaw:.4f}")
+            
+            if hasattr(self, 'last_frame'):
+                self.precalculate_path_base_maps()
+                self.render_initial_map()
+            return
+
+        if self.dragging_wp_idx is not None:
+            # Update waypoint position in world coordinates
+            wx, wy = self.pixel_to_world(img_x, img_y, self.current_map_id)
+            node = self.path_nodes[self.dragging_wp_idx]
+            node['PosX'] = wx
+            node['PosY'] = wy
+            
+            # Update sidebar fields in real-time
+            self.editor_fields["PosX"].delete(0, "end")
+            self.editor_fields["PosX"].insert(0, f"{wx:.4f}")
+            self.editor_fields["PosY"].delete(0, "end")
+            self.editor_fields["PosY"].insert(0, f"{wy:.4f}")
+            
+            if hasattr(self, 'last_frame'):
+                self.precalculate_path_base_maps() # Re-bake waypoints into base maps
+                self.render_initial_map()          # Re-draw the base map to canvas
             return
 
         if self.view_state['dragging']:
@@ -1078,7 +1612,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
 
     def on_key_press(self, event):
         key = event.keysym.lower() if hasattr(event, 'keysym') else ""
-        if key == 'q' or key == 'escape':
+        if key == 'escape':
             self.on_closing()
         elif key == 'f':
             self.attributes("-fullscreen", not self.attributes("-fullscreen"))
@@ -1239,11 +1773,25 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             if self.selected_wp_idx is not None:
                 node = self.path_nodes[self.selected_wp_idx]
                 u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
-                # Convert to screen space
                 sc_x = int(u * self.view_state['zoom'] + self.view_state['offset_x'])
                 sc_y = int(v * self.view_state['zoom'] + self.view_state['offset_y'])
                 cv2.circle(disp_frame, (sc_x, sc_y), 15, (0, 0, 255), 2)
                 cv2.circle(disp_frame, (sc_x, sc_y), 2, (0, 0, 255), -1)
+
+            # Draw highlight for selected edge (Blue: #00264d -> BGR: (77, 38, 0))
+            if self.selected_edge_idx is not None and self.selected_edge_idx < len(self.path_nodes):
+                idx = self.selected_edge_idx
+                p1 = self.path_nodes[idx-1]
+                p2 = self.path_nodes[idx]
+                u1, v1 = self.world_to_pixel(p1['PosX'], p1['PosY'], self.current_map_id)
+                u2, v2 = self.world_to_pixel(p2['PosX'], p2['PosY'], self.current_map_id)
+                
+                sx1 = int(u1 * self.view_state['zoom'] + self.view_state['offset_x'])
+                sy1 = int(v1 * self.view_state['zoom'] + self.view_state['offset_y'])
+                sx2 = int(u2 * self.view_state['zoom'] + self.view_state['offset_x'])
+                sy2 = int(v2 * self.view_state['zoom'] + self.view_state['offset_y'])
+                
+                cv2.line(disp_frame, (sx1, sy1), (sx2, sy2), (77, 38, 0), 4) # Thicker blue line
 
             # Draw temporary goal pose arrow
             if self.temp_goal:
