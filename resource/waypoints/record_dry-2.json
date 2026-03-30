@@ -1,6 +1,6 @@
 [
     {
-        "Node_info": "vibration",
+        "Node_info": "dry3-vibration-01",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -16,7 +16,7 @@
         "PosY": 53.649372,
         "PosZ": 4.5133896,
         "AngleYaw": -2.0988336,
-        "Value": 1,
+        "Value": 0,
         "CamPTZ": [
             179.0,
             0.0,
@@ -25,7 +25,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-01",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -41,7 +41,7 @@
         "PosY": 53.645809,
         "PosZ": 4.5118313,
         "AngleYaw": -2.0991929,
-        "Value": 2,
+        "Value": 1,
         "CamPTZ": [
             179.0,
             0.0,
@@ -50,7 +50,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "leaked-low",
+        "Node_info": "dry3-leaked-02-low",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -66,7 +66,7 @@
         "PosY": 53.402298,
         "PosZ": 4.3763528,
         "AngleYaw": 3.1225395,
-        "Value": 3,
+        "Value": 2,
         "CamPTZ": [
             178.9,
             0.0,
@@ -75,7 +75,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "gauge14",
+        "Node_info": "dry3-gauge-01",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -91,7 +91,7 @@
         "PosY": 53.39819,
         "PosZ": 4.3720894,
         "AngleYaw": 0.0782619,
-        "Value": 4,
+        "Value": 3,
         "CamPTZ": [
             189.0,
             23.0,
@@ -100,7 +100,7 @@
         "inspection": "gauge_inspection"
     },
     {
-        "Node_info": "vibration",
+        "Node_info": "dry3-vibration-02",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -116,7 +116,7 @@
         "PosY": 53.808681,
         "PosZ": 4.5621991,
         "AngleYaw": -1.3233887,
-        "Value": 5,
+        "Value": 4,
         "CamPTZ": [
             189.0,
             23.0,
@@ -125,7 +125,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-03",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -141,7 +141,7 @@
         "PosY": 53.810493,
         "PosZ": 4.5602703,
         "AngleYaw": -1.324754,
-        "Value": 6,
+        "Value": 5,
         "CamPTZ": [
             189.0,
             23.0,
@@ -150,7 +150,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-04",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -166,7 +166,7 @@
         "PosY": 51.094658,
         "PosZ": 4.528677,
         "AngleYaw": -1.0756791,
-        "Value": 7,
+        "Value": 6,
         "CamPTZ": [
             189.0,
             23.0,
@@ -175,7 +175,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "vibration",
+        "Node_info": "dry3-vibration-03",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -191,7 +191,7 @@
         "PosY": 51.096821,
         "PosZ": 4.5175896,
         "AngleYaw": -1.0753357,
-        "Value": 8,
+        "Value": 7,
         "CamPTZ": [
             189.0,
             23.0,
@@ -200,7 +200,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "vibration",
+        "Node_info": "dry3-vibration-04",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -216,7 +216,7 @@
         "PosY": 51.328278,
         "PosZ": 4.5254173,
         "AngleYaw": -1.8363669,
-        "Value": 9,
+        "Value": 8,
         "CamPTZ": [
             188.9,
             23.0,
@@ -225,7 +225,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-05",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -241,7 +241,7 @@
         "PosY": 51.331875,
         "PosZ": 4.5201302,
         "AngleYaw": -1.836728,
-        "Value": 10,
+        "Value": 9,
         "CamPTZ": [
             188.9,
             23.0,
@@ -250,7 +250,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "thermal13",
+        "Node_info": "dry3-thermal-01",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -266,7 +266,7 @@
         "PosY": 51.600395,
         "PosZ": 4.5227132,
         "AngleYaw": 1.6382043,
-        "Value": 11,
+        "Value": 10,
         "CamPTZ": [
             183.0,
             25.0,
@@ -275,7 +275,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "thermal14",
+        "Node_info": "dry3-thermal-02",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -291,7 +291,7 @@
         "PosY": 51.611519,
         "PosZ": 4.5155377,
         "AngleYaw": 1.6381605,
-        "Value": 12,
+        "Value": 11,
         "CamPTZ": [
             152.0,
             18.0,
@@ -300,7 +300,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "loto9",
+        "Node_info": "dry3-loto-01",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -316,7 +316,7 @@
         "PosY": 51.594631,
         "PosZ": 4.3630199,
         "AngleYaw": 1.6344683,
-        "Value": 13,
+        "Value": 12,
         "CamPTZ": [
             183.0,
             12.0,
@@ -325,7 +325,7 @@
         "inspection": "asset_inspection"
     },
     {
-        "Node_info": "loto10",
+        "Node_info": "dry3-loto-02",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -341,7 +341,7 @@
         "PosY": 51.588844,
         "PosZ": 4.3725753,
         "AngleYaw": 1.6332363,
-        "Value": 14,
+        "Value": 13,
         "CamPTZ": [
             207.0,
             14.0,
@@ -350,7 +350,7 @@
         "inspection": "asset_inspection"
     },
     {
-        "Node_info": "thermal15",
+        "Node_info": "dry3-thermal-03",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -366,7 +366,7 @@
         "PosY": 54.208084,
         "PosZ": 4.560442,
         "AngleYaw": 1.6356616,
-        "Value": 15,
+        "Value": 14,
         "CamPTZ": [
             152.0,
             20.0,
@@ -375,7 +375,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "thermal16",
+        "Node_info": "dry3-thermal-04",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -391,7 +391,7 @@
         "PosY": 54.202988,
         "PosZ": 4.5552087,
         "AngleYaw": 1.6291859,
-        "Value": 16,
+        "Value": 15,
         "CamPTZ": [
             183.0,
             24.0,
@@ -400,7 +400,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-06",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -416,7 +416,7 @@
         "PosY": 53.898777,
         "PosZ": 4.5483494,
         "AngleYaw": 2.4541659,
-        "Value": 17,
+        "Value": 16,
         "CamPTZ": [
             183.0,
             24.0,
@@ -425,7 +425,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "vibration",
+        "Node_info": "dry3-vibration-05",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -441,7 +441,7 @@
         "PosY": 53.898346,
         "PosZ": 4.557559,
         "AngleYaw": 2.4532197,
-        "Value": 18,
+        "Value": 17,
         "CamPTZ": [
             183.0,
             24.0,
@@ -450,7 +450,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "vibration",
+        "Node_info": "dry3-vibration-06",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -466,7 +466,7 @@
         "PosY": 53.296947,
         "PosZ": 4.5449581,
         "AngleYaw": -2.5506966,
-        "Value": 19,
+        "Value": 18,
         "CamPTZ": [
             183.0,
             24.0,
@@ -475,7 +475,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-07",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -491,7 +491,7 @@
         "PosY": 53.284676,
         "PosZ": 4.5427136,
         "AngleYaw": -2.5523317,
-        "Value": 20,
+        "Value": 19,
         "CamPTZ": [
             183.0,
             24.0,
@@ -500,7 +500,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "thermal17",
+        "Node_info": "dry3-thermal-05",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -516,7 +516,7 @@
         "PosY": 53.127033,
         "PosZ": 4.5320463,
         "AngleYaw": 0.5471354,
-        "Value": 21,
+        "Value": 20,
         "CamPTZ": [
             183.0,
             29.0,
@@ -525,7 +525,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "vibration",
+        "Node_info": "dry3-vibration-07",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -541,7 +541,7 @@
         "PosY": 54.719635,
         "PosZ": 4.5723362,
         "AngleYaw": -3.0471044,
-        "Value": 22,
+        "Value": 21,
         "CamPTZ": [
             183.0,
             29.0,
@@ -550,7 +550,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-08",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -566,7 +566,7 @@
         "PosY": 54.718513,
         "PosZ": 4.5670729,
         "AngleYaw": -3.0473244,
-        "Value": 23,
+        "Value": 22,
         "CamPTZ": [
             183.0,
             29.0,
@@ -575,7 +575,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "vibration-MI26",
+        "Node_info": "dry3-vibration-08-MI26",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -591,7 +591,7 @@
         "PosY": 53.237637,
         "PosZ": 4.605196,
         "AngleYaw": 2.3929727,
-        "Value": 24,
+        "Value": 23,
         "CamPTZ": [
             182.9,
             29.0,
@@ -600,7 +600,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked-MI26",
+        "Node_info": "dry3-leaked-09-MI26",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -616,7 +616,7 @@
         "PosY": 53.173729,
         "PosZ": 4.5935216,
         "AngleYaw": 2.3970649,
-        "Value": 25,
+        "Value": 24,
         "CamPTZ": [
             182.9,
             29.0,
@@ -625,7 +625,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "leaked-low",
+        "Node_info": "dry3-leaked-10-low",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -641,7 +641,7 @@
         "PosY": 53.363754,
         "PosZ": 4.4384842,
         "AngleYaw": -3.042815,
-        "Value": 26,
+        "Value": 25,
         "CamPTZ": [
             183.0,
             29.0,
@@ -650,7 +650,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "gauge15",
+        "Node_info": "dry3-gauge-02",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -666,7 +666,7 @@
         "PosY": 53.178123,
         "PosZ": 4.5974703,
         "AngleYaw": 0.0507814,
-        "Value": 27,
+        "Value": 26,
         "CamPTZ": [
             187.0,
             20.0,
@@ -675,7 +675,7 @@
         "inspection": "gauge_inspection"
     },
     {
-        "Node_info": "vibration-MI47",
+        "Node_info": "dry3-vibration-09-MI47",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -691,7 +691,7 @@
         "PosY": 53.082767,
         "PosZ": 4.5846281,
         "AngleYaw": -0.6870793,
-        "Value": 28,
+        "Value": 27,
         "CamPTZ": [
             187.0,
             20.0,
@@ -700,7 +700,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked-MI47",
+        "Node_info": "dry3-leaked-11-MI47",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -716,7 +716,7 @@
         "PosY": 53.087166,
         "PosZ": 4.5942659,
         "AngleYaw": -0.6887695,
-        "Value": 29,
+        "Value": 28,
         "CamPTZ": [
             187.0,
             20.0,
@@ -725,7 +725,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "leaked-MI25",
+        "Node_info": "dry3-leaked-12-MI25",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -741,7 +741,7 @@
         "PosY": 52.999737,
         "PosZ": 4.5836091,
         "AngleYaw": -2.1046314,
-        "Value": 30,
+        "Value": 29,
         "CamPTZ": [
             187.0,
             20.0,
@@ -750,7 +750,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "vibration-MI25",
+        "Node_info": "dry3-vibration-10-MI25",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -766,7 +766,7 @@
         "PosY": 52.991596,
         "PosZ": 4.5846715,
         "AngleYaw": -2.1049864,
-        "Value": 31,
+        "Value": 30,
         "CamPTZ": [
             187.0,
             20.0,
@@ -775,7 +775,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "vibration-MI27",
+        "Node_info": "dry3-vibration-11-MI27",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -791,7 +791,7 @@
         "PosY": 52.632011,
         "PosZ": 4.5915675,
         "AngleYaw": -2.2264271,
-        "Value": 32,
+        "Value": 31,
         "CamPTZ": [
             187.0,
             20.0,
@@ -800,7 +800,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked-MI27",
+        "Node_info": "dry3-leaked-13-MI27",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -816,7 +816,7 @@
         "PosY": 52.628338,
         "PosZ": 4.5915065,
         "AngleYaw": -2.2279515,
-        "Value": 33,
+        "Value": 32,
         "CamPTZ": [
             187.0,
             20.0,
@@ -825,7 +825,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "leaked-MI45",
+        "Node_info": "dry3-leaked-14-MI45",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -841,7 +841,7 @@
         "PosY": 51.047493,
         "PosZ": 4.5484805,
         "AngleYaw": 0.4926144,
-        "Value": 34,
+        "Value": 33,
         "CamPTZ": [
             186.9,
             20.0,
@@ -850,7 +850,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "vibration-MI45",
+        "Node_info": "dry3-vibration-12-MI45",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -866,7 +866,7 @@
         "PosY": 51.052284,
         "PosZ": 4.5651894,
         "AngleYaw": 0.4921823,
-        "Value": 35,
+        "Value": 34,
         "CamPTZ": [
             186.9,
             20.0,
@@ -875,7 +875,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked",
+        "Node_info": "dry3-leaked-15",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -891,7 +891,7 @@
         "PosY": 51.03698,
         "PosZ": 4.4162507,
         "AngleYaw": -0.2128926,
-        "Value": 36,
+        "Value": 35,
         "CamPTZ": [
             187.0,
             20.0,
@@ -900,7 +900,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "gauge16",
+        "Node_info": "dry3-gauge-03",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -916,7 +916,7 @@
         "PosY": 51.039494,
         "PosZ": 4.4104471,
         "AngleYaw": -0.215294,
-        "Value": 37,
+        "Value": 36,
         "CamPTZ": [
             0.0,
             23.0,
@@ -925,7 +925,7 @@
         "inspection": "gauge_inspection"
     },
     {
-        "Node_info": "leaked-MI23",
+        "Node_info": "dry3-leaked-16-MI23",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -941,7 +941,7 @@
         "PosY": 50.992477,
         "PosZ": 4.5742121,
         "AngleYaw": -0.7338772,
-        "Value": 38,
+        "Value": 37,
         "CamPTZ": [
             0.0,
             23.0,
@@ -950,7 +950,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "vibration-MI23",
+        "Node_info": "dry3-vibration-13-MI23",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -966,7 +966,7 @@
         "PosY": 51.007362,
         "PosZ": 4.5704622,
         "AngleYaw": -0.7349413,
-        "Value": 39,
+        "Value": 38,
         "CamPTZ": [
             0.0,
             23.0,
@@ -975,7 +975,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "thermal-MI25",
+        "Node_info": "dry3-thermal-06-MI25",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -991,7 +991,7 @@
         "PosY": 50.954533,
         "PosZ": 4.5599294,
         "AngleYaw": -0.7083389,
-        "Value": 40,
+        "Value": 39,
         "CamPTZ": [
             175.0,
             27.0,
@@ -1000,7 +1000,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "vibration-MI24",
+        "Node_info": "dry3-vibration-14-MI24",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1016,7 +1016,7 @@
         "PosY": 50.937454,
         "PosZ": 4.5617709,
         "AngleYaw": -1.4794359,
-        "Value": 41,
+        "Value": 40,
         "CamPTZ": [
             175.1,
             27.0,
@@ -1025,7 +1025,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked-MI24",
+        "Node_info": "dry3-leaked-17-MI24",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1041,7 +1041,7 @@
         "PosY": 51.017242,
         "PosZ": 4.5724492,
         "AngleYaw": -1.4733275,
-        "Value": 42,
+        "Value": 41,
         "CamPTZ": [
             175.1,
             27.0,
@@ -1050,7 +1050,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "leaked-MI31",
+        "Node_info": "dry3-leaked-18-MI31",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1066,7 +1066,7 @@
         "PosY": 50.844398,
         "PosZ": 4.5743628,
         "AngleYaw": -1.8877653,
-        "Value": 43,
+        "Value": 42,
         "CamPTZ": [
             175.0,
             27.0,
@@ -1075,7 +1075,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "vibration-MI31",
+        "Node_info": "dry3-vibration-15-MI31",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1091,7 +1091,7 @@
         "PosY": 50.842037,
         "PosZ": 4.5708613,
         "AngleYaw": -1.8872415,
-        "Value": 44,
+        "Value": 43,
         "CamPTZ": [
             175.0,
             27.0,
@@ -1100,7 +1100,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "vibration-MI32",
+        "Node_info": "dry3-vibration-16-MI32",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1116,7 +1116,7 @@
         "PosY": 50.549873,
         "PosZ": 4.5582657,
         "AngleYaw": -2.3943262,
-        "Value": 45,
+        "Value": 44,
         "CamPTZ": [
             175.0,
             27.0,
@@ -1125,7 +1125,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked-MI32",
+        "Node_info": "dry3-leaked-19-MI32",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1141,7 +1141,7 @@
         "PosY": 50.558949,
         "PosZ": 4.5625114,
         "AngleYaw": -2.3941107,
-        "Value": 46,
+        "Value": 45,
         "CamPTZ": [
             175.0,
             27.0,
@@ -1150,7 +1150,7 @@
         "inspection": "vibration_inspection"
     },
     {
-        "Node_info": "leaked-low",
+        "Node_info": "dry3-leaked-20-low",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1166,7 +1166,7 @@
         "PosY": 50.738705,
         "PosZ": 4.4174838,
         "AngleYaw": -3.0410028,
-        "Value": 47,
+        "Value": 46,
         "CamPTZ": [
             175.0,
             27.0,
@@ -1175,7 +1175,7 @@
         "inspection": "leakage_inspection"
     },
     {
-        "Node_info": "gauge17",
+        "Node_info": "dry3-gauge-04",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1191,7 +1191,7 @@
         "PosY": 50.732609,
         "PosZ": 4.3906856,
         "AngleYaw": -3.0414207,
-        "Value": 48,
+        "Value": 47,
         "CamPTZ": [
             15.0,
             24.0,
@@ -1200,7 +1200,7 @@
         "inspection": "gauge_inspection"
     },
     {
-        "Node_info": "thermal-MI23",
+        "Node_info": "dry3-thermal-07-MI23",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1216,7 +1216,7 @@
         "PosY": 51.050121,
         "PosZ": 4.554019,
         "AngleYaw": 2.2663624,
-        "Value": 49,
+        "Value": 48,
         "CamPTZ": [
             169.0,
             17.0,
@@ -1225,7 +1225,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "thermal-MI24",
+        "Node_info": "dry3-thermal-08-MI24",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1241,7 +1241,7 @@
         "PosY": 51.055958,
         "PosZ": 4.5716996,
         "AngleYaw": 2.2618716,
-        "Value": 50,
+        "Value": 49,
         "CamPTZ": [
             200.0,
             27.0,
@@ -1250,7 +1250,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "thermal-MI32",
+        "Node_info": "dry3-thermal-09-MI32",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1266,7 +1266,7 @@
         "PosY": 50.798313,
         "PosZ": 4.5696216,
         "AngleYaw": 1.1036984,
-        "Value": 51,
+        "Value": 50,
         "CamPTZ": [
             195.0,
             21.0,
@@ -1275,7 +1275,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "thermal-MI31",
+        "Node_info": "dry3-thermal-10-MI31",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1291,7 +1291,7 @@
         "PosY": 51.170677,
         "PosZ": 4.5779495,
         "AngleYaw": 1.5345891,
-        "Value": 52,
+        "Value": 51,
         "CamPTZ": [
             172.0,
             23.0,
@@ -1300,7 +1300,7 @@
         "inspection": "thermal_inspection"
     },
     {
-        "Node_info": "via_2nd_down-0",
+        "Node_info": "via1_2nd_down-0",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1316,7 +1316,7 @@
         "PosY": 55.709431,
         "PosZ": 4.5104947,
         "AngleYaw": -1.542261,
-        "Value": 53,
+        "Value": 52,
         "CamPTZ": [
             172.0,
             23.0,
@@ -1324,7 +1324,7 @@
         ]
     },
     {
-        "Node_info": "via_2nd_down-1",
+        "Node_info": "via2_2nd_down-1",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1340,7 +1340,7 @@
         "PosY": 59.665062,
         "PosZ": 3.0927095,
         "AngleYaw": -1.5455841,
-        "Value": 54,
+        "Value": 53,
         "CamPTZ": [
             171.9,
             23.0,
@@ -1348,7 +1348,7 @@
         ]
     },
     {
-        "Node_info": "via_2nd_down-2",
+        "Node_info": "via3_2nd_down-2",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1364,7 +1364,7 @@
         "PosY": 59.85318,
         "PosZ": 3.116292,
         "AngleYaw": 3.126163,
-        "Value": 55,
+        "Value": 54,
         "CamPTZ": [
             172.0,
             23.0,
@@ -1372,7 +1372,7 @@
         ]
     },
     {
-        "Node_info": "via_2nd_down-3",
+        "Node_info": "via4_2nd_down-3",
         "MapName": "2nd_floor",
         "Zone": "dry3",
         "MapID": 2,
@@ -1388,7 +1388,7 @@
         "PosY": 59.781391,
         "PosZ": 3.0904181,
         "AngleYaw": 1.6771915,
-        "Value": 56,
+        "Value": 55,
         "CamPTZ": [
             172.0,
             23.0,
@@ -1396,7 +1396,7 @@
         ]
     },
     {
-        "Node_info": "via_2nd_down-4",
+        "Node_info": "via5_2nd_down-4",
         "MapName": "1st_floor",
         "Zone": "dry3",
         "MapID": 0,
@@ -1412,7 +1412,7 @@
         "PosY": 54.268227,
         "PosZ": 0.4608353,
         "AngleYaw": 1.6440654,
-        "Value": 57,
+        "Value": 56,
         "CamPTZ": [
             172.0,
             23.0,

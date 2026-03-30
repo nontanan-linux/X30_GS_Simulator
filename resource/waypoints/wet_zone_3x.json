@@ -262,6 +262,18 @@
             176.9,
             9.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -287,6 +299,18 @@
             215.0,
             9.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -384,7 +408,14 @@
             180.0,
             9.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "via53_thermal14_crawl",
@@ -433,7 +464,20 @@
             189.0,
             6.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-visual-asset05",
@@ -458,6 +502,18 @@
             186.0,
             13.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -507,10 +563,22 @@
             184.0,
             13.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
-        "Node_info": "via55_vibration11_crawl",
+        "Node_info": "via55_vibration10_crawl",
         "MapName": "1st_floor",
         "Zone": "wet3",
         "MapID": 0,
@@ -556,7 +624,14 @@
             184.0,
             13.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal15-crawl",
@@ -605,7 +680,20 @@
             191.0,
             25.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration12",
@@ -630,7 +718,14 @@
             139.0,
             25.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal17",
@@ -655,7 +750,20 @@
             183.0,
             20.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-visual-thermal18",
@@ -680,7 +788,20 @@
             191.0,
             31.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration13",
@@ -705,7 +826,14 @@
             200.0,
             21.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal19",
@@ -730,7 +858,20 @@
             199.9,
             21.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration14-low",
@@ -755,7 +896,14 @@
             200.0,
             21.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal20",
@@ -780,7 +928,20 @@
             180.0,
             -5.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-visual-thermal21",
@@ -805,7 +966,20 @@
             180.0,
             -5.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-leaked08",
@@ -830,7 +1004,12 @@
             189.9,
             -4.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "wet3-acoustic-leaked09",
@@ -855,7 +1034,12 @@
             190.0,
             -4.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "wet3-visual-thermal22",
@@ -880,7 +1064,20 @@
             167.0,
             -1.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-leaked10",
@@ -905,7 +1102,12 @@
             167.0,
             -1.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "via56",
@@ -1074,7 +1276,14 @@
             182.0,
             12.9,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal23",
@@ -1099,7 +1308,20 @@
             184.0,
             0.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-visual-asset07",
@@ -1124,6 +1346,18 @@
             180.0,
             27.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -1149,6 +1383,18 @@
             180.0,
             12.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -1174,6 +1420,18 @@
             210.0,
             26.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -1199,6 +1457,18 @@
             210.0,
             6.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -1224,6 +1494,18 @@
             185.0,
             32.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -1249,6 +1531,18 @@
             182.0,
             46.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -1274,7 +1568,14 @@
             3.0,
             2.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-loto05",
@@ -1299,6 +1600,18 @@
             183.0,
             37.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -1324,7 +1637,20 @@
             180.0,
             0.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via62",
@@ -1397,7 +1723,14 @@
             183.0,
             37.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal25",
@@ -1422,7 +1755,20 @@
             354.2,
             25.3,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via64",
@@ -1471,7 +1817,14 @@
             354.3,
             25.3,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal26",
@@ -1496,7 +1849,20 @@
             177.5,
             -6.5,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via65",
@@ -1593,7 +1959,14 @@
             177.5,
             -6.5,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "via68",
@@ -1642,7 +2015,14 @@
             177.5,
             -6.5,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal27",
@@ -1667,7 +2047,20 @@
             177.5,
             -3.7,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration21-low",
@@ -1692,7 +2085,14 @@
             177.5,
             -3.7,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal28",
@@ -1717,7 +2117,20 @@
             204.1,
             2.7,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration22-low",
@@ -1742,7 +2155,14 @@
             204.1,
             2.7,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-acoustic-leaked11",
@@ -1767,7 +2187,12 @@
             204.1,
             2.7,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "wet3-acoustic-leaked12",
@@ -1792,7 +2217,12 @@
             204.1,
             2.7,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "via69",
@@ -1865,7 +2295,14 @@
             204.2,
             2.7,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal29",
@@ -1890,7 +2327,20 @@
             175.6,
             -3.5,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration24-low",
@@ -1915,7 +2365,14 @@
             175.6,
             -3.5,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal30",
@@ -1940,7 +2397,20 @@
             175.5,
             1.2,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration25-low",
@@ -1965,7 +2435,14 @@
             175.6,
             1.2,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal31",
@@ -1990,7 +2467,20 @@
             169.4,
             2.4,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via71",
@@ -2063,7 +2553,14 @@
             169.4,
             2.4,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal32",
@@ -2088,7 +2585,20 @@
             168.7,
             0.1,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet3-acoustic-vibration27-low",
@@ -2113,7 +2623,14 @@
             168.7,
             0.2,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal33",
@@ -2138,7 +2655,20 @@
             174.8,
             -4.7,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via73_vibration14_crawl",
@@ -2187,7 +2717,14 @@
             174.8,
             -4.7,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet3-visual-thermal34",
@@ -2212,7 +2749,20 @@
             5.5,
             29.7,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via74",
@@ -2357,7 +2907,12 @@
             5.5,
             29.7,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "wet3-visual-thermal35",
@@ -2382,7 +2937,20 @@
             5.5,
             29.7,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via79",
@@ -2455,7 +3023,20 @@
             182.9,
             -2.2,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via81",

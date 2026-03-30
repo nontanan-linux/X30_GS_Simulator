@@ -238,6 +238,18 @@
             180.0,
             7.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -335,7 +347,12 @@
             180.1,
             7.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "via9",
@@ -456,7 +473,14 @@
             180.0,
             7.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet12-visual-thermal01",
@@ -481,7 +505,20 @@
             180.0,
             7.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-acoustic-leaked02",
@@ -506,7 +543,12 @@
             180.0,
             7.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "via13",
@@ -603,6 +645,18 @@
             180.0,
             5.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -652,6 +706,18 @@
             180.0,
             12.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -725,7 +791,12 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "via19",
@@ -774,7 +845,12 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "wet12-acoustic-leaked05",
@@ -799,7 +875,12 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "via20",
@@ -848,7 +929,14 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet12-visual-thermal02",
@@ -873,7 +961,20 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-acoustic-vibration03",
@@ -898,7 +999,14 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet12-visual-thermal03",
@@ -923,7 +1031,20 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-acoustic-leaked06",
@@ -948,7 +1069,12 @@
             180.1,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "wet12-acoustic-vibration04",
@@ -973,7 +1099,14 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet12-visual-thermal04",
@@ -998,7 +1131,20 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-acoustic-vibration05",
@@ -1023,7 +1169,14 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet12-visual-thermal05",
@@ -1048,7 +1201,20 @@
             180.0,
             12.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-visual-thermal06",
@@ -1073,7 +1239,20 @@
             180.0,
             5.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via21-thermal07-crawl",
@@ -1122,7 +1301,20 @@
             184.0,
             11.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-acoustic-vibration06",
@@ -1147,7 +1339,14 @@
             184.0,
             11.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet12-visual-thermal08",
@@ -1172,7 +1371,20 @@
             184.0,
             11.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via22",
@@ -1293,7 +1505,14 @@
             1.9,
             0.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            35
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "wet12-visual-thermal09",
@@ -1318,7 +1537,20 @@
             1.9,
             0.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-visual-thermal10",
@@ -1343,7 +1575,20 @@
             2.0,
             30.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "wet12-visual-thermal11",
@@ -1368,7 +1613,20 @@
             2.0,
             30.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via26",

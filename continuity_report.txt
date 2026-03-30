@@ -42,18 +42,33 @@ INSPECTION SEQUENCE AUDIT: wet_zone_3x.json
 +-----------------+-------+----------+--------------+------------------+
 
 INSPECTION SEQUENCE AUDIT: dry_zone.json
-+-----------------+-------+----------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Category/Prefix | Count | Sequence | Last Point # | Status                                                                                                                                                                                                                                                             |
-+=================+=======+==========+==============+====================================================================================================================================================================================================================================================================+
-| VIA-H2          | 3     | 00-02    | Pt 4         | CONT (Offset@00)                                                                                                                                                                                                                                                   |
-| VIA             | 62    | 02-155   | Pt 127       | ERR (Gap:[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63], Unordered) |
-| LEAKED          | 24    | 14-37    | Pt 98        | ERR (Unordered)                                                                                                                                                                                                                                                    |
-| THERMAL         | 11    | 37-47    | Pt 89        | CONT (Offset@37)                                                                                                                                                                                                                                                   |
-| VIBRATION       | 13    | 29-41    | Pt 88        | ERR (Unordered)                                                                                                                                                                                                                                                    |
-| LOTO            | 7     | 06-12    | Pt 101       | CONT (Offset@06)                                                                                                                                                                                                                                                   |
-| GAUGE           | 2     | 01-02    | Pt 97        | OK                                                                                                                                                                                                                                                                 |
-| VIA-2H-X        | 4     | 00-03    | Pt 131       | CONT (Offset@00)                                                                                                                                                                                                                                                   |
-+-----------------+-------+----------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-----------------+-------+----------+--------------+------------------+
+| Category/Prefix | Count | Sequence | Last Point # | Status           |
++=================+=======+==========+==============+==================+
+| VIA-H2          | 3     | 00-02    | Pt 4         | CONT (Offset@00) |
+| VIA             | 74    | 84-157   | Pt 144       | CONT (Offset@84) |
+| LEAKED          | 25    | 14-38    | Pt 114       | CONT (Offset@14) |
+| THERMAL         | 11    | 37-47    | Pt 103       | CONT (Offset@37) |
+| VIBRATION       | 13    | 29-41    | Pt 102       | CONT (Offset@29) |
+| LOTO            | 8     | 06-13    | Pt 118       | CONT (Offset@06) |
+| GAUGE           | 8     | 01-08    | Pt 115       | OK               |
+| ASSET           | 1     | 11-11    | Pt 95        | CONT (Offset@11) |
+| VIA-2H-X        | 4     | 00-03    | Pt 148       | CONT (Offset@00) |
++-----------------+-------+----------+--------------+------------------+
+
+INSPECTION SEQUENCE AUDIT: dry_zone_2nd.json
++-----------------+-------+----------+--------------+-------------------+
+| Category/Prefix | Count | Sequence | Last Point # | Status            |
++=================+=======+==========+==============+===================+
+| VIA-H2          | 3     | 00-02    | Pt 4         | CONT (Offset@00)  |
+| VIA             | 78    | 158-235  | Pt 177       | CONT (Offset@158) |
+| VIBRATION       | 26    | 42-67    | Pt 135       | CONT (Offset@42)  |
+| THERMAL         | 23    | 48-70    | Pt 145       | CONT (Offset@48)  |
+| GAUGE           | 6     | 09-14    | Pt 124       | CONT (Offset@09)  |
+| LEAKED          | 26    | 39-64    | Pt 134       | CONT (Offset@39)  |
+| LOTO            | 3     | 14-16    | Pt 139       | CONT (Offset@14)  |
+| VIA-2H-X        | 4     | 00-03    | Pt 181       | CONT (Offset@00)  |
++-----------------+-------+----------+--------------+-------------------+
 
 MISSION STRUCTURAL INTEGRITY (Header/Footer Protocol)
 +---------------------+-------------------------------+------------------------------+--------+
@@ -63,59 +78,70 @@ MISSION STRUCTURAL INTEGRITY (Header/Footer Protocol)
 | wet_zone_12-2x.json | OK                            | OK                           | OK     |
 | wet_zone_3x.json    | OK                            | OK                           | OK     |
 | dry_zone.json       | OK                            | OK                           | OK     |
+| dry_zone_2nd.json   | OK                            | OK                           | OK     |
 +---------------------+-------------------------------+------------------------------+--------+
 
 MISSION WAYPOINT SUMMARY
 +-------------------------+-------------+
 | Category                | Total Count |
 +=========================+=============+
-| Total Waypoints         | 335         |
-| Total Via Points        | 174         |
-| Total Inspection Points | 149         |
-|   > ASSET               | 10          |
-|   > GAUGE               | 2           |
-|   > LEAKED              | 37          |
-|   > LOTO                | 12          |
-|   > THERMAL             | 47          |
-|   > VIBRATION           | 41          |
+| Total Waypoints         | 534         |
+| Total Via Points        | 271         |
+| Total Inspection Points | 242         |
+|   > ASSET               | 11          |
+|   > GAUGE               | 14          |
+|   > LEAKED              | 64          |
+|   > LOTO                | 16          |
+|   > THERMAL             | 70          |
+|   > VIBRATION           | 67          |
 +-------------------------+-------------+
 
 MISSION INSPECTION DISTRIBUTION (Per-File Breakdown)
-+---------------------+-------+-------+--------+------+---------+-----------+-------+
-| File                | ASSET | GAUGE | LEAKED | LOTO | THERMAL | VIBRATION | TOTAL |
-+=====================+=======+=======+========+======+=========+===========+=======+
-| wet_zone_12-1x.json | 1     | -     | 6      | 2    | 11      | 7         | 27    |
-| wet_zone_12-2x.json | 1     | -     | 1      | -    | 2       | 2         | 6     |
-| wet_zone_3x.json    | 8     | -     | 6      | 3    | 23      | 19        | 59    |
-| dry_zone.json       | -     | 2     | 24     | 7    | 11      | 13        | 57    |
-+---------------------+-------+-------+--------+------+---------+-----------+-------+
++---------------------+-------+-------+--------+------+---------+-----------+------------------+-----------+-----------------+
+| File                | ASSET | GAUGE | LEAKED | LOTO | THERMAL | VIBRATION | INSPECTION TOTAL | VIA TOTAL | TOTAL WAYPOINTS |
++=====================+=======+=======+========+======+=========+===========+==================+===========+=================+
+| wet_zone_12-1x.json | 1     | -     | 6      | 2    | 11      | 7         | 27               | 36        | 65              |
+| wet_zone_12-2x.json | 1     | -     | 1      | -    | 2       | 2         | 6                | 22        | 30              |
+| wet_zone_3x.json    | 8     | -     | 6      | 3    | 23      | 19        | 59               | 47        | 108             |
+| dry_zone.json       | 1     | 8     | 25     | 8    | 11      | 13        | 66               | 81        | 149             |
+| dry_zone_2nd.json   | -     | 6     | 26     | 3    | 23      | 26        | 84               | 85        | 182             |
++---------------------+-------+-------+--------+------+---------+-----------+------------------+-----------+-----------------+
 
 MISSION SERIAL CONTINUITY (Inspection/Via Numbering)
-+--------------------------------------------+-----------+----------+----------+--------------+
-| Transition                                 | Category  | Prev Max | Next Min | Status       |
-+============================================+===========+==========+==========+==============+
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA-H2    | 02       | 00       | OK           |
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA       | 29       | 30       | OK           |
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | LEAKED    | 06       | 07       | OK           |
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIBRATION | 07       | 08       | OK           |
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | THERMAL   | 11       | 12       | OK           |
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | ASSET     | 01       | 02       | OK           |
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA-2H-X  | 03       | 00       | OK           |
-| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA-ASSET | --       | 02       | NEW          |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | VIA-H2    | 02       | 00       | OK           |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | VIA       | 43       | 44       | OK           |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | LEAKED    | 07       | 08       | OK           |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | VIBRATION | 09       | 10       | OK           |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | THERMAL   | 13       | 14       | OK           |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | ASSET     | 02       | 03       | OK           |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | VIA-2H-X  | 03       | 00       | OK           |
-| wet_zone_12-2x.json -> wet_zone_3x.json    | LOTO      | --       | 03       | NEW          |
-| wet_zone_3x.json -> dry_zone.json          | VIA-H2    | 02       | 00       | OK           |
-| wet_zone_3x.json -> dry_zone.json          | VIA       | 83       | 02       | ERR (Exp 84) |
-| wet_zone_3x.json -> dry_zone.json          | VIBRATION | 28       | 29       | OK           |
-| wet_zone_3x.json -> dry_zone.json          | THERMAL   | 36       | 37       | OK           |
-| wet_zone_3x.json -> dry_zone.json          | LEAKED    | 13       | 14       | OK           |
-| wet_zone_3x.json -> dry_zone.json          | LOTO      | 05       | 06       | OK           |
-| wet_zone_3x.json -> dry_zone.json          | VIA-2H-X  | 03       | 00       | OK           |
-| wet_zone_3x.json -> dry_zone.json          | GAUGE     | --       | 01       | NEW          |
-+--------------------------------------------+-----------+----------+----------+--------------+
++--------------------------------------------+-----------+----------+----------+--------+
+| Transition                                 | Category  | Prev Max | Next Min | Status |
++============================================+===========+==========+==========+========+
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA-H2    | 02       | 00       | OK     |
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA       | 29       | 30       | OK     |
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | LEAKED    | 06       | 07       | OK     |
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIBRATION | 07       | 08       | OK     |
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | THERMAL   | 11       | 12       | OK     |
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | ASSET     | 01       | 02       | OK     |
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA-2H-X  | 03       | 00       | OK     |
+| wet_zone_12-1x.json -> wet_zone_12-2x.json | VIA-ASSET | --       | 02       | NEW    |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | VIA-H2    | 02       | 00       | OK     |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | VIA       | 43       | 44       | OK     |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | LEAKED    | 07       | 08       | OK     |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | VIBRATION | 09       | 10       | OK     |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | THERMAL   | 13       | 14       | OK     |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | ASSET     | 02       | 03       | OK     |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | VIA-2H-X  | 03       | 00       | OK     |
+| wet_zone_12-2x.json -> wet_zone_3x.json    | LOTO      | --       | 03       | NEW    |
+| wet_zone_3x.json -> dry_zone.json          | VIA-H2    | 02       | 00       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | VIA       | 83       | 84       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | ASSET     | 10       | 11       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | VIBRATION | 28       | 29       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | THERMAL   | 36       | 37       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | LEAKED    | 13       | 14       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | LOTO      | 05       | 06       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | VIA-2H-X  | 03       | 00       | OK     |
+| wet_zone_3x.json -> dry_zone.json          | GAUGE     | --       | 01       | NEW    |
+| dry_zone.json -> dry_zone_2nd.json         | VIA-H2    | 02       | 00       | OK     |
+| dry_zone.json -> dry_zone_2nd.json         | VIA       | 157      | 158      | OK     |
+| dry_zone.json -> dry_zone_2nd.json         | LEAKED    | 38       | 39       | OK     |
+| dry_zone.json -> dry_zone_2nd.json         | THERMAL   | 47       | 48       | OK     |
+| dry_zone.json -> dry_zone_2nd.json         | VIBRATION | 41       | 42       | OK     |
+| dry_zone.json -> dry_zone_2nd.json         | LOTO      | 13       | 14       | OK     |
+| dry_zone.json -> dry_zone_2nd.json         | GAUGE     | 08       | 09       | OK     |
+| dry_zone.json -> dry_zone_2nd.json         | VIA-2H-X  | 03       | 00       | OK     |
++--------------------------------------------+-----------+----------+----------+--------+

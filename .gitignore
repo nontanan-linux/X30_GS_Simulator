@@ -25,3 +25,6 @@ __pycache__/
 
 # OS
 .DS_Store
+tmp/
+*.pcd
+*.pcd

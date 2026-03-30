@@ -184,6 +184,8 @@ def check_continuity(file_sequence):
                 cat_summary[cat] = cat_summary.get(cat, 0) + 1
                 if cat.startswith('via'):
                     via_count += 1
+                    # Track VIA counts per file for the distribution table
+                    file_counts[fname]['__VIA__'] = file_counts[fname].get('__VIA__', 0) + 1
                 else:
                     ins_count += 1
                     dist_cats.add(cat)
@@ -288,17 +290,23 @@ def check_continuity(file_sequence):
     print_table(summary_headers, summary_rows, title="MISSION WAYPOINT SUMMARY")
     
     # 4. Inspection Distribution Table
-    dist_headers = ["File"] + [c.upper().rstrip("-") for c in sorted(list(dist_cats))] + ["TOTAL"]
+    sorted_dist_cats = sorted(list(dist_cats))
+    dist_headers = ["File"] + [c.upper().rstrip("-") for c in sorted_dist_cats] + ["INSPECTION TOTAL", "VIA TOTAL", "TOTAL WAYPOINTS"]
     dist_rows = []
     for f_info in all_data:
+        wps = f_info['data']
         fname = os.path.basename(f_info['path'])
         row = [fname]
-        row_total = 0
-        for cat in sorted(list(dist_cats)):
+        ins_total = 0
+        for cat in sorted_dist_cats:
             count = file_counts[fname].get(cat, 0)
             row.append(count if count > 0 else "-")
-            row_total += count
-        row.append(row_total)
+            ins_total += count
+        
+        via_total = file_counts[fname].get('__VIA__', 0)
+        row.append(ins_total)
+        row.append(via_total)
+        row.append(len(wps))
         dist_rows.append(row)
     
     print_table(dist_headers, dist_rows, title="MISSION INSPECTION DISTRIBUTION (Per-File Breakdown)")
@@ -319,6 +327,7 @@ if __name__ == "__main__":
         "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/wet_zone_12-2x.json",
         "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/wet_zone_3x.json",
         "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/dry_zone.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/dry_zone_2nd.json",
     ]
     
     files_to_check = args.files if args.files else default_files
