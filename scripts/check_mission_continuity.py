@@ -323,11 +323,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     default_files = [
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/wet_zone_12-1x.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/wet_zone_12-2x.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/wet_zone_3x.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/dry_zone.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/dry_zone_2nd.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-1x.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-2x.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_3x.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone_2nd.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/record-filling.json"
     ]
     
     files_to_check = args.files if args.files else default_files

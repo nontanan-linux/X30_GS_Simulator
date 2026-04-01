@@ -3875,12 +3875,34 @@
         ]
     },
     {
+        "Node_info": "via",
+        "MapName": "1st_floor",
+        "Zone": "wet1",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -50.9149,
+        "PosY": 54.3549,
+        "PosZ": 0.0,
+        "AngleYaw": -3.1416,
+        "Value": 11,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
         "Node_info": "dry-vibration-66-MI34",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
+        "Energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -3894,22 +3916,22 @@
         "PosY": 53.299805,
         "PosZ": 4.6822929,
         "AngleYaw": -0.8774568,
-        "Inspection_type": "VIBRATION_INSPECTION",
-        "Value": 129,
+        "Value": 12,
         "CamPTZ": [
             0.0,
             0.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Inspection": "vibration_inspection"
     },
     {
         "Node_info": "dry-thermal-63-MI34",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -3923,22 +3945,31 @@
         "PosY": 53.417007,
         "PosZ": 4.6793842,
         "AngleYaw": -0.8699337,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 130,
+        "Value": 13,
         "CamPTZ": [
             357.0,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "dry-leaked-62-MI34",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -3952,22 +3983,23 @@
         "PosY": 51.930546,
         "PosZ": 4.6613903,
         "AngleYaw": 0.0672182,
-        "Inspection_type": "LEAKAGE_INSPECTION",
-        "Value": 131,
+        "Value": 14,
         "CamPTZ": [
             357.0,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "leakage_inspection",
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "dry-leaked-63-MI34-33",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -3981,22 +4013,23 @@
         "PosY": 50.837135,
         "PosZ": 4.6180835,
         "AngleYaw": 0.123369,
-        "Inspection_type": "LEAKAGE_INSPECTION",
-        "Value": 132,
+        "Value": 15,
         "CamPTZ": [
             357.0,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "leakage_inspection",
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "dry-leaked-64-MI33",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4010,22 +4043,23 @@
         "PosY": 49.828289,
         "PosZ": 4.6239085,
         "AngleYaw": -0.1186357,
-        "Inspection_type": "LEAKAGE_INSPECTION",
-        "Value": 133,
+        "Value": 16,
         "CamPTZ": [
             356.9,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "leakage_inspection",
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "dry-vibration-67-MI33",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4039,22 +4073,25 @@
         "PosY": 49.839172,
         "PosZ": 4.60814,
         "AngleYaw": -0.11902,
-        "Inspection_type": "VIBRATION_INSPECTION",
-        "Value": 134,
+        "Value": 17,
         "CamPTZ": [
             356.9,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "vibration_inspection",
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10,
+        "Kurtosis_threshold": 3.0,
+        "Peak_threshold": 3.0
     },
     {
         "Node_info": "dry-thermal-64-MI33",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4068,28 +4105,37 @@
         "PosY": 49.837894,
         "PosZ": 4.621594,
         "AngleYaw": -0.117528,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 135,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50,
+        "Value": 18,
         "CamPTZ": [
             8.0,
             20.0,
             1.0
-        ],
-        "inspection": "asset_inspection"
+        ]
     },
     {
         "Node_info": "via202",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
         "Speed": 0,
         "Terrain": 0,
-        "PointInfo": 1,
+        "PointInfo": 0,
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
@@ -4097,8 +4143,7 @@
         "PosY": 49.993053,
         "PosZ": 4.59657,
         "AngleYaw": 1.5880204,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 136,
+        "Value": 19,
         "CamPTZ": [
             105.0,
             20.1,
@@ -4109,15 +4154,12 @@
         "Node_info": "via203",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
         "Speed": 0,
         "Terrain": 0,
-        "PointInfo": 1,
+        "PointInfo": 0,
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
@@ -4125,8 +4167,7 @@
         "PosY": 53.976036,
         "PosZ": 4.6550889,
         "AngleYaw": 0.8528291,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 137,
+        "Value": 20,
         "CamPTZ": [
             105.0,
             20.1,
@@ -4137,9 +4178,6 @@
         "Node_info": "dry-loto-16-MI34",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4153,22 +4191,30 @@
         "PosY": 54.409866,
         "PosZ": 4.6540551,
         "AngleYaw": 0.6728607,
-        "Inspection_type": "ASSET_INSPECTION",
-        "Value": 138,
+        "Value": 21,
         "CamPTZ": [
             180.0,
             12.0,
             2.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "asset_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ]
     },
     {
         "Node_info": "dry-thermal-65-MI26",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4182,22 +4228,31 @@
         "PosY": 54.647343,
         "PosZ": 4.58042,
         "AngleYaw": 0.090959,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 139,
+        "Value": 22,
         "CamPTZ": [
             175.0,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "dry-thermal-66-MI46",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4211,22 +4266,31 @@
         "PosY": 54.939056,
         "PosZ": 4.5636935,
         "AngleYaw": 0.1075094,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 140,
+        "Value": 23,
         "CamPTZ": [
             175.0,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "dry-thermal-67-MI44",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4240,22 +4304,31 @@
         "PosY": 54.937542,
         "PosZ": 4.5339174,
         "AngleYaw": 0.1215832,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 141,
+        "Value": 24,
         "CamPTZ": [
             173.9,
             20.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "dry-thermal-68-MI43",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4269,22 +4342,31 @@
         "PosY": 54.899715,
         "PosZ": 4.5266356,
         "AngleYaw": 0.1313059,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 142,
+        "Value": 25,
         "CamPTZ": [
             174.0,
             26.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "dry-thermal-69-MI42",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4298,22 +4380,31 @@
         "PosY": 54.953114,
         "PosZ": 4.5188484,
         "AngleYaw": 0.0740388,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 143,
+        "Value": 26,
         "CamPTZ": [
             174.0,
             26.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "dry-thermal-70-MI39",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "freq_min": "20",
-        "freq_max": "40",
-        "energy_threshold": "20",
         "MapID": 1,
         "Gait": 0,
         "NavMode": 0,
@@ -4327,14 +4418,26 @@
         "PosY": 55.120926,
         "PosZ": 4.5409966,
         "AngleYaw": 0.0805788,
-        "Inspection_type": "THERMAL_INSPECTION",
-        "Value": 144,
+        "Value": 27,
         "CamPTZ": [
             173.0,
             23.0,
             1.0
         ],
-        "inspection": "asset_inspection"
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 50
     },
     {
         "Node_info": "via204-2nd-down-0",
@@ -4353,7 +4456,7 @@
         "PosY": 55.709431,
         "PosZ": 4.5104947,
         "AngleYaw": -1.542261,
-        "Value": 145,
+        "Value": 28,
         "CamPTZ": [
             172.0,
             23.0,
@@ -4377,7 +4480,7 @@
         "PosY": 59.665062,
         "PosZ": 3.0927095,
         "AngleYaw": -1.5455841,
-        "Value": 146,
+        "Value": 29,
         "CamPTZ": [
             171.9,
             23.0,
@@ -4401,7 +4504,7 @@
         "PosY": 59.85318,
         "PosZ": 3.116292,
         "AngleYaw": 3.126163,
-        "Value": 147,
+        "Value": 30,
         "CamPTZ": [
             172.0,
             23.0,
@@ -4425,7 +4528,7 @@
         "PosY": 59.781391,
         "PosZ": 3.0904181,
         "AngleYaw": 1.6771915,
-        "Value": 148,
+        "Value": 31,
         "CamPTZ": [
             172.0,
             23.0,
@@ -4449,7 +4552,7 @@
         "PosY": 54.268227,
         "PosZ": 0.4608353,
         "AngleYaw": 1.6440654,
-        "Value": 149,
+        "Value": 32,
         "CamPTZ": [
             172.0,
             23.0,
@@ -4473,7 +4576,7 @@
         "PosY": 55.3783,
         "PosZ": 0.5443,
         "AngleYaw": 2.6301,
-        "Value": 150,
+        "Value": 33,
         "CamPTZ": [
             169.7,
             19.1,
@@ -4497,7 +4600,7 @@
         "PosY": 59.614529,
         "PosZ": 0.5078825,
         "AngleYaw": 1.6401079,
-        "Value": 151,
+        "Value": 34,
         "CamPTZ": [
             169.7,
             19.1,
@@ -4521,7 +4624,7 @@
         "PosY": 62.33087507965445,
         "PosZ": 0.0,
         "AngleYaw": -0.01516839173735189,
-        "Value": 152,
+        "Value": 35,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4545,7 +4648,7 @@
         "PosY": 62.605283145156534,
         "PosZ": 0.0,
         "AngleYaw": 0.0167,
-        "Value": 153,
+        "Value": 36,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4569,7 +4672,7 @@
         "PosY": 60.7499,
         "PosZ": 0.0,
         "AngleYaw": 0.031,
-        "Value": 154,
+        "Value": 37,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4593,7 +4696,7 @@
         "PosY": 61.3558,
         "PosZ": 0.0,
         "AngleYaw": 1.1903,
-        "Value": 155,
+        "Value": 38,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4617,7 +4720,7 @@
         "PosY": 63.00518,
         "PosZ": 0.4095464,
         "AngleYaw": 0.0535957,
-        "Value": 156,
+        "Value": 39,
         "CamPTZ": [
             169.6,
             19.3,
@@ -4641,7 +4744,7 @@
         "PosY": 63.465031,
         "PosZ": 0.3260978,
         "AngleYaw": 1.5529609,
-        "Value": 157,
+        "Value": 40,
         "CamPTZ": [
             169.5,
             19.2,
@@ -4665,7 +4768,7 @@
         "PosY": 68.900719,
         "PosZ": 0.3886068,
         "AngleYaw": 1.550457,
-        "Value": 158,
+        "Value": 41,
         "CamPTZ": [
             169.7,
             19.2,
@@ -4689,7 +4792,7 @@
         "PosY": 70.59893,
         "PosZ": 0.3542743,
         "AngleYaw": 0.0891664,
-        "Value": 159,
+        "Value": 42,
         "CamPTZ": [
             169.5,
             19.2,
@@ -4713,7 +4816,7 @@
         "PosY": 71.12843507976504,
         "PosZ": 0.0,
         "AngleYaw": -0.0469,
-        "Value": 160,
+        "Value": 43,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4737,7 +4840,7 @@
         "PosY": 71.10552700894993,
         "PosZ": 0.0,
         "AngleYaw": -0.0248,
-        "Value": 161,
+        "Value": 44,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4761,7 +4864,7 @@
         "PosY": 68.28981349585257,
         "PosZ": 0.0,
         "AngleYaw": -1.5708,
-        "Value": 162,
+        "Value": 45,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4785,7 +4888,7 @@
         "PosY": 60.6546,
         "PosZ": 0.0,
         "AngleYaw": -1.5618,
-        "Value": 163,
+        "Value": 46,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4809,7 +4912,7 @@
         "PosY": 56.9251,
         "PosZ": 0.0,
         "AngleYaw": -1.5613,
-        "Value": 164,
+        "Value": 47,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4833,7 +4936,7 @@
         "PosY": 49.239461805999895,
         "PosZ": 0.0,
         "AngleYaw": -3.1109,
-        "Value": 165,
+        "Value": 48,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4857,7 +4960,7 @@
         "PosY": 48.855,
         "PosZ": 0.0,
         "AngleYaw": -1.5698,
-        "Value": 166,
+        "Value": 49,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4881,7 +4984,7 @@
         "PosY": 46.0216,
         "PosZ": 0.0,
         "AngleYaw": -1.5535,
-        "Value": 167,
+        "Value": 50,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4905,7 +5008,7 @@
         "PosY": 43.0238,
         "PosZ": 0.0,
         "AngleYaw": -1.547,
-        "Value": 168,
+        "Value": 51,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4929,7 +5032,7 @@
         "PosY": 35.28556570368494,
         "PosZ": 0.0,
         "AngleYaw": -2.4668517113662514,
-        "Value": 169,
+        "Value": 52,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4953,7 +5056,7 @@
         "PosY": 30.044350981974333,
         "PosZ": 0.0,
         "AngleYaw": -1.5524,
-        "Value": 170,
+        "Value": 53,
         "CamPTZ": [
             0.0,
             0.0,
@@ -4977,7 +5080,7 @@
         "PosY": 27.5768,
         "PosZ": 0.0,
         "AngleYaw": -0.0185,
-        "Value": 171,
+        "Value": 54,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5001,7 +5104,7 @@
         "PosY": 26.2849,
         "PosZ": 0.0,
         "AngleYaw": -1.5708,
-        "Value": 172,
+        "Value": 55,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5025,7 +5128,7 @@
         "PosY": 22.125,
         "PosZ": 0.0,
         "AngleYaw": -3.1322,
-        "Value": 173,
+        "Value": 56,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5049,7 +5152,7 @@
         "PosY": 19.9965,
         "PosZ": 0.0,
         "AngleYaw": -1.5708,
-        "Value": 174,
+        "Value": 57,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5073,7 +5176,7 @@
         "PosY": 0.8104,
         "PosZ": -0.2801,
         "AngleYaw": 0.0096,
-        "Value": 175,
+        "Value": 58,
         "CamPTZ": [
             169.7,
             19.1,
@@ -5097,7 +5200,7 @@
         "PosY": 1.065,
         "PosZ": -0.1027,
         "AngleYaw": -0.0545,
-        "Value": 176,
+        "Value": 59,
         "CamPTZ": [
             180.0,
             3.0,
@@ -5121,7 +5224,7 @@
         "PosY": 2.5375,
         "PosZ": -0.1116,
         "AngleYaw": 0.0326,
-        "Value": 177,
+        "Value": 60,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5145,7 +5248,7 @@
         "PosY": 2.8768215657936764,
         "PosZ": -0.1450856,
         "AngleYaw": -1.5989308,
-        "Value": 178,
+        "Value": 61,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5169,7 +5272,7 @@
         "PosY": -2.5242805,
         "PosZ": -0.270077,
         "AngleYaw": -1.5337039,
-        "Value": 179,
+        "Value": 62,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5193,7 +5296,7 @@
         "PosY": -13.5964,
         "PosZ": -0.3064,
         "AngleYaw": -1.5708,
-        "Value": 180,
+        "Value": 63,
         "CamPTZ": [
             0.0,
             0.0,
@@ -5217,7 +5320,7 @@
         "PosY": -16.159822,
         "PosZ": -0.2800744,
         "AngleYaw": -0.0763338,
-        "Value": 181,
+        "Value": 64,
         "CamPTZ": [
             0.0,
             0.0,
