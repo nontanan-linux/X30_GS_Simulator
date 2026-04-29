@@ -97,8 +97,8 @@ def normalize_category(name):
     """
     name = name.lower().replace("_", "-")
     
-    # Remove zone prefix (wet\d+-, dry\d*-, zone\d+-)
-    name = re.sub(r'^(wet\d+|dry\d*|zone\d+)[-_]', '', name)
+    # Remove zone prefix (wet\d+-, dry\d*-, zone\d+-, or dry\d+-\d+-)
+    name = re.sub(r'^(wet\d+|dry\d*(-\d+)*|zone\d+)[-_]', '', name)
     
     # Strip acoustic/visual modifiers to unify categories
     name = re.sub(r'^(acoustic|visual)-', '', name)
@@ -180,16 +180,18 @@ def check_continuity(file_sequence):
         for wp in wps:
             info = wp.get('Node_info', '')
             cat, _ = normalize_category(info)
-            if cat:
-                cat_summary[cat] = cat_summary.get(cat, 0) + 1
-                if cat.startswith('via'):
-                    via_count += 1
-                    # Track VIA counts per file for the distribution table
-                    file_counts[fname]['__VIA__'] = file_counts[fname].get('__VIA__', 0) + 1
-                else:
-                    ins_count += 1
+            point_info = wp.get('PointInfo', 0)
+            
+            if point_info == 1:
+                ins_count += 1
+                if cat:
+                    cat_summary[cat] = cat_summary.get(cat, 0) + 1
                     dist_cats.add(cat)
                     file_counts[fname][cat] = file_counts[fname].get(cat, 0) + 1
+            else:
+                via_count += 1
+                # Track VIA counts per file for the distribution table
+                file_counts[fname]['__VIA__'] = file_counts[fname].get('__VIA__', 0) + 1
 
     for i in range(len(all_data) - 1):
         f1 = all_data[i]

@@ -1,0 +1,3571 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspection Point Slides</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .slide {
+            width: 90vw;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9;
+            background: radial-gradient(circle at top left, #1e293b, #0f172a);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            margin-bottom: 80px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            break-after: page;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.05), transparent);
+            pointer-events: none;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 16px;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .visual-panel {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .image-frame {
+            background: var(--card-bg);
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .image-frame:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .image-placeholder-text {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .dual-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+            width: 100%;
+        }
+
+        .divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            height: 60%;
+            align-self: center;
+        }
+
+        .description-box {
+            grid-column: 1 / 2;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .description-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .description-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            min-height: 80px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        @media print {
+            .slide {
+                margin: 0;
+                width: 100vw;
+                height: 100vh;
+                border: none;
+                box-shadow: none;
+                break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+    
+        <!-- Slide: thermal-45 -->
+        <div class="slide" id="slide-thermal-45">
+            <div class="header">
+                <h1>thermal-45</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-45</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-45</div>
+        </div>
+        
+        <!-- Slide: thermal-46 -->
+        <div class="slide" id="slide-thermal-46">
+            <div class="header">
+                <h1>thermal-46</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-46</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-46</div>
+        </div>
+        
+        <!-- Slide: gauge-1 -->
+        <div class="slide" id="slide-gauge-1">
+            <div class="header">
+                <h1>gauge-1</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-1</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-1</div>
+        </div>
+        
+        <!-- Slide: gauge-2 -->
+        <div class="slide" id="slide-gauge-2">
+            <div class="header">
+                <h1>gauge-2</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-2</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-2</div>
+        </div>
+        
+        <!-- Slide: leakage-24 -->
+        <div class="slide" id="slide-leakage-24">
+            <div class="header">
+                <h1>leakage-24</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-24</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-24</div>
+        </div>
+        
+        <!-- Slide: thermal-47 -->
+        <div class="slide" id="slide-thermal-47">
+            <div class="header">
+                <h1>thermal-47</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-47</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-47</div>
+        </div>
+        
+        <!-- Slide: thermal-48 -->
+        <div class="slide" id="slide-thermal-48">
+            <div class="header">
+                <h1>thermal-48</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-48</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-48</div>
+        </div>
+        
+        <!-- Slide: thermal-49 -->
+        <div class="slide" id="slide-thermal-49">
+            <div class="header">
+                <h1>thermal-49</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-49</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-49</div>
+        </div>
+        
+        <!-- Slide: leakage-25 -->
+        <div class="slide" id="slide-leakage-25">
+            <div class="header">
+                <h1>leakage-25</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-25</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-25</div>
+        </div>
+        
+        <!-- Slide: thermal-50 -->
+        <div class="slide" id="slide-thermal-50">
+            <div class="header">
+                <h1>thermal-50</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-50</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-50</div>
+        </div>
+        
+        <!-- Slide: thermal-51 -->
+        <div class="slide" id="slide-thermal-51">
+            <div class="header">
+                <h1>thermal-51</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-51</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-51</div>
+        </div>
+        
+        <!-- Slide: thermal-37 -->
+        <div class="slide" id="slide-thermal-37">
+            <div class="header">
+                <h1>thermal-37</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-37</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-37</div>
+        </div>
+        
+        <!-- Slide: leakage-14 -->
+        <div class="slide" id="slide-leakage-14">
+            <div class="header">
+                <h1>leakage-14</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-14</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-14</div>
+        </div>
+        
+        <!-- Slide: thermal-38 -->
+        <div class="slide" id="slide-thermal-38">
+            <div class="header">
+                <h1>thermal-38</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-38</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-38</div>
+        </div>
+        
+        <!-- Slide: leakage-15 -->
+        <div class="slide" id="slide-leakage-15">
+            <div class="header">
+                <h1>leakage-15</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-15</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-15</div>
+        </div>
+        
+        <!-- Slide: vibration-29 -->
+        <div class="slide" id="slide-vibration-29">
+            <div class="header">
+                <h1>vibration-29</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">vibration-29</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Vibration Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | vibration-29</div>
+        </div>
+        
+        <!-- Slide: vibration-30 -->
+        <div class="slide" id="slide-vibration-30">
+            <div class="header">
+                <h1>vibration-30</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">vibration-30</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Vibration Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | vibration-30</div>
+        </div>
+        
+        <!-- Slide: vibration-31 -->
+        <div class="slide" id="slide-vibration-31">
+            <div class="header">
+                <h1>vibration-31</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">vibration-31</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Vibration Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | vibration-31</div>
+        </div>
+        
+        <!-- Slide: vibration-32 -->
+        <div class="slide" id="slide-vibration-32">
+            <div class="header">
+                <h1>vibration-32</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">vibration-32</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Vibration Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | vibration-32</div>
+        </div>
+        
+        <!-- Slide: leakage-16 -->
+        <div class="slide" id="slide-leakage-16">
+            <div class="header">
+                <h1>leakage-16</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-16</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-16</div>
+        </div>
+        
+        <!-- Slide: thermal-39 -->
+        <div class="slide" id="slide-thermal-39">
+            <div class="header">
+                <h1>thermal-39</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-39</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-39</div>
+        </div>
+        
+        <!-- Slide: thermal-40 -->
+        <div class="slide" id="slide-thermal-40">
+            <div class="header">
+                <h1>thermal-40</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-40</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-40</div>
+        </div>
+        
+        <!-- Slide: leakage-17 -->
+        <div class="slide" id="slide-leakage-17">
+            <div class="header">
+                <h1>leakage-17</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-17</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-17</div>
+        </div>
+        
+        <!-- Slide: vibration-33 -->
+        <div class="slide" id="slide-vibration-33">
+            <div class="header">
+                <h1>vibration-33</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">vibration-33</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Vibration Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | vibration-33</div>
+        </div>
+        
+        <!-- Slide: thermal-41 -->
+        <div class="slide" id="slide-thermal-41">
+            <div class="header">
+                <h1>thermal-41</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-41</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-41</div>
+        </div>
+        
+        <!-- Slide: leakage-18 -->
+        <div class="slide" id="slide-leakage-18">
+            <div class="header">
+                <h1>leakage-18</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-18</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-18</div>
+        </div>
+        
+        <!-- Slide: leakage-19 -->
+        <div class="slide" id="slide-leakage-19">
+            <div class="header">
+                <h1>leakage-19</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-19</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-19</div>
+        </div>
+        
+        <!-- Slide: asset-11 -->
+        <div class="slide" id="slide-asset-11">
+            <div class="header">
+                <h1>asset-11</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">asset-11</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | asset-11</div>
+        </div>
+        
+        <!-- Slide: leakage-20 -->
+        <div class="slide" id="slide-leakage-20">
+            <div class="header">
+                <h1>leakage-20</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-20</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-20</div>
+        </div>
+        
+        <!-- Slide: thermal-42 -->
+        <div class="slide" id="slide-thermal-42">
+            <div class="header">
+                <h1>thermal-42</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-42</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-42</div>
+        </div>
+        
+        <!-- Slide: leakage-21 -->
+        <div class="slide" id="slide-leakage-21">
+            <div class="header">
+                <h1>leakage-21</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-21</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-21</div>
+        </div>
+        
+        <!-- Slide: leakage-22 -->
+        <div class="slide" id="slide-leakage-22">
+            <div class="header">
+                <h1>leakage-22</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-22</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-22</div>
+        </div>
+        
+        <!-- Slide: leakage-23 -->
+        <div class="slide" id="slide-leakage-23">
+            <div class="header">
+                <h1>leakage-23</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-23</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-23</div>
+        </div>
+        
+        <!-- Slide: thermal-43 -->
+        <div class="slide" id="slide-thermal-43">
+            <div class="header">
+                <h1>thermal-43</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-43</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-43</div>
+        </div>
+        
+        <!-- Slide: thermal-44 -->
+        <div class="slide" id="slide-thermal-44">
+            <div class="header">
+                <h1>thermal-44</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-44</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry1-2</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-44</div>
+        </div>
+        
+        <!-- Slide: leakage-26 -->
+        <div class="slide" id="slide-leakage-26">
+            <div class="header">
+                <h1>leakage-26</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-26</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-26</div>
+        </div>
+        
+        <!-- Slide: leakage-27 -->
+        <div class="slide" id="slide-leakage-27">
+            <div class="header">
+                <h1>leakage-27</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-27</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-27</div>
+        </div>
+        
+        <!-- Slide: leakage-38 -->
+        <div class="slide" id="slide-leakage-38">
+            <div class="header">
+                <h1>leakage-38</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-38</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-38</div>
+        </div>
+        
+        <!-- Slide: gauge-8 -->
+        <div class="slide" id="slide-gauge-8">
+            <div class="header">
+                <h1>gauge-8</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-8</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-8</div>
+        </div>
+        
+        <!-- Slide: leakage-39 -->
+        <div class="slide" id="slide-leakage-39">
+            <div class="header">
+                <h1>leakage-39</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-39</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-39</div>
+        </div>
+        
+        <!-- Slide: gauge-9 -->
+        <div class="slide" id="slide-gauge-9">
+            <div class="header">
+                <h1>gauge-9</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-9</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-9</div>
+        </div>
+        
+        <!-- Slide: loto-3 -->
+        <div class="slide" id="slide-loto-3">
+            <div class="header">
+                <h1>loto-3</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">loto-3</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | loto-3</div>
+        </div>
+        
+        <!-- Slide: loto-4 -->
+        <div class="slide" id="slide-loto-4">
+            <div class="header">
+                <h1>loto-4</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">loto-4</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | loto-4</div>
+        </div>
+        
+        <!-- Slide: thermal-56 -->
+        <div class="slide" id="slide-thermal-56">
+            <div class="header">
+                <h1>thermal-56</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-56</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-56</div>
+        </div>
+        
+        <!-- Slide: gauge-10 -->
+        <div class="slide" id="slide-gauge-10">
+            <div class="header">
+                <h1>gauge-10</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-10</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-10</div>
+        </div>
+        
+        <!-- Slide: leakage-40 -->
+        <div class="slide" id="slide-leakage-40">
+            <div class="header">
+                <h1>leakage-40</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">2Nd Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-40</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-40</div>
+        </div>
+        
+        <!-- Slide: leakage-28 -->
+        <div class="slide" id="slide-leakage-28">
+            <div class="header">
+                <h1>leakage-28</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-28</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-28</div>
+        </div>
+        
+        <!-- Slide: thermal-52 -->
+        <div class="slide" id="slide-thermal-52">
+            <div class="header">
+                <h1>thermal-52</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-52</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-52</div>
+        </div>
+        
+        <!-- Slide: leakage-29 -->
+        <div class="slide" id="slide-leakage-29">
+            <div class="header">
+                <h1>leakage-29</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-29</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-29</div>
+        </div>
+        
+        <!-- Slide: thermal-53 -->
+        <div class="slide" id="slide-thermal-53">
+            <div class="header">
+                <h1>thermal-53</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-53</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-53</div>
+        </div>
+        
+        <!-- Slide: leakage-30 -->
+        <div class="slide" id="slide-leakage-30">
+            <div class="header">
+                <h1>leakage-30</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-30</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-30</div>
+        </div>
+        
+        <!-- Slide: leakage-31 -->
+        <div class="slide" id="slide-leakage-31">
+            <div class="header">
+                <h1>leakage-31</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-31</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-31</div>
+        </div>
+        
+        <!-- Slide: leakage-32 -->
+        <div class="slide" id="slide-leakage-32">
+            <div class="header">
+                <h1>leakage-32</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-32</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-32</div>
+        </div>
+        
+        <!-- Slide: leakage-33 -->
+        <div class="slide" id="slide-leakage-33">
+            <div class="header">
+                <h1>leakage-33</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-33</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-33</div>
+        </div>
+        
+        <!-- Slide: thermal-54 -->
+        <div class="slide" id="slide-thermal-54">
+            <div class="header">
+                <h1>thermal-54</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-54</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-54</div>
+        </div>
+        
+        <!-- Slide: gauge-3 -->
+        <div class="slide" id="slide-gauge-3">
+            <div class="header">
+                <h1>gauge-3</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-3</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-3</div>
+        </div>
+        
+        <!-- Slide: gauge-4 -->
+        <div class="slide" id="slide-gauge-4">
+            <div class="header">
+                <h1>gauge-4</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-4</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-4</div>
+        </div>
+        
+        <!-- Slide: gauge-5 -->
+        <div class="slide" id="slide-gauge-5">
+            <div class="header">
+                <h1>gauge-5</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-5</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry_3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-5</div>
+        </div>
+        
+        <!-- Slide: loto-1 -->
+        <div class="slide" id="slide-loto-1">
+            <div class="header">
+                <h1>loto-1</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">loto-1</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | loto-1</div>
+        </div>
+        
+        <!-- Slide: asset-12 -->
+        <div class="slide" id="slide-asset-12">
+            <div class="header">
+                <h1>asset-12</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">asset-12</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | asset-12</div>
+        </div>
+        
+        <!-- Slide: asset-13 -->
+        <div class="slide" id="slide-asset-13">
+            <div class="header">
+                <h1>asset-13</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">asset-13</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | asset-13</div>
+        </div>
+        
+        <!-- Slide: leakage-34 -->
+        <div class="slide" id="slide-leakage-34">
+            <div class="header">
+                <h1>leakage-34</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-34</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-34</div>
+        </div>
+        
+        <!-- Slide: thermal-55 -->
+        <div class="slide" id="slide-thermal-55">
+            <div class="header">
+                <h1>thermal-55</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">thermal-55</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Thermal Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | thermal-55</div>
+        </div>
+        
+        <!-- Slide: leakage-35 -->
+        <div class="slide" id="slide-leakage-35">
+            <div class="header">
+                <h1>leakage-35</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-35</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-35</div>
+        </div>
+        
+        <!-- Slide: gauge-6 -->
+        <div class="slide" id="slide-gauge-6">
+            <div class="header">
+                <h1>gauge-6</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-6</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-6</div>
+        </div>
+        
+        <!-- Slide: leakage-36 -->
+        <div class="slide" id="slide-leakage-36">
+            <div class="header">
+                <h1>leakage-36</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-36</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-36</div>
+        </div>
+        
+        <!-- Slide: loto-2 -->
+        <div class="slide" id="slide-loto-2">
+            <div class="header">
+                <h1>loto-2</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">loto-2</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | loto-2</div>
+        </div>
+        
+        <!-- Slide: gauge-7 -->
+        <div class="slide" id="slide-gauge-7">
+            <div class="header">
+                <h1>gauge-7</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">gauge-7</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Gauge Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | gauge-7</div>
+        </div>
+        
+        <!-- Slide: leakage-37 -->
+        <div class="slide" id="slide-leakage-37">
+            <div class="header">
+                <h1>leakage-37</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">leakage-37</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Leakage Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | leakage-37</div>
+        </div>
+        
+        <!-- Slide: asset-14 -->
+        <div class="slide" id="slide-asset-14">
+            <div class="header">
+                <h1>asset-14</h1>
+                <div class="info-item" style="text-align: right;">
+                    <span class="info-label">Floor</span>
+                    <span class="info-value">1St Floor</span>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-item">
+                    <span class="info-label">Inspection Point Name</span>
+                    <span class="info-value">asset-14</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Inspection Type</span>
+                    <span class="info-value" style="color: var(--accent);">Asset Inspection</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Zone</span>
+                    <span class="info-value">dry3</span>
+                </div>
+                
+                <div class="description-box">
+                    <span class="description-header">Description</span>
+                    <div class="description-content">
+                        <!-- Placeholder for description -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-panel">
+                <div class="image-frame">
+                    <div class="dual-image">
+                        <div class="image-placeholder-text">Robot & Inspection Point Image</div>
+                        <div class="divider"></div>
+                        <div class="image-placeholder-text">Map Point Image</div>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <div class="image-placeholder-text">Inspection Result Image</div>
+                </div>
+            </div>
+
+            <div class="footer">NESTLE CAT GS | asset-14</div>
+        </div>
+        
+    </div>
+</body>
+</html>
+    

@@ -1,0 +1,110 @@
+[
+    {
+        "Node_info": "leakage-31",
+        "MapName": "1st_floor",
+        "Zone": "dry_3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -43.302322,
+        "PosY": 55.089813,
+        "PosZ": 0.6115336,
+        "AngleYaw": 0.3392125,
+        "Value": 129,
+        "CamPTZ": [
+            0.1,
+            -4.0,
+            1.0
+        ],
+        "Inspection": "leakage_inspection",
+        "Frequency_range": [
+            11,
+            31
+        ],
+        "Energy_threshold": 10
+    },
+    {
+        "Node_info": "via-158",
+        "MapName": "1st_floor",
+        "Zone": "wet1",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": -43.9508,
+        "PosY": 54.617,
+        "PosZ": 0.0,
+        "AngleYaw": -0.0893,
+        "Value": 130,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "via-159",
+        "MapName": "1st_floor",
+        "Zone": "wet1",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": -46.118377685546875,
+        "PosY": 54.78211212158203,
+        "PosZ": 0.0,
+        "AngleYaw": -0.0747203454375267,
+        "Value": 131,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "leakage-32",
+        "MapName": "1st_floor",
+        "Zone": "dry_3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 1,
+        "PosX": -46.17852,
+        "PosY": 55.174355,
+        "PosZ": 0.5245054,
+        "AngleYaw": -0.4787372,
+        "Value": 132,
+        "CamPTZ": [
+            0.0,
+            -4.0,
+            1.0
+        ],
+        "Inspection": "leakage_inspection",
+        "Frequency_range": [
+            11,
+            31
+        ],
+        "Energy_threshold": 10
+    }
+]

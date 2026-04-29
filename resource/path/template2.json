@@ -1,0 +1,90 @@
+[
+    {
+        "Node_info": "OUT_CHARGE",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 1,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": 0.288663,
+        "PosY": -0.2606255,
+        "PosZ": 0.0070519,
+        "AngleYaw": 0.0225549,
+        "Value": 1,
+        "CamPTZ": [
+            180.0,
+            0.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "Inspection_1",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 1,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": -2.9124153,
+        "PosY": -1.1868731,
+        "PosZ": 0.0373336,
+        "AngleYaw": 0.019964,
+        "Value": 2,
+        "CamPTZ": [
+            235.0,
+            -4.0,
+            5.0
+        ]
+    },
+    {
+        "Node_info": "Inspection_2",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 1,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -6.5956922,
+        "PosY": -0.7011102,
+        "PosZ": 0.0896429,
+        "AngleYaw": 1.6140693,
+        "Value": 3,
+        "CamPTZ": [
+            198.0,
+            9.0,
+            7.0
+        ]
+    },
+    {
+        "Node_info": "IN_CHARGE",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 3,
+        "ObsMode": 1,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 0.3698082,
+        "PosY": -0.2855647,
+        "PosZ": 0.0002079,
+        "AngleYaw": -0.0128082,
+        "Value": 4,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            1.0
+        ]
+    }
+]

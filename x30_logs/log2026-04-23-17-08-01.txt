@@ -1,0 +1,782 @@
+... logging to /home/ysc/.ros/log/103c83f8-3efb-11f1-b67b-87995b02a632/roslaunch-ysc-perception-27598.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/ysc/gs_ws/src/deep_robot_ex_sensor_kit/gs_data_collector/launch/gs_data_collecting.launch.xml
+[1mstarted roslaunch server http://ysc-perception:44265/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /hertzincam/device_name: Hertzinno-1
+ * /hertzincam/ip_address: 192.168.1.204:801
+ * /hertzincam/user_name: admin
+ * /hertzincam/user_password: 7cb8406e5a99c917a...
+ * /hikcam/control/device_name: HIKCAM-1-CONTROL
+ * /hikcam/control/ip_address: 192.168.1.205
+ * /hikcam/control/port: 800
+ * /hikcam/control/ptz_timeout: 100
+ * /hikcam/control/rate_loop: 10
+ * /hikcam/control/user_name: admin
+ * /hikcam/control/user_password: gensurv0
+ * /hikcam/rgb/device_name: HIKCAM-1-RGB
+ * /hikcam/rgb/ip_address: 192.168.1.205
+ * /hikcam/rgb/port: 554
+ * /hikcam/rgb/rate_loop: 25
+ * /hikcam/rgb/service_mode: True
+ * /hikcam/rgb/url: /ISAPI/Streaming/...
+ * /hikcam/rgb/user_name: admin
+ * /hikcam/rgb/user_password: gensurv0
+ * /hikcam/thermal/device_name: HIKCAM-1-THERMAL
+ * /hikcam/thermal/ip_address: 192.168.1.205
+ * /hikcam/thermal/port: 554
+ * /hikcam/thermal/rate_loop: 25
+ * /hikcam/thermal/service_mode: True
+ * /hikcam/thermal/url: /ISAPI/Streaming/...
+ * /hikcam/thermal/user_name: admin
+ * /hikcam/thermal/user_password: gensurv0
+ * /path: /home/ysc/gs_ws/s...
+ * /rate_loop: 0.25
+ * /rosdistro: noetic
+ * /rosversion: 1.16.0
+
+NODES
+  /
+    visual_inspector (gs_data_collector/node.py)
+  /hertzincam/
+    hertzincam_interface (rtps_camera_interface/hertzinno_interface_node.py)
+  /hikcam/control/
+    hikcam_control (rtps_camera_interface/hik_control_unit_node.py)
+  /hikcam/rgb/
+    hikcam_rgb_interface (rtps_camera_interface/hik_stream_camera_node.py)
+  /hikcam/thermal/
+    hikcam_thermal_interface (rtps_camera_interface/hik_stream_camera_node.py)
+
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/ysc/gs_ws/src/deep_robot_ex_sensor_kit/gs_data_collector/launch/gs_data_collecting.launch.xml http://localhost:11311
+[1mprocess[hikcam/rgb/hikcam_rgb_interface-1]: started with pid [27634][0m
+[1mprocess[hikcam/thermal/hikcam_thermal_interface-2]: started with pid [27635][0m
+[1mprocess[hikcam/control/hikcam_control-3]: started with pid [27636][0m
+[1mprocess[hertzincam/hertzincam_interface-4]: started with pid [27637][0m
+[1mprocess[visual_inspector-5]: started with pid [27638][0m
+[Hertzinno-1] Connecting to  : http://192.168.1.204:801
+[Hertzinno-1] Connection status : True
+[HIKCAM-1-THERMAL] Camera's IP : 192.168.1.205:554/ISAPI/Streaming/channels/201
+[HIKCAM-1-THERMAL] Connecting ...
+[HIKCAM-1-RGB] Camera's IP : 192.168.1.205:554/ISAPI/Streaming/channels/101
+[HIKCAM-1-RGB] Connecting ...
+/home/ysc/gs_ws/src/deep_robot_ex_sensor_kit/gs_data_collector/config/initial.json
+[visual_data_collector] Tried to connect server (wip@192.168.1.121)...
+[visual_data_collector] successfully connected to server
+[ WARN:0] global ../modules/videoio/src/cap_gstreamer.cpp (898) open OpenCV | GStreamer warning: unable to query duration of stream
+[ WARN:0] global ../modules/videoio/src/cap_gstreamer.cpp (935) open OpenCV | GStreamer warning: Cannot query video position: status=1, value=0, duration=-1
+[HIKCAM-1-RGB] OK
+[HIKCAM-1-RGB] service : True
+... logging to /home/ysc/.ros/log/103c83f8-3efb-11f1-b67b-87995b02a632/roslaunch-ysc-perception-28102.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/ysc/gs_ws/src/x30_udp_bridge/launch/x30_all.launch.xml
+[1mstarted roslaunch server http://ysc-perception:42195/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /rosdistro: noetic
+ * /rosversion: 1.16.0
+ * /sensor_interface/temp_humid_interface/baudrate: 9600
+ * /sensor_interface/temp_humid_interface/port: /dev/ttyUSB0
+ * /sensor_interface/temp_humid_interface/rate: 0.5
+ * /sensor_interface/temp_humid_interface/slave_id: 1
+ * /x30_feedback/x30_feedback_node/robot_ip: 192.168.1.106
+ * /x30_feedback/x30_feedback_node/robot_port: 30000
+ * /x30_interface/x30_interface/base_file_path: /home/ysc/gs_ws/s...
+ * /x30_interface/x30_interface/robot_ip: 192.168.1.106
+ * /x30_interface/x30_interface/robot_port: 30000
+ * /x30_led/robot_ip: 192.168.1.106
+ * /x30_led/robot_port: 30000
+
+NODES
+  /
+    alarm_manager (robot_server/alarm_manager.py)
+    robot_server_generic (robot_server/robot_server_generic_ros1.py)
+    x30_led (x30_udp_bridge/x30_led.py)
+  /sensor_interface/
+    temp_humid_interface (x30_udp_bridge/temp_humid.py)
+  /x30_feedback/
+    x30_feedback_node (x30_udp_bridge/x30_feedback.py)
+  /x30_interface/
+    x30_interface (x30_udp_bridge/x30_interface.py)
+
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/ysc/gs_ws/src/x30_udp_bridge/launch/x30_all.launch.xml http://localhost:11311
+[1mprocess[sensor_interface/temp_humid_interface-1]: started with pid [28162][0m
+[1mprocess[x30_feedback/x30_feedback_node-2]: started with pid [28163][0m
+[1mprocess[x30_interface/x30_interface-3]: started with pid [28164][0m
+[1mprocess[x30_led-4]: started with pid [28167][0m
+[1mprocess[robot_server_generic-5]: started with pid [28169][0m
+[1mprocess[alarm_manager-6]: started with pid [28173][0m
+[INFO] [1776938887.327187]: Mission Commander Initialized.
+[INFO] [1776938887.330207]: Target Robot: 192.168.1.106:30000
+[INFO] [1776938887.332527]: >>> WAITING FOR ROUTE... Call: rosservice call /set_route "filename: 'filename.json'"
+[INFO] [1776938887.404159]: Connected to X30 at 192.168.1.106:30000
+[INFO] [1776938887.406552]: Starting X30 Feedback Loop... Press Ctrl+C to stop.
+[INFO] [1776938887.416988]: X30 LED Controller Initialized. Connected to 192.168.1.106:30000
+[INFO] [1776938887.418379]: Waiting for LED commands on topic 'x30_led/command'...
+[INFO] [1776938887.442568]: Connected to /dev/ttyUSB0 at 9600 baud.
+alarm manager running...
+INFO:     Started server process [28169]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://192.168.1.106:5000 (Press CTRL+C to quit)
+{}
+{'asset-11': {'action_parameter': {'ptz': [0.0, 12.0, 1.0],
+                                   'roi': [[[0.4531, 0.0074],
+                                            [0.8229, 0.9926]]]},
+              'action_type': 'asset_inspection'},
+ 'asset-12': {'action_parameter': {'ptz': [360.0, 19.0, 1.0],
+                                   'roi': [[[0.2323, 0.1574],
+                                            [0.7875, 0.9926]]]},
+              'action_type': 'asset_inspection'},
+ 'asset-13': {'action_parameter': {'ptz': [360.0, -8.0, 1.0],
+                                   'roi': [[[0.2073, 0.0056],
+                                            [0.8365, 0.9037]]]},
+              'action_type': 'asset_inspection'},
+ 'asset-14': {'action_parameter': {'ptz': [356.0, 6.0, 1.0],
+                                   'roi': [[[0.1562, 0.0204],
+                                            [0.8219, 0.9685]]]},
+              'action_type': 'asset_inspection'},
+ 'gauge-1': {'action_parameter': {'ptz': [0.0, 25.0, 3.0],
+                                  'roi': [[[0.1365, 0.4667],
+                                           [0.3458, 0.7889]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-10': {'action_parameter': {'ptz': [4.0, 29.0, 3.0],
+                                   'roi': [[[0.1187, 0.1981],
+                                            [0.9448, 0.8407]]]},
+              'action_type': 'gauge_inspection'},
+ 'gauge-2': {'action_parameter': {'ptz': [0.0, 25.0, 3.0],
+                                  'roi': [[[0.5646, 0.0704],
+                                           [0.7917, 0.3833]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-3': {'action_parameter': {'ptz': [0.0, -3.0, 1.0],
+                                  'roi': [[[0.749, 0.4222], [0.999, 0.8889]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-4': {'action_parameter': {'ptz': [346.0, -3.0, 2.0],
+                                  'roi': [[[0.3917, 0.2944],
+                                           [0.8219, 0.9056]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-5': {'action_parameter': {'ptz': [15.0, -3.0, 2.0],
+                                  'roi': [[[0.6073, 0.3463],
+                                           [0.9917, 0.9907]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-6': {'action_parameter': {'ptz': [11.0, -6.0, 4.0],
+                                  'roi': [[[0.2646, 0.1907],
+                                           [0.7542, 0.8667]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-7': {'action_parameter': {'ptz': [7.0, -6.0, 3.0],
+                                  'roi': [[[0.2646, 0.1907],
+                                           [0.7542, 0.8667]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-8': {'action_parameter': {'ptz': [11.0, 10.0, 2.0],
+                                  'roi': [[[0.2927, 0.187], [0.725, 0.8185]]]},
+             'action_type': 'gauge_inspection'},
+ 'gauge-9': {'action_parameter': {'ptz': [172.0, 17.0, 2.0],
+                                  'roi': [[[0.2646, 0.1907],
+                                           [0.7542, 0.8667]]]},
+             'action_type': 'gauge_inspection'},
+ 'leakage-14': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 30],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-15': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 30],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-16': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 30],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-17': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-18': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-19': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-20': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-21': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-22': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-23': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-24': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-25': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-26': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-27': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-28': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-29': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-30': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-31': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-32': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-33': {'action_parameter': {'energy_threshold': 10,
+                                     'frequency_range': [11, 31],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-34': {'action_parameter': {'energy_threshold': 40,
+                                     'frequency_range': [30, 40],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-35': {'action_parameter': {'energy_threshold': 30,
+                                     'frequency_range': [30, 40],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-36': {'action_parameter': {'energy_threshold': 30,
+                                     'frequency_range': [30, 40],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-37': {'action_parameter': {'energy_threshold': 30,
+                                     'frequency_range': [30, 40],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-38': {'action_parameter': {'energy_threshold': 30,
+                                     'frequency_range': [30, 40],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-39': {'action_parameter': {'energy_threshold': 30,
+                                     'frequency_range': [30, 40],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'leakage-40': {'action_parameter': {'energy_threshold': 30,
+                                     'frequency_range': [20, 40],
+                                     'work_mode': 2},
+                'action_type': 'leakage_inspection'},
+ 'loto-1': {'action_parameter': {'ptz': [0.0, 16.0, 2.0],
+                                 'roi': [[[0.0927, 0.0074], [0.7, 0.9519]]]},
+            'action_type': 'asset_inspection'},
+ 'loto-2': {'action_parameter': {'ptz': [13.0, 29.0, 1.0],
+                                 'roi': [[[0.1583, 0.013], [0.9083, 0.9944]]]},
+            'action_type': 'asset_inspection'},
+ 'loto-3': {'action_parameter': {'ptz': [1.0, 15.0, 1.0],
+                                 'roi': [[[0.2094, 0.1519], [0.8708, 0.7815]]]},
+            'action_type': 'asset_inspection'},
+ 'loto-4': {'action_parameter': {'ptz': [30.0, 17.0, 2.0],
+                                 'roi': [[[0.226, 0.0722], [0.7885, 0.95]]]},
+            'action_type': 'asset_inspection'},
+ 'thermal-37': {'action_parameter': {'ptz': [0.0, 30.0, 1.0],
+                                     'roi': [[[0.2875, 0.5312],
+                                              [0.6062, 0.7167]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-38': {'action_parameter': {'ptz': [348.0, 40.0, 1.0],
+                                     'roi': [[[0.3484, 0.2979],
+                                              [0.6438, 0.8417]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-39': {'action_parameter': {'ptz': [8.0, 46.0, 1.0],
+                                     'roi': [[[0.2219, 0.1292],
+                                              [0.8125, 0.8667]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-40': {'action_parameter': {'ptz': [324.0, 1.0, 1.0],
+                                     'roi': [[[0.3016, 0.525],
+                                              [0.6672, 0.7771]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-41': {'action_parameter': {'ptz': [0.0, 2.0, 1.0],
+                                     'roi': [[[0.1125, 0.2104],
+                                              [0.8469, 0.8625]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-42': {'action_parameter': {'ptz': [3.0, 2.0, 1.0],
+                                     'roi': [[[0.2344, 0.3458],
+                                              [0.6813, 0.6979]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-43': {'action_parameter': {'ptz': [172.0, 23.0, 1.0],
+                                     'roi': [[[0.375, 0.3667], [0.6141, 0.8]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-44': {'action_parameter': {'ptz': [358.0, -7.0, 1.0],
+                                     'roi': [[[0.3078, 0.4229],
+                                              [0.6453, 0.6771]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-45': {'action_parameter': {'ptz': [355.0, 47.0, 1.0],
+                                     'roi': [[[0.3328, 0.3354],
+                                              [0.575, 0.5333]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-46': {'action_parameter': {'ptz': [352.0, 47.0, 1.0],
+                                     'roi': [[[0.3406, 0.4188],
+                                              [0.6125, 0.6188]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-47': {'action_parameter': {'ptz': [360.0, 40.0, 3.0],
+                                     'roi': [[[0.3297, 0.3], [0.6062, 0.4958]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-48': {'action_parameter': {'ptz': [7.0, 39.0, 3.0],
+                                     'roi': [[[0.3656, 0.3771],
+                                              [0.6516, 0.6146]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-49': {'action_parameter': {'ptz': [0.0, 40.0, 3.0],
+                                     'roi': [[[0.3734, 0.3792],
+                                              [0.5844, 0.5917]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-50': {'action_parameter': {'ptz': [351.0, 46.0, 3.0],
+                                     'roi': [[[0.6156, 0.6104],
+                                              [0.3563, 0.3563]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-51': {'action_parameter': {'ptz': [346.0, 42.0, 3.0],
+                                     'roi': [[[0.3719, 0.3937],
+                                              [0.5938, 0.6708]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-52': {'action_parameter': {'ptz': [360.0, -4.0, 1.0],
+                                     'roi': [[[0.3438, 0.35],
+                                              [0.7969, 0.6708]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-53': {'action_parameter': {'ptz': [359.9, -4.0, 1.0],
+                                     'roi': [[[0.1703, 0.3292], [0.7, 0.7208]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-54': {'action_parameter': {'ptz': [360.0, -4.0, 1.0],
+                                     'roi': [[[0.3156, 0.1313],
+                                              [0.9609, 0.7063]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-55': {'action_parameter': {'ptz': [353.0, -2.0, 1.0],
+                                     'roi': [[[[0.0, 0.0], [1.0, 1.0]]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'thermal-56': {'action_parameter': {'ptz': [0.0, -12.0, 1.0],
+                                     'roi': [[[0.25, 0.2208],
+                                              [0.7969, 0.8208]]],
+                                     'temperature_threshold': 50.0},
+                'action_type': 'thermal_inspection'},
+ 'vibration-29': {'action_parameter': {'energy_threshold': 10,
+                                       'frequency_range': [11, 30],
+                                       'kurtosis_threshold': 5.0,
+                                       'peak_factor_threshold': 5.0,
+                                       'work_mode': 3},
+                  'action_type': 'vibration_inspection'},
+ 'vibration-30': {'action_parameter': {'energy_threshold': 10,
+                                       'frequency_range': [11, 30],
+                                       'kurtosis_threshold': 5.0,
+                                       'peak_factor_threshold': 5.0,
+                                       'work_mode': 3},
+                  'action_type': 'vibration_inspection'},
+ 'vibration-31': {'action_parameter': {'energy_threshold': 10,
+                                       'frequency_range': [11, 30],
+                                       'kurtosis_threshold': 5.0,
+                                       'peak_factor_threshold': 5.0,
+                                       'work_mode': 3},
+                  'action_type': 'vibration_inspection'},
+ 'vibration-32': {'action_parameter': {'energy_threshold': 10,
+                                       'frequency_range': [11, 30],
+                                       'kurtosis_threshold': 5.0,
+                                       'peak_factor_threshold': 5.0,
+                                       'work_mode': 3},
+                  'action_type': 'vibration_inspection'},
+ 'vibration-33': {'action_parameter': {'energy_threshold': 10,
+                                       'frequency_range': [11, 31],
+                                       'kurtosis_threshold': 5.0,
+                                       'peak_factor_threshold': 5.0,
+                                       'work_mode': 3},
+                  'action_type': 'vibration_inspection'}}
+{'Charge': {'map_name': '1st_floor'},
+ 'ChargeIn': {'map_name': '1st_floor'},
+ 'ChargeOut': {'map_name': '1st_floor'},
+ 'asset-11': {'map_name': '1st_floor'},
+ 'asset-12': {'map_name': '1st_floor'},
+ 'asset-13': {'map_name': '1st_floor'},
+ 'asset-14': {'map_name': '1st_floor'},
+ 'gauge-1': {'map_name': '2nd_floor'},
+ 'gauge-10': {'map_name': '2nd_floor'},
+ 'gauge-2': {'map_name': '2nd_floor'},
+ 'gauge-3': {'map_name': '1st_floor'},
+ 'gauge-4': {'map_name': '1st_floor'},
+ 'gauge-5': {'map_name': '1st_floor'},
+ 'gauge-6': {'map_name': '1st_floor'},
+ 'gauge-7': {'map_name': '1st_floor'},
+ 'gauge-8': {'map_name': '2nd_floor'},
+ 'gauge-9': {'map_name': '2nd_floor'},
+ 'leakage-14': {'map_name': '1st_floor'},
+ 'leakage-15': {'map_name': '1st_floor'},
+ 'leakage-16': {'map_name': '1st_floor'},
+ 'leakage-17': {'map_name': '1st_floor'},
+ 'leakage-18': {'map_name': '1st_floor'},
+ 'leakage-19': {'map_name': '1st_floor'},
+ 'leakage-20': {'map_name': '1st_floor'},
+ 'leakage-21': {'map_name': '1st_floor'},
+ 'leakage-22': {'map_name': '1st_floor'},
+ 'leakage-23': {'map_name': '1st_floor'},
+ 'leakage-24': {'map_name': '2nd_floor'},
+ 'leakage-25': {'map_name': '2nd_floor'},
+ 'leakage-26': {'map_name': '1st_floor'},
+ 'leakage-27': {'map_name': '1st_floor'},
+ 'leakage-28': {'map_name': '1st_floor'},
+ 'leakage-29': {'map_name': '1st_floor'},
+ 'leakage-30': {'map_name': '1st_floor'},
+ 'leakage-31': {'map_name': '1st_floor'},
+ 'leakage-32': {'map_name': '1st_floor'},
+ 'leakage-33': {'map_name': '1st_floor'},
+ 'leakage-34': {'map_name': '1st_floor'},
+ 'leakage-35': {'map_name': '1st_floor'},
+ 'leakage-36': {'map_name': '1st_floor'},
+ 'leakage-37': {'map_name': '1st_floor'},
+ 'leakage-38': {'map_name': '2nd_floor'},
+ 'leakage-39': {'map_name': '2nd_floor'},
+ 'leakage-40': {'map_name': '2nd_floor'},
+ 'loto-1': {'map_name': '1st_floor'},
+ 'loto-2': {'map_name': '1st_floor'},
+ 'loto-3': {'map_name': '2nd_floor'},
+ 'loto-4': {'map_name': '2nd_floor'},
+ 'thermal-37': {'map_name': '1st_floor'},
+ 'thermal-38': {'map_name': '1st_floor'},
+ 'thermal-39': {'map_name': '1st_floor'},
+ 'thermal-40': {'map_name': '1st_floor'},
+ 'thermal-41': {'map_name': '1st_floor'},
+ 'thermal-42': {'map_name': '1st_floor'},
+ 'thermal-43': {'map_name': '1st_floor'},
+ 'thermal-44': {'map_name': '1st_floor'},
+ 'thermal-45': {'map_name': '2nd_floor'},
+ 'thermal-46': {'map_name': '2nd_floor'},
+ 'thermal-47': {'map_name': '2nd_floor'},
+ 'thermal-48': {'map_name': '2nd_floor'},
+ 'thermal-49': {'map_name': '2nd_floor'},
+ 'thermal-50': {'map_name': '2nd_floor'},
+ 'thermal-51': {'map_name': '2nd_floor'},
+ 'thermal-52': {'map_name': '1st_floor'},
+ 'thermal-53': {'map_name': '1st_floor'},
+ 'thermal-54': {'map_name': '1st_floor'},
+ 'thermal-55': {'map_name': '1st_floor'},
+ 'thermal-56': {'map_name': '2nd_floor'},
+ 'via-100': {'map_name': '1st_floor'},
+ 'via-101': {'map_name': '1st_floor'},
+ 'via-102': {'map_name': '1st_floor'},
+ 'via-103-before2nd': {'map_name': '1st_floor'},
+ 'via-104-2nd': {'map_name': '1st_floor'},
+ 'via-105': {'map_name': '2nd_floor'},
+ 'via-106': {'map_name': '2nd_floor'},
+ 'via-107': {'map_name': '2nd_floor'},
+ 'via-108': {'map_name': '2nd_floor'},
+ 'via-109': {'map_name': '2nd_floor'},
+ 'via-110': {'map_name': '1st_floor'},
+ 'via-111': {'map_name': '2nd_floor'},
+ 'via-112': {'map_name': '1st_floor'},
+ 'via-113': {'map_name': '1st_floor'},
+ 'via-114-before-1st': {'map_name': '1st_floor'},
+ 'via-115-after': {'map_name': '1st_floor'},
+ 'via-116': {'map_name': '1st_floor'},
+ 'via-117': {'map_name': '1st_floor'},
+ 'via-118': {'map_name': '1st_floor'},
+ 'via-119': {'map_name': '1st_floor'},
+ 'via-120': {'map_name': '1st_floor'},
+ 'via-121': {'map_name': '1st_floor'},
+ 'via-122': {'map_name': '1st_floor'},
+ 'via-123': {'map_name': '1st_floor'},
+ 'via-124': {'map_name': '1st_floor'},
+ 'via-125': {'map_name': '1st_floor'},
+ 'via-126': {'map_name': '1st_floor'},
+ 'via-127': {'map_name': '1st_floor'},
+ 'via-128': {'map_name': '1st_floor'},
+ 'via-129': {'map_name': '1st_floor'},
+ 'via-130': {'map_name': '1st_floor'},
+ 'via-131': {'map_name': '1st_floor'},
+ 'via-132': {'map_name': '1st_floor'},
+ 'via-133': {'map_name': '1st_floor'},
+ 'via-134': {'map_name': '1st_floor'},
+ 'via-135': {'map_name': '1st_floor'},
+ 'via-136-before-2nd(dry3)': {'map_name': '1st_floor'},
+ 'via-137-2nd-transition': {'map_name': '2nd_floor'},
+ 'via-138-2nd-transition1': {'map_name': '2nd_floor'},
+ 'via-139-2nd': {'map_name': '2nd_floor'},
+ 'via-140': {'map_name': '2nd_floor'},
+ 'via-141': {'map_name': '2nd_floor'},
+ 'via-142': {'map_name': '2nd_floor'},
+ 'via-143': {'map_name': '2nd_floor'},
+ 'via-144': {'map_name': '2nd_floor'},
+ 'via-145': {'map_name': '2nd_floor'},
+ 'via-146': {'map_name': '2nd_floor'},
+ 'via-147': {'map_name': '2nd_floor'},
+ 'via-148': {'map_name': '2nd_floor'},
+ 'via-149': {'map_name': '2nd_floor'},
+ 'via-150': {'map_name': '2nd_floor'},
+ 'via-151-2nd-down-0': {'map_name': '2nd_floor'},
+ 'via-152-2nd-down-1': {'map_name': '2nd_floor'},
+ 'via-153-2nd-down-2': {'map_name': '2nd_floor'},
+ 'via-154-2nd-down-3': {'map_name': '2nd_floor'},
+ 'via-155-2nd-down-4': {'map_name': '1st_floor'},
+ 'via-156': {'map_name': '1st_floor'},
+ 'via-157': {'map_name': '1st_floor'},
+ 'via-158': {'map_name': '1st_floor'},
+ 'via-159': {'map_name': '1st_floor'},
+ 'via-160': {'map_name': '1st_floor'},
+ 'via-161': {'map_name': '1st_floor'},
+ 'via-162': {'map_name': '1st_floor'},
+ 'via-163': {'map_name': '1st_floor'},
+ 'via-164': {'map_name': '1st_floor'},
+ 'via-165': {'map_name': '1st_floor'},
+ 'via-166': {'map_name': '1st_floor'},
+ 'via-167': {'map_name': '1st_floor'},
+ 'via-168': {'map_name': '1st_floor'},
+ 'via-169': {'map_name': '1st_floor'},
+ 'via-170': {'map_name': '1st_floor'},
+ 'via-171': {'map_name': '1st_floor'},
+ 'via-172': {'map_name': '1st_floor'},
+ 'via-173-h': {'map_name': '1st_floor'},
+ 'via-174': {'map_name': '1st_floor'},
+ 'via-175': {'map_name': '1st_floor'},
+ 'via-176': {'map_name': '1st_floor'},
+ 'via-177': {'map_name': '1st_floor'},
+ 'via-178': {'map_name': '1st_floor'},
+ 'via-179': {'map_name': '1st_floor'},
+ 'via-180': {'map_name': '1st_floor'},
+ 'via-181': {'map_name': '1st_floor'},
+ 'via-182-shuttle03-open': {'map_name': '1st_floor'},
+ 'via-183-shuttle03-close': {'map_name': '1st_floor'},
+ 'via-184': {'map_name': '1st_floor'},
+ 'via-185-shuttle02-open': {'map_name': '1st_floor'},
+ 'via-186-shuttle02-close': {'map_name': '1st_floor'},
+ 'via-187': {'map_name': '1st_floor'},
+ 'via-188': {'map_name': '1st_floor'},
+ 'via-189-shuttle01-open': {'map_name': '1st_floor'},
+ 'via-190-shuttle01-close': {'map_name': '1st_floor'},
+ 'via-191': {'map_name': '1st_floor'},
+ 'via-192': {'map_name': '1st_floor'},
+ 'via-193': {'map_name': '1st_floor'},
+ 'via-194': {'map_name': '1st_floor'},
+ 'via-195': {'map_name': '1st_floor'},
+ 'via-196': {'map_name': '1st_floor'},
+ 'via-197': {'map_name': '1st_floor'},
+ 'via-198': {'map_name': '1st_floor'},
+ 'via-2h-x0': {'map_name': '1st_floor'},
+ 'via-2h-x1': {'map_name': '1st_floor'},
+ 'via-2h-x2': {'map_name': '1st_floor'},
+ 'via-2h-x3': {'map_name': '1st_floor'},
+ 'via-84': {'map_name': '1st_floor'},
+ 'via-85': {'map_name': '1st_floor'},
+ 'via-86': {'map_name': '1st_floor'},
+ 'via-87': {'map_name': '1st_floor'},
+ 'via-88': {'map_name': '1st_floor'},
+ 'via-89': {'map_name': '1st_floor'},
+ 'via-90': {'map_name': '1st_floor'},
+ 'via-91-shuttle01-open': {'map_name': '1st_floor'},
+ 'via-92-shuttle01-close': {'map_name': '1st_floor'},
+ 'via-93': {'map_name': '1st_floor'},
+ 'via-94': {'map_name': '1st_floor'},
+ 'via-95-shuttle02-open': {'map_name': '1st_floor'},
+ 'via-96-shuttle02-close': {'map_name': '1st_floor'},
+ 'via-97-shuttle03-open': {'map_name': '1st_floor'},
+ 'via-98-shuttle03-close': {'map_name': '1st_floor'},
+ 'via-99': {'map_name': '1st_floor'},
+ 'via-h2-00': {'map_name': '1st_floor'},
+ 'via-h2-01': {'map_name': '1st_floor'},
+ 'via-h2-02': {'map_name': '1st_floor'},
+ 'vibration-29': {'map_name': '1st_floor'},
+ 'vibration-30': {'map_name': '1st_floor'},
+ 'vibration-31': {'map_name': '1st_floor'},
+ 'vibration-32': {'map_name': '1st_floor'},
+ 'vibration-33': {'map_name': '1st_floor'}}
+name:AMR1
+state:1
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:1
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+[INFO] [1776938891.764639]: AutoInitialPosition Node Started.
+[INFO] [1776938891.766405]: Target Robot: 192.168.1.106:30000
+[INFO] [1776938891.767284]: Initial Pose: X=42.683189392089844, Y=-16.528323221206666, Yaw=-0.00851
+[INFO] [1776938891.768128]: Sending Location Initialization Request...
+INFO:     192.168.1.121:40320 - "GET /check_HB HTTP/1.1" 200 OK
+name:AMR1
+state:1
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:1
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:1
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+[INFO] [1776938894.794068]: >> Initialization Successful (Normal Location).
+INFO:     192.168.1.121:40322 - "GET /check_HB HTTP/1.1" 200 OK
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+INFO:     192.168.1.121:34362 - "GET /check_HB HTTP/1.1" 200 OK
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+INFO:     192.168.1.121:34372 - "GET /check_HB HTTP/1.1" 200 OK
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+name:AMR1
+state:2
+mission_id:None
+battery:100
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:['Charge']
+temperature:34.3
+humidity:56.5
+current_map:1st_floor
+
+
+[ERROR] [1776938902.301099]: Connection Failed: [Errno 111] Connection refused

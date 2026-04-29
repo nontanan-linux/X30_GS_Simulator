@@ -1,0 +1,1229 @@
+... logging to /home/ysc/.ros/log/4c2e0b90-3f7b-11f1-88e7-df3bc9af9ab4/roslaunch-ysc-perception-2265.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/ysc/gs_ws/src/deep_robot_ex_sensor_kit/gs_data_collector/launch/gs_data_collecting.launch.xml
+[1mstarted roslaunch server http://ysc-perception:39857/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /hertzincam/device_name: Hertzinno-1
+ * /hertzincam/ip_address: 192.168.1.204:801
+ * /hertzincam/user_name: admin
+ * /hertzincam/user_password: 7cb8406e5a99c917a...
+ * /hikcam/control/device_name: HIKCAM-1-CONTROL
+ * /hikcam/control/ip_address: 192.168.1.205
+ * /hikcam/control/port: 800
+ * /hikcam/control/ptz_timeout: 100
+ * /hikcam/control/rate_loop: 10
+ * /hikcam/control/user_name: admin
+ * /hikcam/control/user_password: gensurv0
+ * /hikcam/rgb/device_name: HIKCAM-1-RGB
+ * /hikcam/rgb/ip_address: 192.168.1.205
+ * /hikcam/rgb/port: 554
+ * /hikcam/rgb/rate_loop: 25
+ * /hikcam/rgb/service_mode: True
+ * /hikcam/rgb/url: /ISAPI/Streaming/...
+ * /hikcam/rgb/user_name: admin
+ * /hikcam/rgb/user_password: gensurv0
+ * /hikcam/thermal/device_name: HIKCAM-1-THERMAL
+ * /hikcam/thermal/ip_address: 192.168.1.205
+ * /hikcam/thermal/port: 554
+ * /hikcam/thermal/rate_loop: 25
+ * /hikcam/thermal/service_mode: True
+ * /hikcam/thermal/url: /ISAPI/Streaming/...
+ * /hikcam/thermal/user_name: admin
+ * /hikcam/thermal/user_password: gensurv0
+ * /path: /home/ysc/gs_ws/s...
+ * /rate_loop: 0.25
+ * /rosdistro: noetic
+ * /rosversion: 1.16.0
+
+NODES
+  /
+    visual_inspector (gs_data_collector/node.py)
+  /hertzincam/
+    hertzincam_interface (rtps_camera_interface/hertzinno_interface_node.py)
+  /hikcam/control/
+    hikcam_control (rtps_camera_interface/hik_control_unit_node.py)
+  /hikcam/rgb/
+    hikcam_rgb_interface (rtps_camera_interface/hik_stream_camera_node.py)
+  /hikcam/thermal/
+    hikcam_thermal_interface (rtps_camera_interface/hik_stream_camera_node.py)
+
+auto-starting new master
+[1mprocess[master]: started with pid [2286][0m
+ERROR: Unable to start XML-RPC server, port 11311 is already in use
+Exception ignored in thread started by: <bound method XmlRpcNode.run of <rosgraph.xmlrpc.XmlRpcNode object at 0x7f135f9d19a0>>
+Traceback (most recent call last):
+  File "/opt/ros/noetic/lib/python3/dist-packages/rosgraph/xmlrpc.py", line 252, in run
+    self._run()
+  File "/opt/ros/noetic/lib/python3/dist-packages/rosgraph/xmlrpc.py", line 321, in _run
+    self._run_init()
+  File "/opt/ros/noetic/lib/python3/dist-packages/rosgraph/xmlrpc.py", line 271, in _run_init
+    self.server = ThreadingXMLRPCServer((bind_address, port), log_requests)
+  File "/opt/ros/noetic/lib/python3/dist-packages/rosgraph/xmlrpc.py", line 149, in __init__
+    SimpleXMLRPCServer.__init__(self, addr, SilenceableXMLRPCRequestHandler, log_requests)
+  File "/usr/lib/python3.8/xmlrpc/server.py", line 605, in __init__
+    socketserver.TCPServer.__init__(self, addr, requestHandler, bind_and_activate)
+  File "/usr/lib/python3.8/socketserver.py", line 452, in __init__
+    self.server_bind()
+  File "/usr/lib/python3.8/socketserver.py", line 466, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/ysc/gs_ws/src/deep_robot_ex_sensor_kit/gs_data_collector/launch/gs_data_collecting.launch.xml http://localhost:11311
+[31mRLException: run_id on parameter server does not match declared run_id: 4c19874c-3f7b-11f1-88e7-df3bc9af9ab4 vs 4c2e0b90-3f7b-11f1-88e7-df3bc9af9ab4[0m
+[31mThe traceback for the exception was written to the log file[0m
+[master] killing on exit
+... logging to /home/ysc/.ros/log/4c19874c-3f7b-11f1-88e7-df3bc9af9ab4/roslaunch-ysc-perception-2344.log
+Checking log directory for disk usage. This may take a while.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/ysc/gs_ws/src/x30_udp_bridge/launch/x30_all.launch.xml
+[1mstarted roslaunch server http://ysc-perception:38205/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /rosdistro: noetic
+ * /rosversion: 1.16.0
+ * /sensor_interface/temp_humid_interface/baudrate: 9600
+ * /sensor_interface/temp_humid_interface/port: /dev/ttyUSB0
+ * /sensor_interface/temp_humid_interface/rate: 0.5
+ * /sensor_interface/temp_humid_interface/slave_id: 1
+ * /x30_feedback/x30_feedback_node/robot_ip: 192.168.1.106
+ * /x30_feedback/x30_feedback_node/robot_port: 30000
+ * /x30_interface/x30_interface/base_file_path: /home/ysc/gs_ws/s...
+ * /x30_interface/x30_interface/robot_ip: 192.168.1.106
+ * /x30_interface/x30_interface/robot_port: 30000
+ * /x30_led/robot_ip: 192.168.1.106
+ * /x30_led/robot_port: 30000
+
+NODES
+  /
+    alarm_manager (robot_server/alarm_manager.py)
+    robot_server_generic (robot_server/robot_server_generic_ros1.py)
+    x30_led (x30_udp_bridge/x30_led.py)
+  /sensor_interface/
+    temp_humid_interface (x30_udp_bridge/temp_humid.py)
+  /x30_feedback/
+    x30_feedback_node (x30_udp_bridge/x30_feedback.py)
+  /x30_interface/
+    x30_interface (x30_udp_bridge/x30_interface.py)
+
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/ysc/gs_ws/src/x30_udp_bridge/launch/x30_all.launch.xml http://localhost:11311
+[1mprocess[sensor_interface/temp_humid_interface-1]: started with pid [2359][0m
+[1mprocess[x30_feedback/x30_feedback_node-2]: started with pid [2360][0m
+[1mprocess[x30_interface/x30_interface-3]: started with pid [2361][0m
+[1mprocess[x30_led-4]: started with pid [2362][0m
+[1mprocess[robot_server_generic-5]: started with pid [2363][0m
+[1mprocess[alarm_manager-6]: started with pid [2364][0m
+[INFO] [1776993427.117931]: Mission Commander Initialized.
+[INFO] [1776993427.119298]: Target Robot: 192.168.1.106:30000
+[INFO] [1776993427.120740]: >>> WAITING FOR ROUTE... Call: rosservice call /set_route "filename: 'filename.json'"
+[ERROR] [1776993427.121004]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993427.121446]: Connection Failed: [Errno 111] Connection refused
+[INFO] [1776993427.123517]: Connected to /dev/ttyUSB0 at 9600 baud.
+[INFO] [1776993427.123950]: Starting X30 Feedback Loop... Press Ctrl+C to stop.
+[INFO] [1776993427.130403]: X30 LED Controller Initialized. Connected to 192.168.1.106:30000
+[INFO] [1776993427.131292]: Waiting for LED commands on topic 'x30_led/command'...
+alarm manager running...
+[ERROR] [1776993428.121934]: Connection Error: [Errno 111] Connection refused
+INFO:     Started server process [2363]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://192.168.1.106:5000 (Press CTRL+C to quit)
+[ERROR] [1776993429.122030]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993430.121905]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993431.121982]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993431.281966]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf1476a0>: Failed to establish a new connection: [Errno 113] No route to host'))
+[INFO] [1776993431.754183]: AutoInitialPosition Node Started.
+[INFO] [1776993431.755342]: Target Robot: 192.168.1.106:30000
+[INFO] [1776993431.756288]: Initial Pose: X=42.683189392089844, Y=-16.528323221206666, Yaw=-0.00851
+[INFO] [1776993431.757203]: Sending Location Initialization Request...
+[ERROR] [1776993431.758163]: Communication Error: [Errno 111] Connection refused
+[WARN] [1776993431.759053]: >> Initialization Failed (Code -1: Abnormal). Retrying in 10 seconds...
+[ERROR] [1776993432.121936]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993432.215298]: Connection Failed: [Errno 111] Connection refused
+[ERROR] [1776993433.121974]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993434.121799]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993434.358069]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf12e670>: Failed to establish a new connection: [Errno 113] No route to host'))
+[ERROR] [1776993435.121987]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993436.122049]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993437.122028]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993437.215482]: Connection Failed: [Errno 111] Connection refused
+[ERROR] [1776993437.430051]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e6e20>: Failed to establish a new connection: [Errno 113] No route to host'))
+[ERROR] [1776993438.121910]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993439.121905]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993440.121891]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993440.498059]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f08b0>: Failed to establish a new connection: [Errno 113] No route to host'))
+[ERROR] [1776993441.121939]: Connection Error: [Errno 111] Connection refused
+[INFO] [1776993441.774152]: Sending Location Initialization Request...
+[ERROR] [1776993441.776205]: Communication Error: [Errno 111] Connection refused
+[WARN] [1776993441.777745]: >> Initialization Failed (Code -1: Abnormal). Retrying in 10 seconds...
+[ERROR] [1776993442.121939]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993442.215507]: Connection Failed: [Errno 111] Connection refused
+[ERROR] [1776993443.121937]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993443.570060]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb310>: Failed to establish a new connection: [Errno 113] No route to host'))
+[ERROR] [1776993444.121894]: Connection Error: [Errno 111] Connection refused
+[ERROR] [1776993445.121917]: Connection Error: [Errno 111] Connection refused
+[INFO] [1776993445.615143]: Connected to X30 at 192.168.1.106:30000
+name:AMR1
+state:0
+mission_id:None
+battery:0
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.7
+current_map:1st_floor
+
+
+[ERROR] [1776993446.642246]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f00d0>: Failed to establish a new connection: [Errno 113] No route to host'))
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e6d90>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb1c0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993449.718099]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf147d30>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.8
+current_map:1st_floor
+
+
+[INFO] [1776993451.791795]: Sending Location Initialization Request...
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1049a0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993452.785912]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbdc0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.8
+current_map:1st_floor
+
+
+[WARN] [1776993454.811967]: >> Initialization Failed (Code 1: Abnormal). Retrying in 10 seconds...
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0f70>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993455.861910]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbb80>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.7
+humidity:62.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f400>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993458.930069]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0160>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.7
+humidity:62.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb730>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993462.002020]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e6f40>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f07f0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[INFO] [1776993464.825381]: Sending Location Initialization Request...
+[ERROR] [1776993465.078086]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbb20>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.7
+humidity:62.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1049d0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[WARN] [1776993467.846974]: >> Initialization Failed (Code 1: Abnormal). Retrying in 10 seconds...
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.6
+current_map:1st_floor
+
+
+[ERROR] [1776993468.150128]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf104f40>: Failed to establish a new connection: [Errno 113] No route to host'))
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf1045e0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb9d0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993471.218090]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0e80>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0e6e80>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993474.290255]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf12ef70>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb0d0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993477.362240]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f940>: Failed to establish a new connection: [Errno 113] No route to host'))
+[INFO] [1776993477.859987]: Sending Location Initialization Request...
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0c40>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993480.434108]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbac0>: Failed to establish a new connection: [Errno 113] No route to host'))
+[WARN] [1776993480.878804]: >> Initialization Failed (Code 1: Abnormal). Retrying in 10 seconds...
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf104550>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993483.506202]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e61c0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.6
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0790>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993486.582225]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf104820>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f880>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993489.650099]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e6ac0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+[INFO] [1776993490.891334]: Sending Location Initialization Request...
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1ba8e0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993492.725971]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb220>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+[INFO] [1776993493.914672]: >> Initialization Successful (Normal Location).
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb940>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993495.798133]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf12e700>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f850>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.6
+humidity:62.5
+current_map:1st_floor
+
+
+[ERROR] [1776993498.866228]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e6ac0>: Failed to establish a new connection: [Errno 113] No route to host'))
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f06a0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.6
+humidity:62.5
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1042e0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993501.938112]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0310>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.4
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f340>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993505.014255]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0c40>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.4
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf12e490>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993508.082120]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f6d0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.4
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1048b0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.4
+current_map:1st_floor
+
+
+[ERROR] [1776993511.154153]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbcd0>: Failed to establish a new connection: [Errno 113] No route to host'))
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf1476d0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.5
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0ca0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993514.230901]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08fca0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.5
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0e6d60>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993517.298118]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb880>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.5
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb9a0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993520.370470]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf104430>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f7c0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993523.442197]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf12ef10>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fbc70>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993526.518209]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f6a0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.5
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0e69d0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993529.590377]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbd00>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0f40>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993532.658126]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e69a0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08fd90>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993535.734588]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0a60>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fbdf0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993538.802280]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f430>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf12e880>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993541.874153]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbbb0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f3a0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993544.946154]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf12ef10>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:73
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0490>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993548.018300]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e6f40>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.5
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb550>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993551.090198]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0400>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.4
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0be0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.4
+current_map:1st_floor
+
+
+[ERROR] [1776993554.162303]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0e6580>: Failed to establish a new connection: [Errno 113] No route to host'))
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb1f0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.3
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf12ecd0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993557.234126]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f520>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.7
+humidity:62.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f550>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993560.306272]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf147fa0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fbdc0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993563.382312]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbc40>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.6
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0e6bb0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993566.454181]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0250>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.4
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb8e0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993569.522288]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf101550>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.4
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf147b80>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993572.594063]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbd00>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.3
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f9d0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993575.671724]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f3d0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.2
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08ff70>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993578.738096]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf101430>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.2
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fbdc0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993581.810045]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0ac0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.1
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0e6ac0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993584.882150]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb280>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.1
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0250>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993587.954832]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf101070>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.1
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf12e700>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993591.030022]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb460>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.1
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf147640>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993594.098266]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08ff10>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.0
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f310>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.0
+current_map:1st_floor
+
+
+[ERROR] [1776993597.174384]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf101880>: Failed to establish a new connection: [Errno 113] No route to host'))
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbd00>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0a30>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993600.242209]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbc70>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0e6580>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993603.314335]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0df0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.0
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf12eeb0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993606.386212]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbc10>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:62.0
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf147640>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993609.458017]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f460>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf12e4c0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993612.530270]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf101700>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08fcd0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993615.606156]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbeb0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15beba8280>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993618.674649]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0d00>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf101fd0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993621.750098]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf1011f0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f05e0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993624.818098]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf147fa0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.8
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb310>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993627.890149]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f520>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1475e0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993630.966142]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb2e0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0640>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993634.034505]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f400>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1011c0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993637.110203]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0f0a30>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f08e0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.8
+current_map:1st_floor
+
+
+[ERROR] [1776993640.182175]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf1baf70>: Failed to establish a new connection: [Errno 113] No route to host'))
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf101b80>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fbaf0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993643.250400]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f910>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf147550>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993646.322515]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbd60>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb400>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993649.394343]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08f4f0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf101fa0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993652.466104]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fbee0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0370>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993655.542019]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf1015e0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf12e670>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993658.614504]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf101cd0>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.9
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf08f4f0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993661.682263]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf0fb430>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.8
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0490>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993664.758167]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08fa30>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0fb910>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993667.830045]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf08fa90>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf1016d0>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))
+[ERROR] [1776993670.898065]: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /initial/params (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f15bf147e50>: Failed to establish a new connection: [Errno 113] No route to host'))
+name:AMR1
+state:0
+mission_id:None
+battery:74
+coordinate:[41.84, -16.16, -0.28, 0.0, 0.0, -0.08]
+current_node:[]
+temperature:32.9
+humidity:61.7
+current_map:1st_floor
+
+
+fail to update amr: HTTPConnectionPool(host='192.168.1.121', port=5000): Max retries exceeded with url: /fleet/vehicle_update (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7f15bf0f0670>, 'Connection to 192.168.1.121 timed out. (connect timeout=2)'))

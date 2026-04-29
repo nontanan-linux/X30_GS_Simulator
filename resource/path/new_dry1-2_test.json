@@ -1,0 +1,74 @@
+[
+    {
+        "Node_info": "via-128",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -15.639815,
+        "PosY": 57.563099,
+        "PosZ": 0.4124569,
+        "AngleYaw": 1.5817239,
+        "Value": 83,
+        "CamPTZ": [
+            357.9,
+            -7.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-129",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -16.047958,
+        "PosY": 61.692738,
+        "PosZ": 0.4088,
+        "AngleYaw": -3.1378167,
+        "Value": 84,
+        "CamPTZ": [
+            357.9,
+            -7.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-130",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -21.9204,
+        "PosY": 61.1164,
+        "PosZ": 0.4518,
+        "AngleYaw": -3.0751,
+        "Value": 85,
+        "CamPTZ": [
+            169.9,
+            -5.8,
+            2.2
+        ]
+    }
+]

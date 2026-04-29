@@ -10,7 +10,7 @@ import threading
 
 try:
     import customtkinter as ctk
-    from PIL import Image, ImageTk
+    from PIL import Image, ImageTk, ImageGrab
     import tkinter as tk
     from tkinter import filedialog, ttk
     HAS_GUI = True
@@ -117,18 +117,23 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.dragging_wp_idx = None
         self.rotating_wp_idx = None
 
-        # Load robot config
+        # Load robot & map config
         script_dir = os.path.dirname(os.path.abspath(__file__))
         self.robot_config = {'length_m': 1.0, 'width_m': 0.46}
+        self.map_config = {'use_default': False, 'default_path': ''}
+        
         config_path = os.path.join(script_dir, '../config/robot_config.yaml')
         if os.path.exists(config_path):
             try:
                 with open(config_path, 'r') as f:
                     cfg = yaml.safe_load(f)
-                    if cfg and 'robot' in cfg:
-                        self.robot_config.update(cfg['robot'])
+                    if cfg:
+                        if 'robot' in cfg:
+                            self.robot_config.update(cfg['robot'])
+                        if 'map' in cfg:
+                            self.map_config.update(cfg['map'])
             except Exception as e:
-                print(f"Error loading robot config: {e}")
+                print(f"Error loading config: {e}")
 
         # Load robot image
         robot_img_rel = self.robot_config.get('image_path', '../resource/gs_cat_robot.png')
@@ -195,14 +200,36 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         else:
             self.splash_img = np.zeros((800, 1200, 3), dtype=np.uint8)
         
+        # Handle Default Map Loading
+        if self.map_config.get('use_default', False):
+            dpath = self.map_config.get('default_path', '')
+            if dpath:
+                full_dpath = os.path.normpath(os.path.join(script_dir, '..', dpath))
+                if os.path.exists(full_dpath):
+                    self.load_map_folder(full_dpath)
+                    if not args.headless and HAS_GUI:
+                        self.folder_var.set(full_dpath)
+
+        # Create TakeScreen directory
+        self.takescreen_dir = os.path.join(script_dir, '../TakeScreen')
+        if not os.path.exists(self.takescreen_dir):
+            os.makedirs(self.takescreen_dir)
+            print(f"Created directory: {self.takescreen_dir}")
+
         if not args.headless:
-            # Do NOT auto-load map and waypoints for GUI mode, just render splash
-            self.last_frame = self.splash_img
-            if HAS_GUI:
-                self.after(100, self.render_splash_screen)
+            # If no map was auto-loaded, just render splash
+            if not self.maps:
+                self.last_frame = self.splash_img
+                if HAS_GUI:
+                    self.after(100, self.render_splash_screen)
+            else:
+                self.switch_to_map(self.current_map_id)
+                self.render_initial_map()
             
         else:
-            self.load_map_folder(args.map_folder)
+            if not self.maps:
+                self.load_map_folder(args.map_folder)
+                
             if args.waypoints and os.path.exists(args.waypoints):
                 self.load_waypoints_from_file(args.waypoints)
                 self.run_simulation_loop(0)
@@ -336,9 +363,10 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                 cmd = self.start_simulation
             elif item == "Edit":
                 cmd = self.toggle_edit_controls
+            elif item == "View":
+                cmd = self.show_view_menu
             else:
                 cmd = None
-                
             btn = ctk.CTkButton(self.navbar_top, text=item, width=90, height=35, 
                                fg_color="#00264d", border_color="white", border_width=2,
                                text_color="white", corner_radius=10, 
@@ -1140,6 +1168,63 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             except Exception as e:
                 self.status_label.configure(text=f"Save failed: {e}")
 
+    def show_view_menu(self, event=None):
+        if hasattr(self, 'view_menu') and self.view_menu and self.view_menu.winfo_exists():
+            self.view_menu.destroy()
+            self.view_menu = None
+            return
+        
+        # Calculate position below the "View" button
+        btn = self.menu_buttons.get("View")
+        if not btn: return
+        x = btn.winfo_rootx()
+        y = btn.winfo_rooty() + btn.winfo_height() + 5
+        
+        sections = {
+            "Capture": [
+                ("Take UI Screenshot", self.screenshot_ui)
+            ],
+            "Layout": [
+                ("Reset View", self.reset_view),
+                ("Toggle Sidebar", self.toggle_sidebar)
+            ]
+        }
+        
+        self.view_menu = CustomDropdown(self, x, y, sections, width=200)
+
+    def screenshot_ui(self):
+        # Determine current window position and size
+        try:
+            x = self.winfo_rootx()
+            y = self.winfo_rooty()
+            w = self.winfo_width()
+            h = self.winfo_height()
+            
+            # Offset to skip the blue top navbar (height=60)
+            navbar_height = self.navbar_top.winfo_height()
+            
+            # Bounding box for ImageGrab: (left, top, right, bottom)
+            # We add navbar_height to the top coordinate
+            bbox = (x, y + navbar_height, x + w, y + h)
+            
+            file_path = filedialog.asksaveasfilename(initialdir=".", 
+                                                   defaultextension=".png",
+                                                   title="Save UI Screenshot",
+                                                   filetypes=[("PNG files", "*.png"), ("JPEG files", "*.jpg")])
+            if file_path:
+                # Give a small delay for the file dialog to disappear from screen
+                self.update()
+                time.sleep(0.3)
+                
+                # Capture the screen area
+                # Note: On some Linux setups, this might require 'scrot'
+                screenshot = ImageGrab.grab(bbox=bbox)
+                screenshot.save(file_path)
+                self.status_label.configure(text=f"UI Screenshot saved to {os.path.basename(file_path)}")
+        except Exception as e:
+            self.status_label.configure(text=f"Screenshot failed: {e}")
+            print(f"Screenshot Error: {e}")
+
     def reload_waypoints(self):
         file_path = self.json_path_var.get()
         if file_path:
@@ -1923,6 +2008,10 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                             
                 for t in range(45): # Wait 1.5 seconds at 30fps
                     if not self.render_frame_func(u2, v2, current_yaw, i, "Inspecting..."): break
+                    # Take screenshot at the middle of inspection
+                    if t == 22:
+                        if HAS_GUI and not self.args.headless:
+                            self.take_ui_screenshot(p2['Node_info'])
                 
                 # Take image away before moving to next
                 if HAS_GUI and not self.args.headless:
@@ -1952,6 +2041,30 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             pass
 
         print("Simulation loop finished.")
+
+    def take_ui_screenshot(self, point_name):
+        try:
+            # Get window geometry (must be called from main thread or handled carefully)
+            # Since we are in the sim thread, we use a simple approach with PIL.ImageGrab
+            # If the simulator is the active window, ImageGrab.grab() should capture it.
+            # However, specify the box if possible.
+            
+            # Sanitise filename
+            safe_name = "".join([c for c in point_name if c.isalnum() or c in (' ', '.', '_', '-')]).strip()
+            save_path = os.path.join(self.takescreen_dir, f"{safe_name}.jpg")
+            
+            # Get the bounding box of the main window
+            x = self.winfo_rootx()
+            y = self.winfo_rooty()
+            w = self.winfo_width()
+            h = self.winfo_height()
+            
+            # Take screenshot of the window region
+            screenshot = ImageGrab.grab(bbox=(x, y, x+w, y+h))
+            screenshot.save(save_path, "JPEG", quality=85)
+            # print(f"Screenshot saved: {save_path}")
+        except Exception as e:
+            print(f"Error taking screenshot: {e}")
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))

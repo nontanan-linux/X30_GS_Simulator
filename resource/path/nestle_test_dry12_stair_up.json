@@ -1,0 +1,98 @@
+[
+    {
+        "Node_info": "via-103-before2nd",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -16.158087,
+        "PosY": 61.640396,
+        "PosZ": 0.3764079,
+        "AngleYaw": -0.0035389,
+        "Value": 23,
+        "CamPTZ": [
+            206.0,
+            16.0,
+            2.0
+        ]
+    },
+    {
+        "Node_info": "via-104-2nd",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 7,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 3,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -9.1036692,
+        "PosY": 61.894161,
+        "PosZ": 3.3290496,
+        "AngleYaw": 0.0011854,
+        "Value": 24,
+        "CamPTZ": [
+            206.0,
+            16.0,
+            2.0
+        ]
+    },
+    {
+        "Node_info": "via-105",
+        "MapName": "2nd_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -8.7441101,
+        "PosY": 61.414852,
+        "PosZ": 3.3321419,
+        "AngleYaw": -1.5792437,
+        "Value": 25,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-106",
+        "MapName": "2nd_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -8.805590940244173,
+        "PosY": 60.213985051858856,
+        "PosZ": 3.3176277,
+        "AngleYaw": -3.0771234,
+        "Value": 26,
+        "CamPTZ": [
+            360.0,
+            0.0,
+            1.0
+        ]
+    }
+]

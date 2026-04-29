@@ -1,0 +1,40 @@
+[
+    {
+        "Node_info": "gauge-9",
+        "MapName": "2nd_floor",
+        "Zone": "dry3",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 1,
+        "PosX": -42.554188,
+        "PosY": 53.678581,
+        "PosZ": 4.3726192,
+        "AngleYaw": 0.0309834,
+        "Value": 105,
+        "CamPTZ": [
+            170.0,
+            17.0,
+            3.0
+        ],
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.2646,
+                    0.1907
+                ],
+                [
+                    0.7542,
+                    0.8667
+                ]
+            ]
+        ],
+        "Threshold": 50.0
+    }
+]

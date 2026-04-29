@@ -1,0 +1,98 @@
+[
+    {
+        "Node_info": "via-112",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": -8.8233,
+        "PosY": 60.3288,
+        "PosZ": 3.3152,
+        "AngleYaw": -1.8599,
+        "Value": 43,
+        "CamPTZ": [
+            153.0,
+            13.1,
+            3.0
+        ]
+    },
+    {
+        "Node_info": "via-113",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": -9.0311089,
+        "PosY": 61.562763,
+        "PosZ": 3.2967606,
+        "AngleYaw": -0.8303546,
+        "Value": 44,
+        "CamPTZ": [
+            153.0,
+            13.1,
+            3.0
+        ]
+    },
+    {
+        "Node_info": "via-114-before-1st",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": -9.957777,
+        "PosY": 61.862873,
+        "PosZ": 3.2870538,
+        "AngleYaw": 0.0271908,
+        "Value": 45,
+        "CamPTZ": [
+            152.9,
+            13.0,
+            3.0
+        ]
+    },
+    {
+        "Node_info": "via-115-after",
+        "MapName": "1st_floor",
+        "Zone": "dry1-2",
+        "MapID": 0,
+        "Gait": 7,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 3,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 0,
+        "PosX": -16.20882,
+        "PosY": 61.776878,
+        "PosZ": 0.3804214,
+        "AngleYaw": 0.0086832,
+        "Value": 46,
+        "CamPTZ": [
+            153.0,
+            13.1,
+            3.0
+        ]
+    }
+]

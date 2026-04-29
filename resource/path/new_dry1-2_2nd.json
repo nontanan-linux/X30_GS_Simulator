@@ -1,0 +1,139 @@
+[
+    {
+        "Node_info": "via-107",
+        "MapName": "2nd_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -10.280543787327275,
+        "PosY": 60.072672204234095,
+        "PosZ": 0.0,
+        "AngleYaw": -2.8658,
+        "Value": 27,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "thermal-45",
+        "MapName": "2nd_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -12.075627,
+        "PosY": 59.486111,
+        "PosZ": 3.2617469,
+        "AngleYaw": -1.1311175,
+        "Value": 28,
+        "CamPTZ": [
+            355.0,
+            47.0,
+            1.0
+        ],
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.3063,
+                    0.3354
+                ],
+                [
+                    0.6859,
+                    0.6917
+                ]
+            ]
+        ],
+        "Threshold": 50.0
+    },
+    {
+        "Node_info": "thermal-46",
+        "MapName": "2nd_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 1,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -12.052152,
+        "PosY": 59.548809,
+        "PosZ": 3.3055103,
+        "AngleYaw": -2.0999625,
+        "Value": 29,
+        "CamPTZ": [
+            352.0,
+            47.0,
+            1.0
+        ],
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.3406,
+                    0.4188
+                ],
+                [
+                    0.6125,
+                    0.6188
+                ]
+            ]
+        ],
+        "Threshold": 50.0
+    },
+    {
+        "Node_info": "gauge-1",
+        "MapName": "2nd_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -12.084087,
+        "PosY": 58.577923,
+        "PosZ": 3.2927039,
+        "AngleYaw": -1.5507947,
+        "Value": 30,
+        "CamPTZ": [
+            0.0,
+            25.0,
+            3.0
+        ],
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.1094,
+                    0.387
+                ],
+                [
+                    0.499,
+                    0.9444
+                ]
+            ]
+        ]
+    }
+]

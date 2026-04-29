@@ -1,0 +1,25 @@
+# --- X30 OPERATOR GUIDELINES ---
+
+Terminal 1: Start X30 Interface and Robot Server
+> roslaunch x30_udp_bridge x30_all.launch.xml
+
+Terminal 2: Start Inspection Interface
+> roslaunch gs_data_collector gs_data_collecting.launch.xml
+
+Terminal 3: Initialize Localization
+> rosrun x30_udp_bridge auto_initial_position.py
+
+(Alternative) Manual Localization Setup:
+> rostopic pub -r 10 /localization_state std_msgs/Int32 "data: 0"
+
+--------------------------------------------------
+After finishing the 3 terminals above, the robot is ready.
+--------------------------------------------------
+
+Manual Route Commands:
+1. Load Route File:
+   rosservice call /set_route "filename: '[FILENAME].json'"
+   (Example: rosservice call /set_route "filename: '30ea21af_dssmulti.json'")
+
+2. Start/Confirm Step:
+   rosservice call /confirm_step "{}"
