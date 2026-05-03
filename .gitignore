@@ -4,26 +4,58 @@ __pycache__/
 *$py.class
 .pytest_cache/
 
-# Media
+# General Media
 *.mp4
 *.avi
 *.mkv
-*.png
-*.jpg
-*.jpeg
-*.pgm
 
-# Exceptions for necessary resources
+# Resource Directory Management
+resource/*
+
+# Essential Images
+!resource/cat_robot_01.jpg
+!resource/cat_robot_02.jpg
+!resource/cat_robot_03.png
+!resource/gensurv-logo.jpg
 !resource/gs_cat_robot.png
-!resource/maps/**/*.pgm
-!resource/maps/**/*.png
-!scripts/*.png
+!resource/nestle_layout.png
 
-# IDEs
+# Path directory
+!resource/path/
+!resource/path/**
+
+# Docs directory
+!resource/docs/
+# First, allow everything in docs
+!resource/docs/**
+# Then, explicitly ignore image subdirectories
+resource/docs/extracted_filling/
+resource/docs/extracted_images/
+resource/docs/extracted_inspections/
+resource/docs/processed_filling/
+resource/docs/processed_inspections/
+
+# GLOBALLY ignore files exceeding 100MB (GitHub Limit)
+**/*New-dry-full.pdf
+**/*Filling\ Zone\ Waypoint.pdf
+**/*Inspection\ Dry\ Zone\ .pdf
+
+# Maps directory
+!resource/maps/
+resource/maps/*
+!resource/maps/.gitkeep
+
+# Other generic ignores
 .vscode/
 .idea/
-
-# OS
 .DS_Store
 tmp/
 *.pcd
+*.pgm
+*.obj
+*.ply
+
+# TakeScreen directory
+!TakeScreen/
+TakeScreen/*
+!TakeScreen/.gitkeep
