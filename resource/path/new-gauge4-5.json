@@ -1,0 +1,190 @@
+[
+    {
+        "Node_info": "gauge-4",
+        "MapName": "1st_floor",
+        "Zone": "dry_3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 1,
+        "PosX": -51.432037,
+        "PosY": 51.827133,
+        "PosZ": 0.6000924,
+        "AngleYaw": 0.0287477,
+        "Value": 139,
+        "CamPTZ": [
+            346.0,
+            -3.0,
+            3.0
+        ],
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.3917,
+                    0.2944
+                ],
+                [
+                    0.8219,
+                    0.9056
+                ]
+            ]
+        ],
+        "Threshold": 50.0,
+        "Light": 1
+    },
+    {
+        "Node_info": "gauge-5",
+        "MapName": "1st_floor",
+        "Zone": "dry_3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 1,
+        "PosX": -51.27552795410156,
+        "PosY": 51.4399299621582,
+        "PosZ": 0.5997543,
+        "AngleYaw": 0.12261728197336197,
+        "Value": 140,
+        "CamPTZ": [
+            12.0,
+            -8.0,
+            2.0
+        ],
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.2562,
+                    0.2148
+                ],
+                [
+                    0.7594,
+                    0.8352
+                ]
+            ]
+        ],
+        "Threshold": 50.0
+    },
+    {
+        "Node_info": "loto-1",
+        "MapName": "1st_floor",
+        "Zone": "dry3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -51.243778,
+        "PosY": 50.703701,
+        "PosZ": 0.7349684,
+        "AngleYaw": -1.5618969,
+        "Value": 141,
+        "CamPTZ": [
+            0.0,
+            16.0,
+            2.0
+        ],
+        "Inspection": "asset_inspection",
+        "Roi": [
+            [
+                [
+                    0.0927,
+                    0.0074
+                ],
+                [
+                    0.7,
+                    0.9519
+                ]
+            ]
+        ]
+    },
+    {
+        "Node_info": "asset-12",
+        "MapName": "1st_floor",
+        "Zone": "dry3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -51.282673,
+        "PosY": 50.674232,
+        "PosZ": 0.7432803,
+        "AngleYaw": -1.0852611,
+        "Value": 142,
+        "CamPTZ": [
+            360.0,
+            19.0,
+            1.0
+        ],
+        "Inspection": "asset_inspection",
+        "Roi": [
+            [
+                [
+                    0.2323,
+                    0.1574
+                ],
+                [
+                    0.7875,
+                    0.9926
+                ]
+            ]
+        ]
+    },
+    {
+        "Node_info": "asset-13",
+        "MapName": "1st_floor",
+        "Zone": "dry3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -51.288567,
+        "PosY": 50.674488,
+        "PosZ": 0.7469607,
+        "AngleYaw": -1.0876161,
+        "Value": 143,
+        "CamPTZ": [
+            360.0,
+            -8.0,
+            1.0
+        ],
+        "Inspection": "asset_inspection",
+        "Roi": [
+            [
+                [
+                    0.2073,
+                    0.0056
+                ],
+                [
+                    0.8365,
+                    0.9037
+                ]
+            ]
+        ]
+    }
+]

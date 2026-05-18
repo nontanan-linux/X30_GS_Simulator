@@ -21,7 +21,7 @@ ACCENT_BLUE = RGBColor(99, 102, 241)
 TEXT_PRIMARY = RGBColor(255, 255, 255)
 TEXT_SECONDARY = RGBColor(160, 174, 192)
 
-MISSION_DIR = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/mission-332'
+MISSION_DIR = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/mission-404'
 
 def find_images(point_name, inspection_type):
     suffixes = []
@@ -312,14 +312,32 @@ def add_summary_slide(prs, inspection_points, notifications):
 
     # Aggregate Data
     summary_data = {} # {type: {level: count}}
-    total_counts = {"pass": 0, "fail": 0} # mapping critical/others to fail or keeping actual names
+    total_counts = {"pass": 0, "fail": 0, "missing": 0}
+    missing_points = []
     
     for point in inspection_points:
-        name = point.get('Node_info')
-        raw_type = point.get('Inspection', 'General').replace('_', ' ').title()
+        name = point.get('Node_info', '')
+        raw_insp = point.get('Inspection', 'General')
         
-        notif = notifications.get(name, {})
-        level = notif.get('notification_level', 'N/A').lower()
+        # Split LOTO from Asset if name contains 'loto'
+        if raw_insp == 'asset_inspection' and 'loto' in name.lower():
+            raw_type = 'Loto Inspection'
+        else:
+            raw_type = raw_insp.replace('_', ' ').title()
+        
+        notif = notifications.get(name)
+        images = find_images(name, raw_insp)
+        
+        if not notif or not images:
+            level = 'missing'
+            if not notif and not images:
+                missing_points.append(f"{name} (No CSV, No Images)")
+            elif not notif:
+                missing_points.append(f"{name} (No CSV)")
+            elif not images:
+                missing_points.append(f"{name} (No Images)")
+        else:
+            level = notif.get('notification_level', 'N/A').lower()
         
         if raw_type not in summary_data:
             summary_data[raw_type] = Counter()
@@ -328,30 +346,59 @@ def add_summary_slide(prs, inspection_points, notifications):
         
         if level == 'pass':
             total_counts['pass'] += 1
+        elif level == 'missing':
+            total_counts['missing'] += 1
         else:
             total_counts['fail'] += 1
 
+    if missing_points:
+        print(f"\n[Warning] Missing data detected for {len(missing_points)} points:")
+        for mp in missing_points:
+            print(f"  - {mp}")
+        print()
+
     # Main Stats Cards
     card_y = 1.5
-    card_w = 4.0
+    card_w = 2.8
     card_h = 1.2
-    spacing = 0.5
+    spacing = 0.4
     
+    start_x = (SLIDE_WIDTH - (4 * card_w + 3 * spacing)) / 2
+    
+    # Total Points Card
+    t_card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(start_x), Inches(card_y), Inches(card_w), Inches(card_h))
+    t_card.fill.solid()
+    t_card.fill.fore_color.rgb = CARD_BG
+    t_card.line.visible = False
+    add_text(start_x + 0.1, card_y + 0.1, card_w - 0.2, 0.3, "TOTAL POINTS", font_size=12, color=TEXT_SECONDARY, alignment=PP_ALIGN.CENTER)
+    add_text(start_x + 0.1, card_y + 0.4, card_w - 0.2, 0.6, str(len(inspection_points)), font_size=36, bold=True, color=RGBColor(255, 255, 255), alignment=PP_ALIGN.CENTER)
+
     # Pass Card
-    p_card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(2.3), Inches(card_y), Inches(card_w), Inches(card_h))
+    p_x = start_x + card_w + spacing
+    p_card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(p_x), Inches(card_y), Inches(card_w), Inches(card_h))
     p_card.fill.solid()
     p_card.fill.fore_color.rgb = CARD_BG
     p_card.line.visible = False
-    add_text(2.4, card_y + 0.1, card_w - 0.2, 0.3, "TOTAL PASS", font_size=12, color=TEXT_SECONDARY, alignment=PP_ALIGN.CENTER)
-    add_text(2.4, card_y + 0.4, card_w - 0.2, 0.6, str(total_counts['pass']), font_size=36, bold=True, color=RGBColor(74, 222, 128), alignment=PP_ALIGN.CENTER)
+    add_text(p_x + 0.1, card_y + 0.1, card_w - 0.2, 0.3, "TOTAL PASS", font_size=12, color=TEXT_SECONDARY, alignment=PP_ALIGN.CENTER)
+    add_text(p_x + 0.1, card_y + 0.4, card_w - 0.2, 0.6, str(total_counts['pass']), font_size=36, bold=True, color=RGBColor(74, 222, 128), alignment=PP_ALIGN.CENTER)
 
     # Fail/Notification Card
-    f_card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(2.3 + card_w + spacing), Inches(card_y), Inches(card_w), Inches(card_h))
+    f_x = p_x + card_w + spacing
+    f_card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(f_x), Inches(card_y), Inches(card_w), Inches(card_h))
     f_card.fill.solid()
     f_card.fill.fore_color.rgb = CARD_BG
     f_card.line.visible = False
-    add_text(2.3 + card_w + spacing + 0.1, card_y + 0.1, card_w - 0.2, 0.3, "TOTAL NOTIFICATION / FALSE", font_size=12, color=TEXT_SECONDARY, alignment=PP_ALIGN.CENTER)
-    add_text(2.3 + card_w + spacing + 0.1, card_y + 0.4, card_w - 0.2, 0.6, str(total_counts['fail']), font_size=36, bold=True, color=RGBColor(248, 113, 113), alignment=PP_ALIGN.CENTER)
+    add_text(f_x + 0.1, card_y + 0.1, card_w - 0.2, 0.3, "NOTIFICATIONS", font_size=12, color=TEXT_SECONDARY, alignment=PP_ALIGN.CENTER)
+    add_text(f_x + 0.1, card_y + 0.4, card_w - 0.2, 0.6, str(total_counts['fail']), font_size=36, bold=True, color=RGBColor(248, 113, 113), alignment=PP_ALIGN.CENTER)
+
+    # Missing Card
+    m_x = f_x + card_w + spacing
+    m_card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(m_x), Inches(card_y), Inches(card_w), Inches(card_h))
+    m_card.fill.solid()
+    m_card.fill.fore_color.rgb = CARD_BG
+    m_card.line.visible = False
+    add_text(m_x + 0.1, card_y + 0.1, card_w - 0.2, 0.3, "MISSING DATA", font_size=12, color=TEXT_SECONDARY, alignment=PP_ALIGN.CENTER)
+    add_text(m_x + 0.1, card_y + 0.4, card_w - 0.2, 0.6, str(total_counts['missing']), font_size=36, bold=True, color=RGBColor(250, 204, 21), alignment=PP_ALIGN.CENTER)
 
     # Breakdown Table Header
     table_y = 3.2
@@ -359,44 +406,59 @@ def add_summary_slide(prs, inspection_points, notifications):
     
     # Table Column Headers
     header_y = table_y + 0.5
-    col_w_type = 4.0
-    col_w_pass = 2.5
-    col_w_fail = 2.5
+    col_w_type = 3.5
+    col_w_pass = 2.0
+    col_w_fail = 2.0
+    col_w_miss = 2.0
     
-    def draw_row(y, t1, t2, t3, is_header=False):
+    def draw_row(y, t1, t2, t3, t4, is_header=False):
         row_h = 0.5
         bg = RGBColor(40, 50, 70) if is_header else CARD_BG
         
+        start_x = (SLIDE_WIDTH - (col_w_type + col_w_pass + col_w_fail + col_w_miss)) / 2
+        
         # Type
-        r1 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(2.15), Inches(y), Inches(col_w_type), Inches(row_h))
+        r1 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(start_x), Inches(y), Inches(col_w_type), Inches(row_h))
         r1.fill.solid()
         r1.fill.fore_color.rgb = bg
         r1.line.color.rgb = RGBColor(60, 70, 90)
-        add_text(2.25, y + 0.05, col_w_type - 0.2, row_h, t1, font_size=14, bold=is_header)
+        add_text(start_x + 0.1, y + 0.05, col_w_type - 0.2, row_h, t1, font_size=14, bold=is_header)
         
         # Pass
-        r2 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(2.15 + col_w_type), Inches(y), Inches(col_w_pass), Inches(row_h))
+        x2 = start_x + col_w_type
+        r2 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x2), Inches(y), Inches(col_w_pass), Inches(row_h))
         r2.fill.solid()
         r2.fill.fore_color.rgb = bg
         r2.line.color.rgb = RGBColor(60, 70, 90)
-        add_text(2.15 + col_w_type, y + 0.05, col_w_pass, row_h, t2, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
+        add_text(x2, y + 0.05, col_w_pass, row_h, t2, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
         
         # Fail
-        r3 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(2.15 + col_w_type + col_w_pass), Inches(y), Inches(col_w_fail), Inches(row_h))
+        x3 = x2 + col_w_pass
+        r3 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x3), Inches(y), Inches(col_w_fail), Inches(row_h))
         r3.fill.solid()
         r3.fill.fore_color.rgb = bg
         r3.line.color.rgb = RGBColor(60, 70, 90)
-        add_text(2.15 + col_w_type + col_w_pass, y + 0.05, col_w_fail, row_h, t3, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
+        add_text(x3, y + 0.05, col_w_fail, row_h, t3, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
+        
+        # Missing
+        x4 = x3 + col_w_fail
+        r4 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x4), Inches(y), Inches(col_w_miss), Inches(row_h))
+        r4.fill.solid()
+        r4.fill.fore_color.rgb = bg
+        r4.line.color.rgb = RGBColor(60, 70, 90)
+        add_text(x4, y + 0.05, col_w_miss, row_h, t4, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
 
-    draw_row(header_y, "Inspection Type", "Pass Count", "Notif/False Count", is_header=True)
+    draw_row(header_y, "Inspection Type", "Pass Count", "Notification", "Missing", is_header=True)
     
     current_y = header_y + 0.5
     for raw_type, counts in sorted(summary_data.items()):
         pass_count = counts.get('pass', 0)
+        miss_count = counts.get('missing', 0)
         # Sum everything else as fail/false
-        fail_count = sum(c for lvl, c in counts.items() if lvl != 'pass')
-        draw_row(current_y, raw_type, str(pass_count), str(fail_count))
+        fail_count = sum(c for lvl, c in counts.items() if lvl not in ('pass', 'missing'))
+        draw_row(current_y, raw_type, str(pass_count), str(fail_count), str(miss_count))
         current_y += 0.5
+
 
 
 def main():

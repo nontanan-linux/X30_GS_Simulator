@@ -19,6 +19,7 @@ resource/*
 !resource/gensurv-logo.jpg
 !resource/gs_cat_robot.png
 !resource/nestle_layout.png
+!resource/**/*.webp
 
 # Path directory
 !resource/path/

@@ -116,6 +116,12 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.selected_edge_idx = None
         self.dragging_wp_idx = None
         self.rotating_wp_idx = None
+        self.display_mode = "Occ Map"
+        self.display_params = {
+            'Occ Map': {'res': None, 'ox': None, 'oy': None, 'angle': 0},
+            'Layout': {'u0': 1960, 'v0': 1530, 'res': 0.05, 'angle': 88}, # Defaults for Nestle
+            'Combine': {'u0': 1960, 'v0': 1530, 'res': 0.05, 'angle': 88}
+        }
 
         # Load robot & map config
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -192,6 +198,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.current_map_id = 0
         self.path_nodes = []
         self.base_maps = {}  # Initialize base_maps here to prevent AttributeError
+        self.floor_buttons = {} # Initialize for headless/GUI
         
         # Load Splash Image
         splash_path = os.path.join(script_dir, '../resource/maps/picture/edit/Nestle_layout_00.png')
@@ -452,6 +459,13 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         
         self.status_label = ctk.CTkLabel(self.sim_row, text="Ready. Please load a Map Directory and a Waypoints JSON.", text_color="black")
         self.status_label.pack(side="left", padx=15)
+        
+        ctk.CTkLabel(self.sim_row, text="Mode:", text_color="black").pack(side="left", padx=(10, 2))
+        self.mode_var = ctk.StringVar(value="Occ Map")
+        self.mode_dropdown = ctk.CTkOptionMenu(self.sim_row, values=["Occ Map", "Layout", "Combine"], 
+                                               variable=self.mode_var, width=100,
+                                               command=self.on_display_mode_change)
+        self.mode_dropdown.pack(side="left", padx=5)
         
         self.toggle_sidebar_btn = ctk.CTkButton(self.sim_row, text="Sidebar >", width=80, 
                                                 fg_color="#2D2D2D", hover_color="darkred",
@@ -1025,8 +1039,22 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                             'resolution': config['resolution'],
                             'origin': config['origin'],
                             'height': img.shape[0],
-                            'width': img.shape[1]
+                            'width': img.shape[1],
+                            'layout_image': None,
+                            'combine_image': None
                         }
+                        
+                        # Look for layout and combine images
+                        for f in os.listdir(folder):
+                            f_lower = f.lower()
+                            full_path = os.path.join(folder, f)
+                            if any(ext in f_lower for ext in ['.png', '.webp', '.jpg', '.jpeg']):
+                                if 'layout' in f_lower:
+                                    self.maps[map_id]['layout_image'] = cv2.imread(full_path, cv2.IMREAD_COLOR)
+                                    print(f"Found layout for map {map_id}: {f}")
+                                elif 'combine' in f_lower:
+                                    self.maps[map_id]['combine_image'] = cv2.imread(full_path, cv2.IMREAD_COLOR)
+                                    print(f"Found combine for map {map_id}: {f}")
                     except Exception as e:
                         print(f"Error loading {yaml_path}: {e}")
 
@@ -1060,19 +1088,55 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
 
     def world_to_pixel(self, x, y, map_id):
         m = self.maps[map_id]
-        res = m['resolution']
-        ox, oy = m['origin'][:2]
-        u = (x - ox) / res
-        v = m['height'] - (y - oy) / res
-        return u, v
+        if self.display_mode == "Occ Map":
+            res = m['resolution']
+            ox, oy = m['origin'][:2]
+            u = (x - ox) / res
+            v = m['height'] - (y - oy) / res
+            return u, v
+        else:
+            # Layout or Combine
+            p = self.display_params.get(self.display_mode, self.display_params['Layout'])
+            u0, v0 = p['u0'], p['v0']
+            res = p['res']
+            angle_rad = math.radians(p['angle'])
+            
+            xr = x * math.cos(angle_rad) - y * math.sin(angle_rad)
+            yr = x * math.sin(angle_rad) + y * math.cos(angle_rad)
+            return u0 + xr / res, v0 - yr / res
 
     def pixel_to_world(self, u, v, map_id):
         m = self.maps[map_id]
-        res = m['resolution']
-        ox, oy = m['origin'][:2]
-        x = u * res + ox
-        y = (m['height'] - v) * res + oy
-        return x, y
+        if self.display_mode == "Occ Map":
+            res = m['resolution']
+            ox, oy = m['origin'][:2]
+            x = u * res + ox
+            y = (m['height'] - v) * res + oy
+            return x, y
+        else:
+            # Layout or Combine
+            p = self.display_params.get(self.display_mode, self.display_params['Layout'])
+            u0, v0 = p['u0'], p['v0']
+            res = p['res']
+            angle_rad = math.radians(p['angle'])
+            
+            # Inverse of:
+            # u = u0 + (x*cos - y*sin) / res
+            # v = v0 - (x*sin + y*cos) / res
+            
+            # (u - u0) * res = x*cos - y*sin
+            # (v0 - v) * res = x*sin + y*cos
+            
+            du = (u - u0) * res
+            dv = (v0 - v) * res
+            
+            # Solve for x, y:
+            # x = du*cos + dv*sin
+            # y = -du*sin + dv*cos
+            
+            x = du * math.cos(angle_rad) + dv * math.sin(angle_rad)
+            y = -du * math.sin(angle_rad) + dv * math.cos(angle_rad)
+            return x, y
 
     def precalculate_path_base_maps(self):
         # We need a base map pre-drawn for each map layer
@@ -1088,7 +1152,12 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         ]
 
         for mid, m in self.maps.items():
-            b_map = m['image'].copy()
+            if self.display_mode == "Layout" and m.get('layout_image') is not None:
+                b_map = m['layout_image'].copy()
+            elif self.display_mode == "Combine" and m.get('combine_image') is not None:
+                b_map = m['combine_image'].copy()
+            else:
+                b_map = m['image'].copy()
             
             # Draw lines and points for ALL floors
             for i in range(len(self.path_nodes)-1):
@@ -1116,7 +1185,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                 color = palette[1] if is_inspection else palette[0]
                 
                 # Draw waypoint as arrow
-                yaw = node.get('AngleYaw', 0)
+                yaw = node.get('AngleYaw', 0) + self.get_map_rotation_rad()
                 arrow_len = 15
                 end_u = int(u + arrow_len * math.cos(yaw))
                 end_v = int(v - arrow_len * math.sin(yaw))
@@ -1126,6 +1195,19 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                 cv2.arrowedLine(b_map, (int(u), int(v)), (end_u, end_v), color, 2, tipLength=0.4)
                     
             self.base_maps[mid] = b_map
+
+    def on_display_mode_change(self, mode):
+        self.display_mode = mode
+        if self.maps:
+            self.precalculate_path_base_maps()
+            self.render_initial_map()
+        self.status_label.configure(text=f"Display Mode changed to: {mode}")
+
+    def get_map_rotation_rad(self):
+        if self.display_mode == "Occ Map":
+            return 0.0
+        p = self.display_params.get(self.display_mode, self.display_params['Layout'])
+        return math.radians(p.get('angle', 0))
 
     def browse_folder(self):
         folder = filedialog.askdirectory(initialdir=".")
@@ -1315,11 +1397,12 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         m = self.maps[map_id]
         
         # Highlight floor buttons if they exist
-        for mid, btn in self.floor_buttons.items():
-            if mid == map_id:
-                btn.configure(fg_color="#00264d", text_color="white")
-            else:
-                btn.configure(fg_color="gray80", text_color="black")
+        if getattr(self, 'floor_buttons', None):
+            for mid, btn in self.floor_buttons.items():
+                if mid == map_id:
+                    btn.configure(fg_color="#00264d", text_color="white")
+                else:
+                    btn.configure(fg_color="gray80", text_color="black")
 
         if not self.args.headless and HAS_GUI:
             # Only auto-reset view if NOT following robot and NOT in simulation
@@ -1369,7 +1452,10 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             mu = p.get('MapID', 0)
             if mu == self.current_map_id:
                 u, v = self.world_to_pixel(p['PosX'], p['PosY'], mu)
-                yaw = p.get('AngleYaw', 0)
+                
+                # Yaw adjustment for layout/combine if rotated
+                yaw = p.get('AngleYaw', 0) + self.get_map_rotation_rad()
+                    
                 self.draw_robot(ui_frame, u, v, yaw)
 
         self.last_frame = ui_frame
@@ -1526,7 +1612,8 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             cu, cv = img_x, img_y
             
             x, y = self.pixel_to_world(su, sv, self.current_map_id)
-            yaw = -math.atan2(cv - sv, cu - su) # Screen space y is inverted
+            yaw_screen = -math.atan2(cv - sv, cu - su) # Screen space y is inverted
+            yaw = yaw_screen - self.get_map_rotation_rad()
             
             # Display results in Sidebar Editor
             self.ensure_sidebar_visible()
@@ -1628,7 +1715,8 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             dx = img_x - u
             dy = v - img_y # Image Y is inverted
             
-            new_yaw = math.atan2(dy, dx)
+            new_yaw_screen = math.atan2(dy, dx)
+            new_yaw = new_yaw_screen - self.get_map_rotation_rad()
             node['AngleYaw'] = new_yaw
             
             # Update sidebar field in real-time
@@ -1927,7 +2015,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             if diff > math.pi: diff -= 2 * math.pi
             return diff
             
-        current_yaw = self.path_nodes[start_idx].get('AngleYaw', 0)
+        current_yaw = self.path_nodes[start_idx].get('AngleYaw', 0) + self.get_map_rotation_rad()
         
         # Initial render and sidebar update
         if HAS_GUI and not self.args.headless:
@@ -1993,7 +2081,7 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             p_info = p2.get('PointInfo', 0)
             keywords = ['acoustic', 'visual', 'thermal', 'loto', 'leaked', 'vibration', 'asset', 'charge']
             if (any(kw in name for kw in keywords) and 'via' not in name) or p_info == 1:
-                target_yaw = p2.get('AngleYaw', 0)
+                target_yaw = p2.get('AngleYaw', 0) + self.get_map_rotation_rad()
                 diff = shortest_angle_diff(target_yaw, current_yaw)
                 turn_steps = max(int(abs(diff) / 0.1), 1)
                 

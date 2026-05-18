@@ -1,0 +1,31 @@
+[Unit]
+Description=X30 ROS Data Collection and UDP Bridge Service
+After=network.target network-online.target patrolserver.service
+Requires=network.target network-online.target patrolserver.service
+
+[Service]
+Type=simple
+User=ysc
+Group=ysc
+# Must be an absolute path
+WorkingDirectory=/home/ysc/gs_ws/src/tools/
+
+# Process Priority Management (Prevents erratic robot behavior)
+Nice=-10
+CPUSchedulingPolicy=fifo
+CPUSchedulingPriority=1
+
+# Essential ROS Environment Variables
+Environment="PYTHONPATH=$PYTHONPATH:/home/ysc/gs_ws/devel/lib/python3/dist-packages"
+Environment="ROS_MASTER_URI=http://localhost:11311"
+Environment="ROS_IP=127.0.0.1"
+
+# Extra safety buffer before execution
+ExecStartPre=/bin/sleep 30
+ExecStart=/bin/bash /home/ysc/gs_ws/src/tools/start_x30.sh
+
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

@@ -74,14 +74,19 @@ class MapVisualizer:
         palette = self.floor_colors[node_mid % len(self.floor_colors)]
         return palette[1] if is_inspection else palette[0]
 
-    def draw_marker(self, img, u, v, yaw, color, scale=1.0):
+    def draw_marker(self, img, u, v, yaw, color, scale=1.0, is_robot=False):
         """Draws the waypoint circle and orientation arrow."""
+        if is_robot:
+            # Special style for the robot (larger and brighter)
+            cv2.circle(img, (int(u), int(v)), int(12 * scale), (255, 255, 255), -1) # White glow
+            cv2.circle(img, (int(u), int(v)), int(8 * scale), (0, 0, 255), -1)     # Red center
+        
         arrow_len = 20 * scale
         end_u = int(u + arrow_len * math.cos(yaw))
         end_v = int(v - arrow_len * math.sin(yaw))
         
-        cv2.circle(img, (int(u), int(v)), int(6 * scale), color, -1)
-        cv2.arrowedLine(img, (int(u), int(v)), (end_u, end_v), color, int(2 * scale), tipLength=0.4)
+        thickness = 3 if is_robot else 2
+        cv2.arrowedLine(img, (int(u), int(v)), (end_u, end_v), color, int(thickness * scale), tipLength=0.4)
 
     def draw_path(self, img, waypoints, coord_fn, color=(200, 200, 200)):
         """Draws lines between sequential waypoints."""
@@ -116,12 +121,13 @@ class MapVisualizer:
         u0, v0 = to_rot_pixel(0, 0)
         cv2.circle(img, (int(u0), int(v0)), 10, (0, 255, 0), -1)
         
-        output_path = map_path.replace(".pgm", "_waypoints_style.png")
-        cv2.imwrite(output_path, img)
-        print(f"Visualization saved to: {output_path}")
+        name, _ = os.path.splitext(map_path)
+        output_path = f"{name}_style.webp"
+        cv2.imwrite(output_path, img, [cv2.IMWRITE_WEBP_QUALITY, 90])
+        print(f"Occupancy visualization saved to: {output_path}")
 
-    def render_on_layout(self, layout_path, waypoints, origin_pixel, resolution, angle_deg):
-        """Renders visualization on high-res layout JPG/PNG."""
+    def render_on_layout(self, layout_path, waypoints, origin_pixel, resolution, angle_deg, robot_pos=None):
+        """Renders visualization on high-res layout (supports robot_pos=[x, y, yaw])."""
         img = cv2.imread(layout_path)
         if img is None: return
         
@@ -135,18 +141,27 @@ class MapVisualizer:
 
         self.draw_path(img, waypoints, to_layout_pixel)
 
+        # Draw Waypoints
         for node in waypoints:
             u, v = to_layout_pixel(node['PosX'], node['PosY'])
             color = self.get_node_style(node)
             yaw = node.get('AngleYaw', 0) + angle_rad
             self.draw_marker(img, u, v, yaw, color)
 
+        # Draw Current Robot Position if provided
+        if robot_pos:
+            rx, ry, ryaw = robot_pos
+            ru, rv = to_layout_pixel(rx, ry)
+            self.draw_marker(img, ru, rv, ryaw + angle_rad, (0, 0, 255), scale=1.5, is_robot=True)
+            print(f"Robot marked at world ({rx}, {ry}) -> pixel ({int(ru)}, {int(rv)})")
+
         cv2.circle(img, (int(u0), int(v0)), 15, (0, 255, 0), -1)
         
-        # Save as PNG to avoid compression artifacts on markers
-        name, ext = os.path.splitext(layout_path)
+        name, _ = os.path.splitext(layout_path)
+        # output_path = f"{name}_style.webp"
         output_path = f"{name}_style.png"
-        cv2.imwrite(output_path, img)
+        # Save as WebP with high quality
+        cv2.imwrite(output_path, img, [cv2.IMWRITE_WEBP_QUALITY, 90])
         print(f"Layout visualization saved to: {output_path}")
 
 def load_json(path):
@@ -157,14 +172,17 @@ def main():
     # Paths
     base_dir = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/maps/map1-nestle/"
     input_map = os.path.join(base_dir, "jueying.pgm")
-    layout_map = os.path.join(base_dir, "Neatle-map-Layout.jpg")
+    layout_map = os.path.join(base_dir, "Neatle-map-Layout.webp")
     combine_map = os.path.join(base_dir, "Nestle_map_combine.jpg")
     json_path = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new-dry-full.json"
     
     # Parameters
     yaml_data = {'resolution': 0.05, 'origin': [-67.25, -243.55, 0.0]}
-    layout_params = {'origin_pixel': (1960, 1510), 'resolution': 0.05}
+    layout_params = {'origin_pixel': (1960, 1530), 'resolution': 0.05}
     rotation_angle = 88
+    
+    # Example Robot Position [X, Y, Yaw]
+    current_robot_pos = [10.0, -5.0, 0.0]
 
     # 1. Rotate Map
     editor = MapEditor()
@@ -178,13 +196,19 @@ def main():
         viz = MapVisualizer()
         viz.render_on_occupancy(rotated_path, waypoints, yaml_data, rotation_angle, old_size)
         
-        # Visualize on Layout Maps (Layout and Combine)
-        for l_map in [layout_map, combine_map]:
-            if os.path.exists(l_map):
-                viz.render_on_layout(l_map, waypoints, 
-                                    layout_params['origin_pixel'], 
-                                    layout_params['resolution'], 
-                                    rotation_angle)
+        # Visualize on Layout Maps (Layout with Robot Pos, Combine standard)
+        if os.path.exists(layout_map):
+            viz.render_on_layout(layout_map, waypoints, 
+                                layout_params['origin_pixel'], 
+                                layout_params['resolution'], 
+                                rotation_angle,)
+                                # robot_pos=current_robot_pos)
+        
+        if os.path.exists(combine_map):
+            viz.render_on_layout(combine_map, waypoints, 
+                                layout_params['origin_pixel'], 
+                                layout_params['resolution'], 
+                                rotation_angle)
 
 if __name__ == "__main__":
     main()
