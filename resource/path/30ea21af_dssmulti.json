@@ -70,6 +70,18 @@
             0.0,
             18.0,
             4.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
@@ -95,7 +107,20 @@
             0.0,
             20.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 30.0
     },
     {
         "Node_info": "P03",
@@ -124,26 +149,28 @@
     {
         "Node_info": "P04",
         "MapName": "lab_1st_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": -3.1248424,
         "Gait": 0,
         "Manner": 0,
         "MapID": 0,
         "NavMode": 0,
         "ObsMode": 0,
-        "PointInfo": 0,
+        "PointInfo": 1,
         "PosX": -14.614888,
         "PosY": 3.7403204,
         "PosZ": 0.23968196,
         "Posture": 0,
         "Speed": 0,
         "Terrain": 0,
-        "Value": 5
+        "Value": 5,
+        "Inspection": "sit",
+        "Duration": 60
     },
     {
         "Node_info": "P05",
         "MapName": "lab_1st_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": -3.1248424,
         "Gait": 7,
         "Manner": 0,
@@ -162,7 +189,7 @@
     {
         "Node_info": "P06",
         "MapName": "lab_1st_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": 1.5427645,
         "Gait": 7,
         "Manner": 0,
@@ -181,7 +208,7 @@
     {
         "Node_info": "P07",
         "MapName": "lab_1st_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": 0.012534782,
         "Gait": 7,
         "Manner": 0,
@@ -200,7 +227,7 @@
     {
         "Node_info": "P08",
         "MapName": "lab_1st_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": 0.010159199,
         "Gait": 7,
         "Manner": 0,
@@ -239,7 +266,20 @@
             180.0,
             0.0,
             1.0
-        ]
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
+        ],
+        "Threshold": 30.0
     },
     {
         "Node_info": "P10",
@@ -264,7 +304,12 @@
             180.0,
             0.0,
             1.0
-        ]
+        ],
+        "Frequency_range": [
+            20,
+            40
+        ],
+        "Energy_threshold": 10
     },
     {
         "Node_info": "P11",
@@ -289,12 +334,24 @@
             180.0,
             0.0,
             1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.0,
+                    0.0
+                ],
+                [
+                    1.0,
+                    1.0
+                ]
+            ]
         ]
     },
     {
         "Node_info": "P12",
         "MapName": "lab_2nd_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": -0.016029509,
         "Gait": 7,
         "Manner": 0,
@@ -313,7 +370,7 @@
     {
         "Node_info": "P13",
         "MapName": "lab_2nd_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": 3.1114058,
         "Gait": 7,
         "Manner": 0,
@@ -332,7 +389,7 @@
     {
         "Node_info": "P14",
         "MapName": "lab_1st_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": 3.0942304,
         "Gait": 7,
         "Manner": 0,
@@ -351,7 +408,7 @@
     {
         "Node_info": "P15",
         "MapName": "lab_1st_floor",
-		"Zone": "packing1",
+        "Zone": "packing1",
         "AngleYaw": -1.513869,
         "Gait": 0,
         "Manner": 0,

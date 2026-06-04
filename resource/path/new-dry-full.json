@@ -575,7 +575,7 @@
         "Node_info": "via-104-2nd",
         "MapName": "2nd_floor",
         "Zone": "dry1-2",
-        "MapID": 1,
+        "MapID": 0,
         "Gait": 7,
         "NavMode": 0,
         "Speed": 0,
@@ -1153,7 +1153,7 @@
         "Manner": 1,
         "Posture": 0,
         "PosX": -10.731,
-        "PosY": 60.0197,
+        "PosY": 59.8,
         "PosZ": 3.2678,
         "AngleYaw": -2.9466,
         "Value": 42,
@@ -2100,9 +2100,9 @@
         "Manner": 0,
         "Posture": 1,
         "PosX": -28.767246,
-        "PosY": 55.099976,
+        "PosY": 55.20,
         "PosZ": 0.4561602,
-        "AngleYaw": 0.0368204,
+        "AngleYaw": 0.0000,
         "Value": 74,
         "CamPTZ": [
             3.0,
@@ -2111,10 +2111,10 @@
         ],
         "Inspection": "leakage_inspection",
         "Frequency_range": [
-            30,
-            50
+            45,
+            65
         ],
-        "Energy_threshold": 20
+        "Energy_threshold": 40
     },
     {
         "Node_info": "leakage-22",
@@ -2291,10 +2291,10 @@
         ],
         "Inspection": "leakage_inspection",
         "Frequency_range": [
-            11,
-            31
+            40,
+            60
         ],
-        "Energy_threshold": 10
+        "Energy_threshold": 30
     },
     {
         "Node_info": "thermal-43",
@@ -2519,7 +2519,7 @@
     {
         "Node_info": "via-135",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2543,7 +2543,7 @@
     {
         "Node_info": "leakage-26",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2573,7 +2573,7 @@
     {
         "Node_info": "via-136",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2597,7 +2597,7 @@
     {
         "Node_info": "leakage-27",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2627,7 +2627,7 @@
     {
         "Node_info": "via-137",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -2657,7 +2657,7 @@
         "NavMode": 0,
         "Speed": 0,
         "Terrain": 0,
-        "PointInfo": 0,
+        "PointInfo": 1,
         "ObsMode": 0,
         "Manner": 1,
         "Posture": 0,
@@ -2670,13 +2670,15 @@
             180.0,
             26.1,
             2.0
-        ]
+        ],
+        "Inspection": "sit",
+        "Duration": 2400
     },
     {
         "Node_info": "via-139-2nd-transition",
         "MapName": "2nd_floor",
         "Zone": "dry3",
-        "MapID": 1,
+        "MapID": 0,
         "Gait": 7,
         "NavMode": 0,
         "Speed": 0,
@@ -2728,7 +2730,7 @@
         "Gait": 7,
         "NavMode": 0,
         "Speed": 0,
-        "Terrain": 0,
+        "Terrain": 3,
         "PointInfo": 0,
         "ObsMode": 0,
         "Manner": 0,
@@ -3474,7 +3476,7 @@
     {
         "Node_info": "leakage-28",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3504,7 +3506,7 @@
     {
         "Node_info": "thermal-52",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3542,7 +3544,7 @@
     {
         "Node_info": "leakage-29",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3572,7 +3574,7 @@
     {
         "Node_info": "via-159",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3596,7 +3598,7 @@
     {
         "Node_info": "thermal-53",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3682,7 +3684,7 @@
     {
         "Node_info": "leakage-30",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3712,7 +3714,7 @@
     {
         "Node_info": "leakage-31",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3790,7 +3792,7 @@
     {
         "Node_info": "leakage-32",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3820,7 +3822,7 @@
     {
         "Node_info": "leakage-33",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3850,7 +3852,7 @@
     {
         "Node_info": "via-164",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3874,7 +3876,7 @@
     {
         "Node_info": "thermal-54",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3912,7 +3914,7 @@
     {
         "Node_info": "via-165",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3936,7 +3938,7 @@
     {
         "Node_info": "via-166",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3960,7 +3962,7 @@
     {
         "Node_info": "gauge-4",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3999,7 +4001,7 @@
     {
         "Node_info": "gauge-5",
         "MapName": "1st_floor",
-        "Zone": "dry_3",
+        "Zone": "dry3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -4032,7 +4034,8 @@
                 ]
             ]
         ],
-        "Threshold": 50.0
+        "Threshold": 50.0,
+        "Light": 1
     },
     {
         "Node_info": "loto-1",

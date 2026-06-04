@@ -8,7 +8,7 @@ from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.dml.color import RGBColor
-from pptx.enum.text import PP_ALIGN
+from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 
 # Layout Constants
 SLIDE_WIDTH = 13.333
@@ -20,8 +20,8 @@ CARD_BG = RGBColor(25, 35, 55)
 ACCENT_BLUE = RGBColor(99, 102, 241)
 TEXT_PRIMARY = RGBColor(255, 255, 255)
 TEXT_SECONDARY = RGBColor(160, 174, 192)
-
-MISSION_DIR = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/mission-404'
+MISSION_ID = 'mission-23'
+MISSION_DIR = f'/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/{MISSION_ID}'
 
 def find_images(point_name, inspection_type):
     suffixes = []
@@ -224,7 +224,9 @@ def add_slide(prs, point, index, total):
 
 # Load Notification Data from CSV
 notifications = {}
-csv_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/mission-332/notification_332_2026-03-18_2026-04-24.csv'
+csv_pattern = os.path.join(MISSION_DIR, 'notification_*.csv')
+csv_files = glob.glob(csv_pattern)
+csv_path = csv_files[0] if csv_files else '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/mission-332/notification_332_2026-03-18_2026-04-24.csv'
 if os.path.exists(csv_path):
     with open(csv_path, mode='r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -281,6 +283,71 @@ def get_discussion(name, raw_type, csv_res, csv_level):
             
     return f"The automated inspection for {name} was completed. The system evaluated the {raw_type} data and the results were recorded as {level}."
 
+def add_issues_slide(prs, failed_points, missing_points):
+    if not failed_points and not missing_points:
+        return
+        
+    def create_slide():
+        blank_slide_layout = prs.slide_layouts[6]
+        slide = prs.slides.add_slide(blank_slide_layout)
+        fill = slide.background.fill
+        fill.solid()
+        fill.fore_color.rgb = BG_COLOR
+        
+        txBox = slide.shapes.add_textbox(Inches(0.5), Inches(0.4), Inches(12), Inches(0.8))
+        tf = txBox.text_frame
+        p = tf.paragraphs[0]
+        p.text = "Action Required: Notifications & Missing Data"
+        p.alignment = PP_ALIGN.CENTER
+        p.font.size = Pt(32)
+        p.font.bold = True
+        p.font.color.rgb = TEXT_PRIMARY
+        
+        logo_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/gensurv-logo.jpg'
+        if os.path.exists(logo_path):
+            slide.shapes.add_picture(logo_path, Inches(12.733), Inches(0.0), height=Inches(0.6))
+            
+        return slide
+
+    def add_text_block(slide, left, top, width, height, title, items, title_color):
+        txBox = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
+        tf = txBox.text_frame
+        tf.word_wrap = True
+        
+        p = tf.paragraphs[0]
+        p.text = title
+        p.font.size = Pt(16)
+        p.font.bold = True
+        p.font.color.rgb = title_color
+        
+        for item in items:
+            p = tf.add_paragraph()
+            p.text = f"• {item}"
+            p.font.size = Pt(12)
+            p.font.color.rgb = TEXT_PRIMARY
+            
+    max_items_per_col = 15
+    cols = []
+    
+    failed_chunks = [failed_points[i:i + max_items_per_col] for i in range(0, len(failed_points), max_items_per_col)]
+    for idx, chunk in enumerate(failed_chunks):
+        title = f"NOTIFICATIONS ({len(failed_points)})" if idx == 0 else "NOTIFICATIONS (Cont.)"
+        cols.append((title, chunk, RGBColor(248, 113, 113)))
+        
+    missing_chunks = [missing_points[i:i + max_items_per_col] for i in range(0, len(missing_points), max_items_per_col)]
+    for idx, chunk in enumerate(missing_chunks):
+        title = f"MISSING DATA ({len(missing_points)})" if idx == 0 else "MISSING DATA (Cont.)"
+        cols.append((title, chunk, RGBColor(250, 204, 21)))
+        
+    for i in range(0, len(cols), 2):
+        slide = create_slide()
+        col1 = cols[i]
+        add_text_block(slide, 1.0, 1.5, 5.5, 5.5, col1[0], col1[1], col1[2])
+        
+        if i + 1 < len(cols):
+            col2 = cols[i+1]
+            add_text_block(slide, 7.0, 1.5, 5.5, 5.5, col2[0], col2[1], col2[2])
+
 def add_summary_slide(prs, inspection_points, notifications):
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
@@ -314,6 +381,7 @@ def add_summary_slide(prs, inspection_points, notifications):
     summary_data = {} # {type: {level: count}}
     total_counts = {"pass": 0, "fail": 0, "missing": 0}
     missing_points = []
+    failed_points = []
     
     for point in inspection_points:
         name = point.get('Node_info', '')
@@ -350,11 +418,18 @@ def add_summary_slide(prs, inspection_points, notifications):
             total_counts['missing'] += 1
         else:
             total_counts['fail'] += 1
+            failed_points.append(f"{name} ({level.title()})")
 
     if missing_points:
         print(f"\n[Warning] Missing data detected for {len(missing_points)} points:")
         for mp in missing_points:
             print(f"  - {mp}")
+        print()
+        
+    if failed_points:
+        print(f"\n[Warning] Notifications detected for {len(failed_points)} points:")
+        for fp in failed_points:
+            print(f"  - {fp}")
         print()
 
     # Main Stats Cards
@@ -404,66 +479,112 @@ def add_summary_slide(prs, inspection_points, notifications):
     table_y = 3.2
     add_text(0.5, table_y, 4, 0.4, "Breakdown by Inspection Type", font_size=18, bold=True)
     
-    # Table Column Headers
-    header_y = table_y + 0.5
     col_w_type = 3.5
-    col_w_pass = 2.0
-    col_w_fail = 2.0
-    col_w_miss = 2.0
+    col_w_pass = 1.8
+    col_w_fail = 1.8
+    col_w_miss = 1.8
+    col_w_total = 1.8
+    total_w = col_w_type + col_w_pass + col_w_fail + col_w_miss + col_w_total
+    start_x = (SLIDE_WIDTH - total_w) / 2
     
-    def draw_row(y, t1, t2, t3, t4, is_header=False):
-        row_h = 0.5
-        bg = RGBColor(40, 50, 70) if is_header else CARD_BG
+    rows = len(summary_data) + 2  # Header row + data rows + Total row
+    cols = 5
+    left = Inches(start_x)
+    top = Inches(table_y + 0.5)
+    width = Inches(total_w)
+    height = Inches(0.4 * rows)
+    
+    table_shape = slide.shapes.add_table(rows, cols, left, top, width, height)
+    table = table_shape.table
+    
+    # Set Column Widths
+    table.columns[0].width = Inches(col_w_type)
+    table.columns[1].width = Inches(col_w_pass)
+    table.columns[2].width = Inches(col_w_fail)
+    table.columns[3].width = Inches(col_w_miss)
+    table.columns[4].width = Inches(col_w_total)
+    
+    # Draw Headers
+    headers = ["Inspection Type", "Pass Count", "Notification", "Missing", "Total"]
+    for c, text in enumerate(headers):
+        cell = table.cell(0, c)
+        cell.fill.solid()
+        cell.fill.fore_color.rgb = RGBColor(40, 50, 70)
+        cell.vertical_anchor = MSO_ANCHOR.MIDDLE
         
-        start_x = (SLIDE_WIDTH - (col_w_type + col_w_pass + col_w_fail + col_w_miss)) / 2
+        # Style text
+        cell.text = text
+        p = cell.text_frame.paragraphs[0]
+        p.font.size = Pt(14)
+        p.font.bold = True
+        p.font.color.rgb = TEXT_PRIMARY
+        p.font.name = 'Arial'
+        p.alignment = PP_ALIGN.LEFT if c == 0 else PP_ALIGN.CENTER
         
-        # Type
-        r1 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(start_x), Inches(y), Inches(col_w_type), Inches(row_h))
-        r1.fill.solid()
-        r1.fill.fore_color.rgb = bg
-        r1.line.color.rgb = RGBColor(60, 70, 90)
-        add_text(start_x + 0.1, y + 0.05, col_w_type - 0.2, row_h, t1, font_size=14, bold=is_header)
-        
-        # Pass
-        x2 = start_x + col_w_type
-        r2 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x2), Inches(y), Inches(col_w_pass), Inches(row_h))
-        r2.fill.solid()
-        r2.fill.fore_color.rgb = bg
-        r2.line.color.rgb = RGBColor(60, 70, 90)
-        add_text(x2, y + 0.05, col_w_pass, row_h, t2, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
-        
-        # Fail
-        x3 = x2 + col_w_pass
-        r3 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x3), Inches(y), Inches(col_w_fail), Inches(row_h))
-        r3.fill.solid()
-        r3.fill.fore_color.rgb = bg
-        r3.line.color.rgb = RGBColor(60, 70, 90)
-        add_text(x3, y + 0.05, col_w_fail, row_h, t3, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
-        
-        # Missing
-        x4 = x3 + col_w_fail
-        r4 = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(x4), Inches(y), Inches(col_w_miss), Inches(row_h))
-        r4.fill.solid()
-        r4.fill.fore_color.rgb = bg
-        r4.line.color.rgb = RGBColor(60, 70, 90)
-        add_text(x4, y + 0.05, col_w_miss, row_h, t4, font_size=14, bold=is_header, alignment=PP_ALIGN.CENTER)
+    # Variables to hold column sums
+    sum_pass = 0
+    sum_fail = 0
+    sum_miss = 0
+    sum_total = 0
 
-    draw_row(header_y, "Inspection Type", "Pass Count", "Notification", "Missing", is_header=True)
-    
-    current_y = header_y + 0.5
-    for raw_type, counts in sorted(summary_data.items()):
+    # Draw Data Rows
+    for r, (raw_type, counts) in enumerate(sorted(summary_data.items()), start=1):
         pass_count = counts.get('pass', 0)
         miss_count = counts.get('missing', 0)
-        # Sum everything else as fail/false
         fail_count = sum(c for lvl, c in counts.items() if lvl not in ('pass', 'missing'))
-        draw_row(current_y, raw_type, str(pass_count), str(fail_count), str(miss_count))
-        current_y += 0.5
+        row_total = pass_count + fail_count + miss_count
+        
+        sum_pass += pass_count
+        sum_fail += fail_count
+        sum_miss += miss_count
+        sum_total += row_total
+        
+        row_data = [raw_type, str(pass_count), str(fail_count), str(miss_count), str(row_total)]
+        for c, text in enumerate(row_data):
+            cell = table.cell(r, c)
+            cell.fill.solid()
+            cell.fill.fore_color.rgb = CARD_BG
+            cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+            
+            cell.text = text
+            p = cell.text_frame.paragraphs[0]
+            p.font.size = Pt(14)
+            p.font.bold = False
+            p.font.color.rgb = TEXT_PRIMARY
+            p.font.name = 'Arial'
+            p.alignment = PP_ALIGN.LEFT if c == 0 else PP_ALIGN.CENTER
+
+    # Draw Bottom Total Row
+    total_row_idx = len(summary_data) + 1
+    total_row_data = ["Total", str(sum_pass), str(sum_fail), str(sum_miss), str(sum_total)]
+    logo_color = RGBColor(0, 38, 77)
+    for c, text in enumerate(total_row_data):
+        cell = table.cell(total_row_idx, c)
+        cell.fill.solid()
+        if c < 4:
+            cell.fill.fore_color.rgb = RGBColor(255, 255, 255) # white background
+            text_color = logo_color
+        else:
+            cell.fill.fore_color.rgb = RGBColor(30, 45, 65) # keep original dark bg for grand total
+            text_color = TEXT_PRIMARY
+            
+        cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+        cell.text = text
+        p = cell.text_frame.paragraphs[0]
+        p.font.size = Pt(14)
+        p.font.bold = True
+        p.font.color.rgb = text_color
+        p.font.name = 'Arial'
+        p.alignment = PP_ALIGN.LEFT if c == 0 else PP_ALIGN.CENTER
+
+    # Add issues slides listing details of failed and missing points
+    add_issues_slide(prs, failed_points, missing_points)
 
 
 
 def main():
-    json_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new-dry-full.json'
-    output_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/inspection_slides.pptx'
+    json_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_1st_floor.json'
+    output_path = f'/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/inspection-{MISSION_ID}.pptx'
     
     if not os.path.exists(json_path):
         print(f"Error: {json_path} not found.")
@@ -472,7 +593,7 @@ def main():
     with open(json_path, 'r') as f:
         data = json.load(f)
         
-    inspection_points = [p for p in data if p.get('PointInfo') == 1]
+    inspection_points = [p for p in data if p.get('PointInfo') == 1 and p.get('Inspection') != 'sit']
     
     prs = Presentation()
     prs.slide_width = Inches(SLIDE_WIDTH)

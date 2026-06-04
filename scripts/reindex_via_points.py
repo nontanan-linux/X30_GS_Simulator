@@ -2,7 +2,7 @@ import json
 import re
 import os
 
-def reindex_via_points(filepath, start_index=84):
+def reindex_via_points(filepath, start_index=219):
     if not os.path.exists(filepath):
         print(f"Error: {filepath} not found.")
         return
@@ -21,7 +21,7 @@ def reindex_via_points(filepath, start_index=84):
         # Check if it's a via point
         if name.startswith('via'):
             # Skip exceptions
-            if name.startswith('via-h2-') or name.startswith('via-2h-'):
+            if name.startswith('via-h2-') or name.startswith('via-2h-') or name.startswith('via-2c-') or name.startswith('via-c2'):
                 continue
             
             match = pattern.match(name)
@@ -47,8 +47,8 @@ def reindex_via_points(filepath, start_index=84):
     print(f"Re-sequenced 'Value' for all {len(data)} points.")
 
 if __name__ == "__main__":
-    target_file = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new-dry-full.json"
+    target_file = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_filling.json"
     # The starting number for re-indexing 'via' points.
     # This does NOT affect the 'Value' key, which is always re-sequenced from 0.
-    via_start_number = 84
+    via_start_number = 279
     reindex_via_points(target_file, start_index=via_start_number)

@@ -725,14 +725,6 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             
         except Exception as e:
             self.status_label.configure(text=f"Save Error: {e}")
-        
-        
-        # Inspection Photo Frame (Initially Hidden)
-        self.image_frame = ctk.CTkFrame(self.sidebar, fg_color="#b71836", corner_radius=0)
-        # self.image_frame is not packed yet
-        
-        self.image_label = ctk.CTkLabel(self.image_frame, text="")
-        self.image_label.pack(fill="both", expand=True)
 
     def set_sidebar_mode(self, mode):
         self.sidebar_mode = mode
@@ -780,10 +772,26 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
             node_info = current_node.get('Node_info', '')
             matched_file = None
             if os.path.exists(pic_dir) and node_info:
+                import re
+                search_term = node_info.strip().lower()
+                core_match = re.search(r'(thermal|leak|gauge|vibration|loto|asset)[a-z]*[-_]*0*(\d+)', search_term)
+                
                 for f in os.listdir(pic_dir):
-                    if f.lower().endswith(('.png', '.jpg', '.jpeg')) and node_info.lower() in f.lower():
-                        matched_file = os.path.join(pic_dir, f)
-                        break
+                    f_lower = f.lower()
+                    if f_lower.endswith(('.png', '.jpg', '.jpeg')):
+                        f_clean = f_lower.replace('_', '-')
+                        s_clean = search_term.replace('_', '-')
+                        if s_clean in f_clean or s_clean.replace('-', '') in f_clean.replace('-', ''):
+                            matched_file = os.path.join(pic_dir, f)
+                            break
+                        if core_match:
+                            cat = core_match.group(1)
+                            num = core_match.group(2)
+                            if re.search(rf'{cat}[a-z]*[-_]*0*{num}(?!\d)', f_lower):
+                                matched_file = os.path.join(pic_dir, f)
+                                break
+            
+            is_inspection = current_node.get('PointInfo') == 1 or any(kw in node_info.lower() for kw in ['thermal', 'leak', 'gauge', 'vibration', 'loto', 'asset'])
             
             if matched_file:
                 try:
@@ -792,12 +800,21 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
                     curr_w, curr_h = pil_img.size
                     ratio = min(max_w / curr_w, max_h / curr_h)
                     new_w, new_h = int(curr_w * ratio), int(curr_h * ratio)
-                    pil_img = pil_img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                    resample_filter = Image.Resampling.LANCZOS if hasattr(Image, "Resampling") else Image.LANCZOS
+                    pil_img = pil_img.resize((new_w, new_h), resample_filter)
                     img_tk = ctk.CTkImage(light_image=pil_img, dark_image=pil_img, size=(new_w, new_h))
                     self.image_label.configure(image=img_tk, text="")
                     self.image_label.image = img_tk
                     self.image_frame.pack(pady=20, padx=20, fill="both", expand=True)
-                except: pass
+                except Exception as e:
+                    print(f"Error loading image {matched_file}: {e}")
+                    self.image_label.configure(image=None, text=f"Error loading image:\n{e}")
+                    self.image_frame.pack(pady=20, padx=20, fill="both", expand=True)
+            elif is_inspection:
+                self.image_label.configure(image=None, text=f"No Photo Found for:\n'{node_info}'")
+                self.image_frame.pack(pady=20, padx=20, fill="both", expand=True)
+            else:
+                self.image_frame.pack_forget()
         else:
             # --- Editor View ---
             self.populate_editor_fields(current_node)
@@ -831,8 +848,8 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         self.editor_fields["Posture"].set(self.posture_rev_map.get(node.get("Posture", 0), "Normal"))
 
     def clear_sidebar_image(self):
-        if hasattr(self, 'image_label'):
-            self.image_label.configure(image="", text="")
+        if hasattr(self, 'image_frame'):
+            self.image_frame.pack_forget()
 
     def toggle_sidebar(self):
         if self.sidebar_visible:

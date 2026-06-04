@@ -36,7 +36,7 @@ def extract_and_rename():
     with open(JSON_PATH, 'r') as f:
         data = json.load(f)
     
-    points = [p.get('Node_info') for p in data if p.get('PointInfo') == 1]
+    points = [p.get('Node_info') for p in data if p.get('PointInfo') == 1 and p.get('Inspection') != 'sit']
     
     # pdfimages usually names them img-000.jpg, img-001.jpg ...
     # Let's collect all generated jpegs

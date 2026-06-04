@@ -37,7 +37,7 @@ def get_max_indices(filepaths):
 
     return max_indices
 
-def reindex_inspection_points(source_files, target_file):
+def reindex_inspection_points(source_files, target_file, thermal=None, leakage=None, vibration=None, gauge=None, asset=None, loto=None):
     base_indices = get_max_indices(source_files)
     print(f"Global Base indices from {source_files}: {base_indices}")
 
@@ -49,7 +49,22 @@ def reindex_inspection_points(source_files, target_file):
         data = json.load(f)
 
     categories = ['thermal', 'leakage', 'leaked', 'vibration', 'gauge', 'asset', 'loto']
-    counters = {cat: base_indices.get(cat, 0) for cat in categories}
+    overrides = {
+        'thermal': thermal,
+        'leakage': leakage,
+        'leaked': leakage,
+        'vibration': vibration,
+        'gauge': gauge,
+        'asset': asset,
+        'loto': loto
+    }
+    counters = {}
+    for cat in categories:
+        val = overrides.get(cat)
+        if val is not None:
+            counters[cat] = val - 1
+        else:
+            counters[cat] = base_indices.get(cat, 0)
     
     # Match standard and non-standard (prefixed) names
     pattern = re.compile(r'(?:.*-)?([a-zA-Z]+)-(?:.*-)?(\d+)')
@@ -77,8 +92,7 @@ def reindex_inspection_points(source_files, target_file):
 if __name__ == "__main__":
     # The sequence of files to look back at
     sources = [
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new_dry1-2.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new_dry1-2_2nd.json"
+    "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_packing.json"
     ]
-    target = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new-dry3.json"
-    reindex_inspection_points(sources, target)
+    target = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_filling.json"
+    reindex_inspection_points(sources, target, loto=5, gauge=11, asset=15)

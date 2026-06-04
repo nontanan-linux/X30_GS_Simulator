@@ -8,6 +8,48 @@ def calculate_distance(p1, p2):
     """Calculates Euclidean distance between two points."""
     return math.sqrt((p1['PosX'] - p2['PosX'])**2 + (p1['PosY'] - p2['PosY'])**2)
 
+def format_val(val):
+    if isinstance(val, int) or (isinstance(val, float) and val.is_integer()):
+        return f"{int(val):02}"
+    else:
+        return f"{val:04.1f}"
+
+def find_gaps(indices):
+    float_indices = [float(x) for x in indices]
+    int_parts = sorted(list(set(int(x) for x in float_indices)))
+    if not int_parts:
+        return []
+    
+    min_int = min(int_parts)
+    max_int = max(int_parts)
+    
+    missing = []
+    for i in range(min_int, max_int + 1):
+        if i not in int_parts:
+            missing.append(i)
+            
+    from collections import defaultdict
+    decimals_by_int = defaultdict(list)
+    for x in float_indices:
+        int_part = int(x)
+        dec_part = round((x - int_part) * 10)
+        decimals_by_int[int_part].append(dec_part)
+        
+    for int_part, decs in decimals_by_int.items():
+        decs = sorted(list(set(decs)))
+        if not decs:
+            continue
+        if len(decs) > 1 or (len(decs) == 1 and decs[0] > 0):
+            start_dec = 0 if 0 in decs else 1
+            for d in range(start_dec, max(decs) + 1):
+                if d not in decs:
+                    if d == 0:
+                        missing.append(int_part)
+                    else:
+                        missing.append(float(f"{int_part}.{d}"))
+                        
+    return sorted(missing)
+
 def print_table(headers, rows, title=None):
     """Prints a styled grid table using basic strings."""
     if title:
@@ -63,24 +105,26 @@ def audit_internal_sequence(waypoints, filename):
         last_pos = data[-1]['global']
         
         # Check for internal gaps
-        actual_range = list(range(min_idx, min_idx + len(indices)))
-        missing = [i for i in actual_range if i not in indices]
+        missing = find_gaps(indices)
         is_ordered = (indices == found_sorted)
         
         status = "OK"
-        if min_idx != 1:
-            status = f"CONT (Offset@{min_idx:02})"
+        if min_idx not in [0, 1]:
+            status = f"CONT (Offset@{format_val(min_idx)})"
         
         if missing or not is_ordered:
             errs = []
-            if missing: errs.append(f"Gap:{missing}")
-            if not is_ordered: errs.append("Unordered")
+            if missing:
+                formatted_missing = [format_val(m) for m in missing]
+                errs.append(f"Gap:{formatted_missing}")
+            if not is_ordered:
+                errs.append("Unordered")
             status = f"ERR ({', '.join(errs)})"
             
         rows.append([
             base_name.upper().rstrip("-"),
             len(data),
-            f"{found_sorted[0]:02}-{found_sorted[-1]:02}",
+            f"{format_val(found_sorted[0])}-{format_val(found_sorted[-1])}",
             f"Pt {last_pos}",
             status
         ])
@@ -104,11 +148,15 @@ def normalize_category(name):
     name = re.sub(r'^(acoustic|visual)-', '', name)
     
     # Priority for Protocol prefixes (most specific first)
-    for k in ['via-2h-x', 'via-2h-', 'via-h2-']:
+    for k in ['via-2h-x', 'via-2h-', 'via-h2-', 'via-c2-', 'via-2c-']:
         if name.startswith(k):
-             match = re.search(r'(\d+)', name[len(k):])
+             match = re.search(r'(\d+(?:\.\d+)?)', name[len(k):])
              if match:
-                 return k, int(match.group(1))
+                 val = match.group(1)
+                 if '.' in val:
+                     return k, float(val)
+                 else:
+                     return k, int(val)
     
     # General via points (picking the first sequence of digits)
     match = re.search(r'^([a-z-]+?)(\d+)', name)
@@ -210,6 +258,8 @@ def check_continuity(file_sequence):
 
         # Check all categories found in the previous file
         for cat in max1.keys():
+            if cat in ['via-c2-', 'via-2c-']:
+                continue
             prev_max = max1[cat]
             next_start = min2.get(cat)
 
@@ -226,8 +276,8 @@ def check_continuity(file_sequence):
                 serial_rows.append([
                     trans_name,
                     cat.upper().rstrip("-"),
-                    f"{prev_max:02}",
-                    f"{next_start:02}",
+                    format_val(prev_max),
+                    format_val(next_start),
                     status
                 ])
             else:
@@ -236,13 +286,15 @@ def check_continuity(file_sequence):
 
         # Also check categories that started NEW in the next file (if needed for report completeness)
         for cat in min2.keys():
+            if cat in ['via-c2-', 'via-2c-']:
+                continue
             if cat not in max1:
                 next_start = min2[cat]
                 serial_rows.append([
                     trans_name,
                     cat.upper().rstrip("-"),
                     "--",
-                    f"{next_start:02}",
+                    format_val(next_start),
                     "NEW"
                 ])
 
@@ -254,23 +306,27 @@ def check_continuity(file_sequence):
         wps = f_info['data']
         node_names = [wp.get('Node_info', '') for wp in wps]
         
-        # Header check (ChargeOut and via-h2-02 in first 10)
+        # Header check (ChargeOut and via-h2-02 or equivalent in first 10)
         first_10 = node_names[:10]
-        has_charge_out = "ChargeOut" in first_10
-        has_via_h2_02 = "via-h2-02" in first_10
-        header_status = "OK" if (has_charge_out and has_via_h2_02) else "MISSING"
+        has_charge_out = any("ChargeOut" in name for name in first_10)
+        has_via_start = any(any(v in name for v in ["via-h2-02", "via-c2-00", "via-c2-02", "via-219"]) for name in first_10)
+        header_status = "OK" if (has_charge_out and has_via_start) else "MISSING"
         if not has_charge_out: header_status += " (No ChargeOut)"
-        if not has_via_h2_02: header_status += " (No via-h2-02)"
+        if not has_via_start: header_status += " (No via start)"
         
-        # Footer check (via-2h-x0 and ChargeIn in last 10)
-        last_10 = node_names[-10:]
-        has_charge_in = "ChargeIn" in last_10
-        has_via_2h_x0 = "via-2h-x0" in last_10
-        footer_status = "OK" if (has_charge_in and has_via_2h_x0) else "MISSING"
-        if not has_charge_in: footer_status += " (No ChargeIn)"
-        if not has_via_2h_x0: footer_status += " (No via-2h-x0)"
-        
-        status = "OK" if (header_status == "OK" and footer_status == "OK") else "FAIL"
+        # Footer check (via-2h-x0 and ChargeIn or equivalent in last 10)
+        has_any_charge_in = any("ChargeIn" in name for name in node_names)
+        if has_any_charge_in:
+            last_10 = node_names[-10:]
+            has_charge_in = any("ChargeIn" in name for name in last_10)
+            has_via_end = any(any(v in name for v in ["via-2h-x0", "via-2c-13", "via-278", "via-211"]) for name in last_10)
+            footer_status = "OK" if (has_charge_in and has_via_end) else "MISSING"
+            if not has_charge_in: footer_status += " (No ChargeIn)"
+            if not has_via_end: footer_status += " (No via end)"
+        else:
+            footer_status = "N/A (No ChargeIn)"
+            
+        status = "OK" if (header_status == "OK" and (not has_any_charge_in or footer_status == "OK")) else "FAIL"
         
         struct_rows.append([
             os.path.basename(f_info['path']),
@@ -325,12 +381,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     default_files = [
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-1x.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-2x.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_3x.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone_2nd.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/record-filling.json"
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_dry_full.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_packing.json",
+        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_filling.json",
+        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-1x.json",
+        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-2x.json",
+        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_3x.json",
+        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone.json",
+        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone_2nd.json",
+        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/record-filling.json"
     ]
     
     files_to_check = args.files if args.files else default_files
