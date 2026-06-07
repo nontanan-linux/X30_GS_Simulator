@@ -20,7 +20,7 @@ CARD_BG = RGBColor(25, 35, 55)
 ACCENT_BLUE = RGBColor(99, 102, 241)
 TEXT_PRIMARY = RGBColor(255, 255, 255)
 TEXT_SECONDARY = RGBColor(160, 174, 192)
-MISSION_ID = 'mission-23'
+MISSION_ID = 'mission-32'
 MISSION_DIR = f'/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/{MISSION_ID}'
 
 def find_images(point_name, inspection_type):

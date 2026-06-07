@@ -1848,10 +1848,10 @@
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
-        "PosX": -15.047901,
-        "PosY": 52.904987,
+        "PosX": -15.0295,
+        "PosY": 53.0487,
         "PosZ": 0.4189816,
-        "AngleYaw": -0.5769345,
+        "AngleYaw": -0.6931,
         "Value": 54,
         "CamPTZ": [
             348.0,
@@ -1860,8 +1860,8 @@
         ],
         "Inspection": "vibration_inspection",
         "Frequency_range": [
-            11,
-            30
+            40,
+            60
         ],
         "Energy_threshold": 10,
         "Kurtosis_threshold": 5.0,
@@ -4721,10 +4721,10 @@
         ],
         "Inspection": "leakage_inspection",
         "Frequency_range": [
-            30,
-            40
+            40,
+            60
         ],
-        "Energy_threshold": 30
+        "Energy_threshold": 15
     },
     {
         "Node_info": "via-172",

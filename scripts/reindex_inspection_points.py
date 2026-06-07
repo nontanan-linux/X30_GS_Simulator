@@ -91,8 +91,11 @@ def reindex_inspection_points(source_files, target_file, thermal=None, leakage=N
 
 if __name__ == "__main__":
     # The sequence of files to look back at
+    # sources = [
+    # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_dry_full.json"
+    # ]
     sources = [
     "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_packing.json"
     ]
     target = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_filling.json"
-    reindex_inspection_points(sources, target, loto=5, gauge=11, asset=15)
+    reindex_inspection_points(sources, target, loto=6, gauge=11, asset=16)

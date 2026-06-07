@@ -47,8 +47,10 @@ def reindex_via_points(filepath, start_index=219):
     print(f"Re-sequenced 'Value' for all {len(data)} points.")
 
 if __name__ == "__main__":
+    # target_file = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_packing.json"
     target_file = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_filling.json"
     # The starting number for re-indexing 'via' points.
     # This does NOT affect the 'Value' key, which is always re-sequenced from 0.
-    via_start_number = 279
-    reindex_via_points(target_file, start_index=via_start_number)
+    via_start_packing = 219
+    via_start_filling = 280
+    reindex_via_points(target_file, start_index=via_start_filling)
