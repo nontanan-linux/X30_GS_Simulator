@@ -17,7 +17,7 @@ try:
 except ImportError:
     HAS_GUI = False
 
-class CustomDropdown(ctk.CTkToplevel):
+class CustomDropdown(ctk.CTkToplevel if HAS_GUI else object):
     def __init__(self, master, x, y, sections, width=180):
         super().__init__(master)
         self.overrideredirect(True)
@@ -59,7 +59,7 @@ class CustomDropdown(ctk.CTkToplevel):
         self.destroy()
         if command: command()
 
-class CreateWaypointPopup(ctk.CTkToplevel):
+class CreateWaypointPopup(ctk.CTkToplevel if HAS_GUI else object):
     def __init__(self, master, on_create, on_cancel):
         super().__init__(master)
         self.overrideredirect(True)
@@ -2148,28 +2148,64 @@ class SimulationApp(ctk.CTk if HAS_GUI else object):
         print("Simulation loop finished.")
 
     def take_ui_screenshot(self, point_name):
+        # Sanitise filename
+        safe_name = "".join([c for c in point_name if c.isalnum() or c in (' ', '.', '_', '-')]).strip()
+        save_path = os.path.join(self.takescreen_dir, f"{safe_name}.jpg")
         try:
             # Get window geometry (must be called from main thread or handled carefully)
             # Since we are in the sim thread, we use a simple approach with PIL.ImageGrab
             # If the simulator is the active window, ImageGrab.grab() should capture it.
             # However, specify the box if possible.
-            
-            # Sanitise filename
-            safe_name = "".join([c for c in point_name if c.isalnum() or c in (' ', '.', '_', '-')]).strip()
-            save_path = os.path.join(self.takescreen_dir, f"{safe_name}.jpg")
-            
-            # Get the bounding box of the main window
             x = self.winfo_rootx()
             y = self.winfo_rooty()
             w = self.winfo_width()
             h = self.winfo_height()
             
+            # Clip bounds to prevent X get_image failed error (XGetImage fails if the window is partially offscreen)
+            try:
+                screen_w = self.winfo_screenwidth()
+                screen_h = self.winfo_screenheight()
+                x1 = max(0, x)
+                y1 = max(0, y)
+                x2 = min(screen_w, x + w)
+                y2 = min(screen_h, y + h)
+            except Exception:
+                x1, y1, x2, y2 = x, y, x + w, y + h
+            
             # Take screenshot of the window region
-            screenshot = ImageGrab.grab(bbox=(x, y, x+w, y+h))
-            screenshot.save(save_path, "JPEG", quality=85)
-            # print(f"Screenshot saved: {save_path}")
+            if x2 > x1 and y2 > y1:
+                screenshot = ImageGrab.grab(bbox=(x1, y1, x2, y2))
+                screenshot.save(save_path, "JPEG", quality=85)
+            else:
+                raise ValueError(f"Invalid bounding box: ({x1}, {y1}, {x2}, {y2})")
         except Exception as e:
-            print(f"Error taking screenshot: {e}")
+            # Fallback: Crop around the robot from the precomputed/rendered map frame
+            try:
+                if hasattr(self, 'last_frame') and self.last_frame is not None:
+                    u, v = None, None
+                    for node in self.path_nodes:
+                        if node.get('Node_info') == point_name:
+                            u, v = self.world_to_pixel(node['PosX'], node['PosY'], self.current_map_id)
+                            break
+                    h_f, w_f = self.last_frame.shape[:2]
+                    if u is None or v is None:
+                        u, v = w_f // 2, h_f // 2
+                    
+                    crop_w, crop_h = 800, 600
+                    u1 = max(0, int(u - crop_w // 2))
+                    v1 = max(0, int(v - crop_h // 2))
+                    u2 = min(w_f, u1 + crop_w)
+                    v2 = min(h_f, v1 + crop_h)
+                    u1 = max(0, u2 - crop_w)
+                    v1 = max(0, v2 - crop_h)
+                    
+                    cropped = self.last_frame[v1:v2, u1:u2]
+                    cv2.imwrite(save_path, cropped)
+                    # print(f"Fallback screenshot saved: {save_path}")
+                else:
+                    print(f"Error taking screenshot and fallback failed (no frame): {e}")
+            except Exception as fe:
+                print(f"Error taking screenshot: {e} | Fallback failed: {fe}")
 
 def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))

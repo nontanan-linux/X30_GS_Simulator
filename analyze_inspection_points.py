@@ -4,7 +4,8 @@ import os
 
 def analyze_inspection_points():
     # Define file paths
-    base_path = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_path = os.path.join(script_dir, "resource/path")
     files = [
         "dry_zone.json",
         "wet_zone_3x.json",
@@ -12,7 +13,7 @@ def analyze_inspection_points():
         "wet_zone_12-1x.json"
     ]
     
-    output_file = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/inspection_points.csv"
+    output_file = os.path.join(script_dir, "inspection_points.csv")
     
     summary = {}
     csv_data = []

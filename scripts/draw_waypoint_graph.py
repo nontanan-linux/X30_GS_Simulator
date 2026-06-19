@@ -166,7 +166,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Default paths if arguments are not provided
-    json_file = args.input if args.input else "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/wet_zone_12-1x.json"
-    output_image = args.output if args.output else "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/scripts/waypoint_graph_wet_zone_12-1x.png"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    json_file = args.input if args.input else os.path.join(project_root, "resource/path/wet_zone_12-1x.json")
+    output_image = args.output if args.output else os.path.join(project_root, "scripts/waypoint_graph_wet_zone_12-1x.png")
 
     create_directed_graph_from_waypoints(json_file, output_image)

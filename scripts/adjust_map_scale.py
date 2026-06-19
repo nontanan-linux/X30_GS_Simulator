@@ -170,11 +170,13 @@ def load_json(path):
 
 def main():
     # Paths
-    base_dir = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/maps/map1-nestle/"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    base_dir = os.path.join(project_root, "resource/maps/map1-nestle/")
     input_map = os.path.join(base_dir, "jueying.pgm")
     layout_map = os.path.join(base_dir, "Neatle-map-Layout.webp")
     combine_map = os.path.join(base_dir, "Nestle_map_combine.jpg")
-    json_path = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new-dry-full.json"
+    json_path = os.path.join(project_root, "resource/path/new-dry-full.json")
     
     # Parameters
     yaml_data = {'resolution': 0.05, 'origin': [-67.25, -243.55, 0.0]}

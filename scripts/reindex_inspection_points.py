@@ -90,12 +90,22 @@ def reindex_inspection_points(source_files, target_file, thermal=None, leakage=N
     print(f"Finished re-indexing {target_file}")
 
 if __name__ == "__main__":
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
     # The sequence of files to look back at
-    # sources = [
-    # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_dry_full.json"
-    # ]
-    sources = [
-    "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_packing.json"
+    dry_sources = [
+        os.path.join(project_root, "resource/path/final_dry_full.json")
     ]
-    target = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_filling.json"
-    reindex_inspection_points(sources, target, loto=6, gauge=11, asset=16)
+    packing_sources = [
+        os.path.join(project_root, "resource/path/final_packing.json")
+    ]
+    filling_sources = [
+        os.path.join(project_root, "resource/path/final_filling.json")
+    ]
+    filling = os.path.join(project_root, "resource/path/final_filling.json")
+    filling_add = os.path.join(project_root, "resource/path/adon_filling.json")
+    packing = os.path.join(project_root, "resource/path/final_packing.json")
+    # reindex_inspection_points(packing_sources, filling, loto=6, gauge=11, asset=16)
+    # reindex_inspection_points(dry_sources, packing,) #for packing
+    # reindex_inspection_points(filling_sources,filling_add, leakage=47, thermal=117, asset=16, loto=6, gauge=11)
+    reindex_inspection_points(filling_sources,filling_add)

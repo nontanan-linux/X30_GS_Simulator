@@ -1,3 +1,4 @@
+
 # Python
 __pycache__/
 *.py[cod]
@@ -20,6 +21,8 @@ resource/*
 !resource/gs_cat_robot.png
 !resource/nestle_layout.png
 !resource/**/*.webp
+nestle_bag_20260617.zip
+nestle_bag_20260617
 
 # Path directory
 !resource/path/

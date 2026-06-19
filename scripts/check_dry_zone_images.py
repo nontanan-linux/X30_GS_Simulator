@@ -30,8 +30,10 @@ def print_table(headers, rows, title=None):
     print(sep)
 
 def check_dry_zone_images():
-    json_path = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/waypoints/dry_zone.json"
-    img_dir = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/maps/Dry_zone/"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    json_path = os.path.join(project_root, "resource", "path", "dry_zone.json")
+    img_dir = os.path.join(project_root, "resource", "maps", "Dry_zone")
     
     if not os.path.exists(json_path):
         print(f"Error: JSON file not found at {json_path}")
@@ -136,7 +138,7 @@ def check_dry_zone_images():
         markdown_lines.append(f"| `{img}` | Unused in JSON |")
 
     # Write to artifact
-    artifact_path = "/home/nontanan/.gemini/antigravity/brain/067102eb-8551-4631-998d-6055d04dcc23/dry_zone_image_audit.md"
+    artifact_path = os.path.join(project_root, "dry_zone_image_audit.md")
     with open(artifact_path, 'w', encoding='utf-8') as f:
         f.write("\n".join(markdown_lines))
     

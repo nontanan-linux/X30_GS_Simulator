@@ -1,9 +1,13 @@
 import pandas as pd
 import os
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(script_dir)
+nestle_cat_dir = os.path.dirname(project_root)
+
 files = [
-    '/home/nontanan/Gensurv/NestleCat/nestle_cat_waypoints.xlsx',
-    '/home/nontanan/Gensurv/NestleCat/nestle_cat_waypoints_updated.xlsx'
+    os.path.join(nestle_cat_dir, 'nestle_cat_waypoints.xlsx'),
+    os.path.join(nestle_cat_dir, 'nestle_cat_waypoints_updated.xlsx')
 ]
 
 for file in files:

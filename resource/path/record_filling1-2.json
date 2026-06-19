@@ -2789,5 +2789,53 @@
             -3.0,
             2.0
         ]
+    },
+    {
+        "Node_info": "vis-joint-00",
+        "MapName": "1st_floor",
+        "Zone": "filling",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 2.099189281463623,
+        "PosY": -36.01981735229492,
+        "PosZ": -0.150954,
+        "AngleYaw": 3.140406370162964,
+        "Value": 193,
+        "CamPTZ": [
+            0.1,
+            -3.0,
+            2.0
+        ]
+    },
+    {
+        "Node_info": "vis-joint-01",
+        "MapName": "1st_floor",
+        "Zone": "filling",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": -1.0759696960449219,
+        "PosY": -36.32490921020508,
+        "PosZ": -0.150954,
+        "AngleYaw": 0.03784889727830887,
+        "Value": 193,
+        "CamPTZ": [
+            0.1,
+            -3.0,
+            2.0
+        ]
     }
 ]

@@ -3,9 +3,11 @@ import json
 import subprocess
 
 # --- CONFIGURATION ---
-PDF_PATH = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/docs/New-dry-full.pdf'
-JSON_PATH = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new-dry-full.json'
-OUTPUT_DIR = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/docs/extracted_images'
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+PDF_PATH = os.path.join(PROJECT_ROOT, 'resource', 'docs', 'New-dry-full.pdf')
+JSON_PATH = os.path.join(PROJECT_ROOT, 'resource', 'path', 'new-dry-full.json')
+OUTPUT_DIR = os.path.join(PROJECT_ROOT, 'resource', 'docs', 'extracted_images')
 # ---------------------
 
 def extract_and_rename():

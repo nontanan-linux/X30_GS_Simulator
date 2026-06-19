@@ -15,17 +15,15 @@ A GUI-based Robot Simulator designed for path simulation and waypoint management
 ## Prerequisites
 
 - Python 3.x
-- Dependencies:
-  - `customtkinter` (for modern GUI)
-  - `Pillow` (PIL) (for image processing)
-  - `opencv-python` (cv2)
-  - `numpy`
-  - `pyyaml`
+- System dependencies (on Linux, required for Tkinter/CustomTkinter GUI):
+  - `python3-tk`
+- Python library dependencies (listed in `requirements.txt`)
 
-You can install the dependencies using pip:
+You can install the Python dependencies using pip:
 ```bash
-pip install customtkinter Pillow opencv-python numpy pyyaml
+pip install -r requirements.txt
 ```
+
 
 ## Installation
 

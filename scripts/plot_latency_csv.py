@@ -63,9 +63,14 @@ def generate_graph(csv_file, output_image):
     print(f"2D plot graph image file saved successfully: {output_image}")
 
 if __name__ == '__main__':
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    default_input = os.path.join(project_root, 'resource', 'network', 'network_spatial_log_20260526_175257.csv')
+    default_output = os.path.join(project_root, 'resource', 'network', 'network_spatial_log_20260526_175257.png')
+    
     parser = argparse.ArgumentParser(description="Generate 3D Latency Graph from CSV")
-    parser.add_argument('--input', type=str, default='/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/network/network_spatial_log_20260526_175257.csv', help='Input CSV file path')
-    parser.add_argument('--output', type=str, default='/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/network/network_spatial_log_20260526_175257.png', help='Output PNG file path')
+    parser.add_argument('--input', type=str, default=default_input, help='Input CSV file path')
+    parser.add_argument('--output', type=str, default=default_output, help='Output PNG file path')
     args = parser.parse_args()
     
     generate_graph(args.input, args.output)

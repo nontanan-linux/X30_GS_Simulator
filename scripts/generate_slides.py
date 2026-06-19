@@ -277,8 +277,10 @@ def generate_html(data):
     return html_template
 
 def main():
-    json_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/new-dry-full.json'
-    output_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/inspection_slides.html'
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    json_path = os.path.join(project_root, 'resource', 'path', 'new-dry-full.json')
+    output_path = os.path.join(project_root, 'inspection_slides.html')
     
     if not os.path.exists(json_path):
         print(f"Error: {json_path} not found.")

@@ -1,0 +1,198 @@
+[
+    {
+        "Node_info": "gauge-15",
+        "MapName": "1st_floor",
+        "Zone": "packing3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 3.863838,
+        "PosY": -131.64951,
+        "PosZ": -0.2490186,
+        "AngleYaw": 0.0320802,
+        "Value": 109,
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.2229,
+                    0.2722
+                ],
+                [
+                    0.4917,
+                    0.7148
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            2.0,
+            15.0,
+            3.0
+        ]
+    },
+    {
+        "Node_info": "gauge-16",
+        "MapName": "1st_floor",
+        "Zone": "packing3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 3.8499441,
+        "PosY": -131.66086,
+        "PosZ": -0.245727,
+        "AngleYaw": 0.0304808,
+        "Value": 110,
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.4708,
+                    0.2833
+                ],
+                [
+                    0.7583,
+                    0.7426
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            2.0,
+            15.0,
+            3.0
+        ]
+    },
+    {
+        "Node_info": "via-np-00",
+        "MapName": "1st_floor",
+        "Zone": "packing3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 3.9906,
+        "PosY": -133.7388,
+        "PosZ": -0.0438,
+        "AngleYaw": -2.0115,
+        "Value": 111,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "via-np-01",
+        "MapName": "1st_floor",
+        "Zone": "packing3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 1.0423,
+        "PosY": -133.7388,
+        "PosZ": -0.0438,
+        "AngleYaw": 1.6788,
+        "Value": 112,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "gauge-17",
+        "MapName": "1st_floor",
+        "Zone": "packing3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 0.8853099,
+        "PosY": -131.72388,
+        "PosZ": -0.1929114,
+        "AngleYaw": -3.0874386,
+        "Value": 113,
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.2385,
+                    0.1722
+                ],
+                [
+                    0.5312,
+                    0.6648
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            2.0,
+            15.0,
+            3.0
+        ]
+    },
+    {
+        "Node_info": "gauge-18",
+        "MapName": "1st_floor",
+        "Zone": "packing3",
+        "MapID": 0,
+        "Gait": 0,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 0.7914704,
+        "PosY": -131.7132,
+        "PosZ": -0.205432,
+        "AngleYaw": -3.0869303,
+        "Value": 114,
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.4979,
+                    0.1259
+                ],
+                [
+                    0.8344,
+                    0.737
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            2.0,
+            15.0,
+            3.0
+        ]
+    }
+]

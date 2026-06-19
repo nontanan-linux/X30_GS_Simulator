@@ -1,0 +1,19 @@
+# Core Simulator GUI Dependencies
+customtkinter
+Pillow
+opencv-python
+numpy
+PyYAML
+
+# Data Analysis & Plotting Dependencies
+pandas
+matplotlib
+networkx
+
+# Report & Slide Generation Dependencies
+python-docx
+python-pptx
+openpyxl
+
+# 3D Point Cloud Processing
+open3d

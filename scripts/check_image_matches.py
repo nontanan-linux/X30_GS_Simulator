@@ -3,8 +3,10 @@ import json
 import re
 
 def check_image_matches():
-    json_path = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/dry_zone.json"
-    img_dir = "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/maps/Dry_zone/"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    json_path = os.path.join(project_root, "resource", "path", "dry_zone.json")
+    img_dir = os.path.join(project_root, "resource", "maps", "Dry_zone")
     
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)

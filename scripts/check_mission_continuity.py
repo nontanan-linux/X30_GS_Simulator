@@ -380,16 +380,20 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
+    # Resolve project root dynamically (one level up from scripts directory)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+    
     default_files = [
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_dry_full.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_packing.json",
-        "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/final_filling.json",
-        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-1x.json",
-        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_12-2x.json",
-        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/wet_zone_3x.json",
-        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone.json",
-        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_zone_2nd.json",
-        # "/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/record-filling.json"
+        os.path.join(project_root, "resource/path/final_dry_full.json"),
+        os.path.join(project_root, "resource/path/final_packing.json"),
+        os.path.join(project_root, "resource/path/final_filling.json"),
+        # os.path.join(project_root, "resource/path/wet_zone_12-1x.json"),
+        # os.path.join(project_root, "resource/path/wet_zone_12-2x.json"),
+        # os.path.join(project_root, "resource/path/wet_zone_3x.json"),
+        # os.path.join(project_root, "resource/path/dry_zone.json"),
+        # os.path.join(project_root, "resource/path/dry_zone_2nd.json"),
+        # os.path.join(project_root, "resource/path/record-filling.json")
     ]
     
     files_to_check = args.files if args.files else default_files

@@ -9,6 +9,10 @@ from pptx.util import Inches, Pt
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
+from docx import Document
+from docx.shared import Inches as DocxInches, Pt as DocxPt, RGBColor as DocxRGBColor
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 
 # Layout Constants
 SLIDE_WIDTH = 13.333
@@ -20,8 +24,13 @@ CARD_BG = RGBColor(25, 35, 55)
 ACCENT_BLUE = RGBColor(99, 102, 241)
 TEXT_PRIMARY = RGBColor(255, 255, 255)
 TEXT_SECONDARY = RGBColor(160, 174, 192)
-MISSION_ID = 'mission-32'
-MISSION_DIR = f'/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/{MISSION_ID}'
+# Project paths
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+
+MISSION_ID = 'mission-47'
+MISSION_DIR = os.path.join(PROJECT_ROOT, 'resource', MISSION_ID)
+LOGO_PATH = os.path.join(PROJECT_ROOT, 'resource', 'gensurv-logo.jpg')
 
 def find_images(point_name, inspection_type):
     suffixes = []
@@ -84,7 +93,7 @@ def add_slide(prs, point, index, total):
     add_text(0.5, 0.4, 11.0, 0.8, title_text, font_size=36, bold=True)
     
     # 2. Logo (Flush Top-Right)
-    logo_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/gensurv-logo.jpg'
+    logo_path = LOGO_PATH
     if os.path.exists(logo_path):
         logo_h = 0.6
         slide.shapes.add_picture(logo_path, Inches(12.733), Inches(0.0), height=Inches(logo_h))
@@ -173,7 +182,7 @@ def add_slide(prs, point, index, total):
     f1_rect.fill.fore_color.rgb = CARD_BG
     f1_rect.line.visible = False
     
-    takescreen_dir = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/TakeScreen'
+    takescreen_dir = os.path.join(PROJECT_ROOT, 'TakeScreen')
     robot_img_path = os.path.join(takescreen_dir, f'{name}.jpg')
     
     if os.path.exists(robot_img_path):
@@ -224,24 +233,28 @@ def add_slide(prs, point, index, total):
 
 # Load Notification Data from CSV
 notifications = {}
-csv_pattern = os.path.join(MISSION_DIR, 'notification_*.csv')
-csv_files = glob.glob(csv_pattern)
-csv_path = csv_files[0] if csv_files else '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/mission-332/notification_332_2026-03-18_2026-04-24.csv'
-if os.path.exists(csv_path):
-    with open(csv_path, mode='r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            name = row['action_name']
-            # Parse result string to dict safely
-            try:
-                res_str = row['result'].replace("'", '"').replace("True", "true").replace("False", "false")
-                row['result_dict'] = json.loads(res_str)
-            except:
+
+def load_notifications():
+    global notifications
+    notifications.clear()
+    csv_pattern = os.path.join(MISSION_DIR, 'notification_*.csv')
+    csv_files = glob.glob(csv_pattern)
+    csv_path = csv_files[0] if csv_files else os.path.join(PROJECT_ROOT, 'resource', 'mission-332', 'notification_332_2026-03-18_2026-04-24.csv')
+    if os.path.exists(csv_path):
+        with open(csv_path, mode='r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                name = row['action_name']
+                # Parse result string to dict safely
                 try:
-                    row['result_dict'] = ast.literal_eval(row['result'])
+                    res_str = row['result'].replace("'", '"').replace("True", "true").replace("False", "false")
+                    row['result_dict'] = json.loads(res_str)
                 except:
-                    row['result_dict'] = {}
-            notifications[name] = row
+                    try:
+                        row['result_dict'] = ast.literal_eval(row['result'])
+                    except:
+                        row['result_dict'] = {}
+                notifications[name] = row
 
 def get_discussion(name, raw_type, csv_res, csv_level):
     level = csv_level.lower()
@@ -303,7 +316,7 @@ def add_issues_slide(prs, failed_points, missing_points):
         p.font.bold = True
         p.font.color.rgb = TEXT_PRIMARY
         
-        logo_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/gensurv-logo.jpg'
+        logo_path = LOGO_PATH
         if os.path.exists(logo_path):
             slide.shapes.add_picture(logo_path, Inches(12.733), Inches(0.0), height=Inches(0.6))
             
@@ -348,6 +361,243 @@ def add_issues_slide(prs, failed_points, missing_points):
             col2 = cols[i+1]
             add_text_block(slide, 7.0, 1.5, 5.5, 5.5, col2[0], col2[1], col2[2])
 
+def add_confusion_matrix_slide(prs, inspection_points, notifications):
+    blank_slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(blank_slide_layout)
+    
+    fill = slide.background.fill
+    fill.solid()
+    fill.fore_color.rgb = BG_COLOR
+    
+    def add_text(left, top, width, height, text, font_size=12, bold=False, color=TEXT_PRIMARY, alignment=PP_ALIGN.LEFT, font_name='Arial'):
+        txBox = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
+        tf = txBox.text_frame
+        tf.word_wrap = True
+        lines = text.split('\n')
+        for idx, line in enumerate(lines):
+            if idx == 0:
+                p = tf.paragraphs[0]
+                p.text = line
+            else:
+                p = tf.add_paragraph()
+                p.text = line
+            p.alignment = alignment
+            p.font.size = Pt(font_size)
+            p.font.bold = bold
+            p.font.color.rgb = color
+            p.font.name = font_name
+        return txBox
+
+    # Title
+    add_text(0.5, 0.4, 12, 0.8, "Confusion Matrix & Performance Evaluation", font_size=36, bold=True, alignment=PP_ALIGN.CENTER)
+    
+    # Logo
+    logo_path = LOGO_PATH
+    if os.path.exists(logo_path):
+        slide.shapes.add_picture(logo_path, Inches(12.733), Inches(0.0), height=Inches(0.6))
+
+    # Calculate Confusion Matrix
+    tp = fp = fn = tn = 0
+    for point in inspection_points:
+        name = point.get('Node_info', '')
+        raw_insp = point.get('Inspection', '')
+        
+        notif = notifications.get(name)
+        if notif:
+            level = notif.get('notification_level', 'pass').lower()
+            csv_res = notif.get('result_dict', {})
+        else:
+            level = 'pass'
+            csv_res = {}
+            
+        is_critical = (level == 'critical')
+        
+        is_thermal_fn = False
+        if raw_insp == 'thermal_inspection':
+            threshold = point.get('Threshold')
+            if threshold is not None:
+                try:
+                    threshold_val = float(threshold)
+                except:
+                    threshold_val = 50.0
+            else:
+                threshold_val = 50.0
+                
+            max_temp = csv_res.get('max_temperature')
+            if max_temp is not None:
+                try:
+                    max_temp_val = float(max_temp)
+                except:
+                    max_temp_val = 0.0
+            else:
+                max_temp_val = 0.0
+                
+            if max_temp_val > threshold_val:
+                if not is_critical:
+                    is_thermal_fn = True
+                    
+        if is_critical:
+            tp += 1
+        elif is_thermal_fn:
+            fn += 1
+        else:
+            tn += 1
+
+    # Calculate Metrics
+    total = tp + tn + fp + fn
+    accuracy = (tp + tn) / total if total > 0 else 0.0
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+
+    # Draw Confusion Matrix Table
+    rows = 3
+    cols = 3
+    left_margin = Inches(1.0)
+    top_margin = Inches(1.3)
+    table_w = Inches(5.3)
+    table_h = Inches(2.4)
+    
+    table_shape = slide.shapes.add_table(rows, cols, left_margin, top_margin, table_w, table_h)
+    table = table_shape.table
+    
+    # Column widths
+    table.columns[0].width = Inches(1.9)
+    table.columns[1].width = Inches(1.7)
+    table.columns[2].width = Inches(1.7)
+    
+    # Table data
+    table_data = [
+        ["Predicted \\ Actual", "Actual Normal", "Actual Anomaly"],
+        ["Predicted Normal", f"TN\n{tn}", f"FN\n{fn}"],
+        ["Predicted Anomaly", f"FP\n{fp}", f"TP\n{tp}"]
+    ]
+    
+    # Colors
+    color_header_bg = RGBColor(40, 50, 70)
+    color_tn_tp_bg = RGBColor(20, 83, 45)     # Dark Green
+    color_fn_fp_bg = RGBColor(127, 29, 29)    # Dark Red
+    
+    for r in range(rows):
+        for c in range(cols):
+            cell = table.cell(r, c)
+            cell.fill.solid()
+            cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+            
+            # Style backgrounds
+            if r == 0 or c == 0:
+                cell.fill.fore_color.rgb = color_header_bg
+            elif (r == 1 and c == 1) or (r == 2 and c == 2):
+                cell.fill.fore_color.rgb = color_tn_tp_bg
+            else:
+                cell.fill.fore_color.rgb = color_fn_fp_bg
+                
+            cell.text = table_data[r][c]
+            p = cell.text_frame.paragraphs[0]
+            p.font.size = Pt(13)
+            p.font.bold = True
+            p.font.color.rgb = TEXT_PRIMARY
+            p.font.name = 'Arial'
+            p.alignment = PP_ALIGN.CENTER
+            
+            # If r > 0 and c > 0, style the label and value
+            if r > 0 and c > 0:
+                cell.text = ""
+                # Add Label paragraph
+                p_lbl = cell.text_frame.paragraphs[0]
+                p_lbl.text = "TN" if (r==1 and c==1) else "FN" if (r==1 and c==2) else "FP" if (r==2 and c==1) else "TP"
+                p_lbl.font.size = Pt(10)
+                p_lbl.font.bold = False
+                p_lbl.font.color.rgb = TEXT_SECONDARY
+                p_lbl.font.name = 'Arial'
+                p_lbl.alignment = PP_ALIGN.CENTER
+                
+                # Add Value paragraph
+                p_val = cell.text_frame.add_paragraph()
+                p_val.text = str(tn if (r==1 and c==1) else fn if (r==1 and c==2) else fp if (r==2 and c==1) else tp)
+                p_val.font.size = Pt(24)
+                p_val.font.bold = True
+                p_val.font.color.rgb = TEXT_PRIMARY
+                p_val.font.name = 'Arial'
+                p_val.alignment = PP_ALIGN.CENTER
+
+    # TP/TN/FP/FN Legend Box below table
+    legend_tp_tn = (
+        "• TP (True Positive)  : Anomaly correctly detected\n"
+        "• TN (True Negative)  : Normal condition correctly verified\n"
+        "• FP (False Positive) : Normal wrongly flagged as anomaly\n"
+        "• FN (False Negative) : Anomaly missed (predicted normal)"
+    )
+    add_text(1.0, 3.9, 5.3, 0.9, legend_tp_tn, font_size=8.5, color=TEXT_PRIMARY, font_name='Consolas')
+
+    # Draw Metrics Cards on the right
+    card_w = 2.4
+    card_h = 0.85
+    c1_x = 7.0
+    c2_x = 9.9
+    r1_y = 1.3
+    r2_y = 2.35
+    
+    def add_metric_card(left, top, label, val_text):
+        shape = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(left), Inches(top), Inches(card_w), Inches(card_h))
+        shape.fill.solid()
+        shape.fill.fore_color.rgb = CARD_BG
+        shape.line.visible = False
+        add_text(left + 0.1, top + 0.08, card_w - 0.2, 0.25, label, font_size=9, color=TEXT_SECONDARY, alignment=PP_ALIGN.CENTER)
+        add_text(left + 0.1, top + 0.3, card_w - 0.2, 0.45, val_text, font_size=20, bold=True, color=TEXT_PRIMARY, alignment=PP_ALIGN.CENTER)
+
+    add_metric_card(c1_x, r1_y, "ACCURACY", f"{accuracy:.1%}")
+    add_metric_card(c2_x, r1_y, "PRECISION", f"{precision:.1%}")
+    add_metric_card(c1_x, r2_y, "RECALL (SENSITIVITY)", f"{recall:.1%}")
+    add_metric_card(c2_x, r2_y, "F1-SCORE", f"{f1:.1%}")
+
+    # Metrics Definitions Box below the cards
+    legend_metrics = (
+        "• Accuracy  : Overall proportion of correct predictions\n"
+        "• Precision : Alarm reliability (TP / Predicted Anomaly)\n"
+        "• Recall    : Anomaly detection rate (TP / Actual Anomaly)\n"
+        "• F1-Score  : Harmonic mean of Precision and Recall"
+    )
+    add_text(7.0, 3.9, 5.3, 0.9, legend_metrics, font_size=8.5, color=TEXT_PRIMARY, font_name='Consolas')
+
+    # Description Area at the bottom (formatted equations)
+    desc_y = 5.1
+    add_text(1.0, desc_y, 11.3, 0.3, "Calculation Steps", font_size=11, color=TEXT_SECONDARY, bold=True)
+
+    def format_fraction(label, num_str, den_str, val_num_str, val_den_str, result_str):
+        max_top_len = max(len(num_str), len(val_num_str))
+        max_bot_len = max(len(den_str), len(val_den_str))
+        width = max(max_top_len, max_bot_len)
+        
+        num_padded = num_str.center(width)
+        val_num_padded = val_num_str.center(width)
+        
+        den_padded = den_str.center(width)
+        val_den_padded = val_den_str.center(width)
+        
+        bar = '-' * width
+        
+        lbl_len = len(label)
+        lbl_spaces = ' ' * lbl_len
+        
+        line1 = f"{lbl_spaces}   {num_padded}     {val_num_padded}"
+        line2 = f"{label} = {bar}  =  {bar}  =  {result_str}"
+        line3 = f"{lbl_spaces}   {den_padded}     {val_den_padded}"
+        
+        return f"{line1}\n{line2}\n{line3}"
+
+    eq_accuracy = format_fraction("• Accuracy ", "TP + TN", "Total", f"{tp} + {tn}", f"{total}", f"{accuracy:.1%}")
+    eq_precision = format_fraction("• Precision", "TP", "TP + FP", f"{tp}", f"{tp} + {fp}", f"{precision:.1%}")
+    eq_recall = format_fraction("• Recall   ", "TP", "TP + FN", f"{tp}", f"{tp} + {fn}", f"{recall:.1%}")
+    eq_f1 = format_fraction("• F1-Score ", "2 * P * R", "P + R", f"2 * {precision:.2f} * {recall:.2f}", f"{precision:.2f} + {recall:.2f}", f"{f1:.1%}")
+
+    col1_text = f"{eq_accuracy}\n\n{eq_precision}"
+    col2_text = f"{eq_recall}\n\n{eq_f1}"
+
+    # Draw formulas in two columns using monospace Consolas font
+    add_text(1.0, desc_y + 0.4, 5.3, 1.6, col1_text, font_size=9.5, color=TEXT_PRIMARY, font_name='Consolas')
+    add_text(7.0, desc_y + 0.4, 5.3, 1.6, col2_text, font_size=9.5, color=TEXT_PRIMARY, font_name='Consolas')
+
 def add_summary_slide(prs, inspection_points, notifications):
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
@@ -373,7 +623,7 @@ def add_summary_slide(prs, inspection_points, notifications):
     add_text(0.5, 0.4, 12, 0.8, "Inspection Summary Report", font_size=40, bold=True, alignment=PP_ALIGN.CENTER)
     
     # Logo
-    logo_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/gensurv-logo.jpg'
+    logo_path = LOGO_PATH
     if os.path.exists(logo_path):
         slide.shapes.add_picture(logo_path, Inches(12.733), Inches(0.0), height=Inches(0.6))
 
@@ -577,14 +827,319 @@ def add_summary_slide(prs, inspection_points, notifications):
         p.font.name = 'Arial'
         p.alignment = PP_ALIGN.LEFT if c == 0 else PP_ALIGN.CENTER
 
+    # Add confusion matrix slide
+    add_confusion_matrix_slide(prs, inspection_points, notifications)
+
     # Add issues slides listing details of failed and missing points
     add_issues_slide(prs, failed_points, missing_points)
 
 
 
+def find_docx_images(point_name, inspection_type):
+    images = {}
+    if inspection_type == 'thermal_inspection':
+        for key, suffix in [('rgb', '_raw_rgb_image.jpg'), ('thermal', '_thermal_map.jpg')]:
+            pattern = os.path.join(MISSION_DIR, f'*{point_name}*{suffix}')
+            matches = glob.glob(pattern)
+            if matches:
+                images[key] = matches[0]
+    elif inspection_type in ['leakage_inspection', 'vibration_inspection']:
+        for key, suffix in [('soundmap', '_soundmap_photo.jpg'), ('spect', '_spect_photo.jpg')]:
+            pattern = os.path.join(MISSION_DIR, f'*{point_name}*{suffix}')
+            matches = glob.glob(pattern)
+            if matches:
+                images[key] = matches[0]
+    else:
+        for key, suffix in [('processed', '_processed_rgb_image.jpg'), ('preprocessed', '_preprocessed_rgb_image.jpg')]:
+            pattern = os.path.join(MISSION_DIR, f'*{point_name}*{suffix}')
+            matches = glob.glob(pattern)
+            if matches:
+                images[key] = matches[0]
+    return images
+
+def generate_docx(output_docx_path, inspection_points, notifications, include_all=False):
+    doc = Document()
+    
+    # Page setup (margins: 1.0 inch all around)
+    section = doc.sections[0]
+    section.page_width = DocxInches(8.5)
+    section.page_height = DocxInches(11.0)
+    section.top_margin = DocxInches(1.0)
+    section.bottom_margin = DocxInches(1.0)
+    section.left_margin = DocxInches(1.0)
+    section.right_margin = DocxInches(1.0)
+
+    # Helper to set background
+    def set_cell_background(cell, fill_hex):
+        tcPr = cell._tc.get_or_add_tcPr()
+        shd = OxmlElement('w:shd')
+        shd.set(qn('w:val'), 'clear')
+        shd.set(qn('w:color'), 'auto')
+        shd.set(qn('w:fill'), fill_hex)
+        tcPr.append(shd)
+
+    # Helper to set cell margins (padding)
+    def set_cell_margins(cell, top=144, bottom=144, left=216, right=216):
+        tcPr = cell._tc.get_or_add_tcPr()
+        tcMar = OxmlElement('w:tcMar')
+        for m, val in [('top', top), ('bottom', bottom), ('left', left), ('right', right)]:
+            node = OxmlElement(f'w:{m}')
+            node.set(qn('w:w'), str(val))
+            node.set(qn('w:type'), 'dxa')
+            tcMar.append(node)
+        tcPr.append(tcMar)
+
+    # Title
+    title_p = doc.add_paragraph()
+    title_p.paragraph_format.space_before = DocxPt(0)
+    title_p.paragraph_format.space_after = DocxPt(4)
+    report_title = "Inspection Points Report" if include_all else "Inspection Problem Points Report"
+    title_run = title_p.add_run(report_title)
+    title_run.font.name = 'Arial'
+    title_run.font.size = DocxPt(20)
+    title_run.font.bold = True
+    title_run.font.color.rgb = DocxRGBColor(31, 41, 55) # #1F2937
+
+    # Subtitle
+    sub_p = doc.add_paragraph()
+    sub_p.paragraph_format.space_before = DocxPt(0)
+    sub_p.paragraph_format.space_after = DocxPt(24)
+    sub_run = sub_p.add_run(f"Mission: {MISSION_ID} | Generated automatically from inspection data.")
+    sub_run.font.name = 'Arial'
+    sub_run.font.size = DocxPt(10)
+    sub_run.font.color.rgb = DocxRGBColor(75, 85, 99) # #4B5563
+
+    # Filter or Include all points
+    target_points = []
+    for point in inspection_points:
+        name = point.get('Node_info', '')
+        raw_insp = point.get('Inspection', 'General')
+        notif = notifications.get(name)
+        if notif:
+            level = notif.get('notification_level', 'pass').lower()
+        else:
+            level = 'missing'
+            
+        if include_all or level != 'pass':
+            target_points.append((point, notif or {}, level))
+                
+    if not target_points:
+        msg = "No inspection points detected in this mission." if include_all else "No problem points detected in this mission."
+        doc.add_paragraph(msg)
+        doc.save(output_docx_path)
+        return
+
+    # Add Table
+    table = doc.add_table(rows=1, cols=3)
+    table.alignment = 1 # Center
+    table.allow_autofit = False
+    
+    # Force fixed table layout in XML to enforce column widths strictly
+    tblPr = table._tbl.tblPr
+    tblLayout = OxmlElement('w:tblLayout')
+    tblLayout.set(qn('w:type'), 'fixed')
+    tblPr.append(tblLayout)
+    
+    # Style Table Borders
+    tblBorders = tblPr.first_child_found_in("w:tblBorders")
+    if tblBorders is None:
+        tblBorders = OxmlElement('w:tblBorders')
+        tblPr.append(tblBorders)
+    tblBorders.clear()
+    for border_name in ['top', 'left', 'bottom', 'right', 'insideH', 'insideV']:
+        border = OxmlElement(f'w:{border_name}')
+        border.set(qn('w:val'), 'single')
+        border.set(qn('w:sz'), '4')
+        border.set(qn('w:space'), '0')
+        border.set(qn('w:color'), 'E2E8F0')
+        tblBorders.append(border)
+
+    # Header Row
+    headers = ["Inspection", "Result", "Note/Remark"]
+    hdr_cells = table.rows[0].cells
+    for c, text in enumerate(headers):
+        hdr_cells[c].text = ""
+        p = hdr_cells[c].paragraphs[0]
+        run = p.add_run(text)
+        run.font.name = 'Arial'
+        run.font.size = DocxPt(11)
+        run.font.bold = True
+        run.font.color.rgb = DocxRGBColor(255, 255, 255)
+        p.paragraph_format.space_after = DocxPt(4)
+        p.paragraph_format.space_before = DocxPt(4)
+        set_cell_background(hdr_cells[c], '1F2937')
+        set_cell_margins(hdr_cells[c], top=80, bottom=80, left=216, right=216)
+
+    # Column widths: Inspection (~20% = 1.3 in), Result (~50% = 3.25 in), Note/Remark (~30% = 1.95 in)
+    col_widths = [DocxInches(1.3), DocxInches(3.25), DocxInches(1.95)]
+    for i, col in enumerate(table.columns):
+        col.width = col_widths[i]
+    for row in table.rows:
+        for i, w in enumerate(col_widths):
+            row.cells[i].width = w
+
+    # Add data rows
+    for idx, (point, notif, level) in enumerate(target_points):
+        row_cells = table.add_row().cells
+        for i, w in enumerate(col_widths):
+            row_cells[i].width = w
+            # Column 2 can have slightly smaller left/right padding to prevent image wrapping
+            pad_left = 150 if i == 1 else 216
+            pad_right = 150 if i == 1 else 216
+            set_cell_margins(row_cells[i], top=60, bottom=60, left=pad_left, right=pad_right)
+
+        name = point.get('Node_info', 'N/A')
+        raw_insp = point.get('Inspection', 'General')
+        type_display = raw_insp.replace('_', ' ').title()
+        zone = point.get('Zone', 'N/A')
+        floor = point.get('MapName', 'N/A').replace('_', ' ').title()
+        csv_res = notif.get('result_dict', {})
+
+        # Set zebra striping backgrounds for columns to match PDF styling
+        bg_color = 'FFFFFF' if idx % 2 == 0 else 'F8FAFC'
+        set_cell_background(row_cells[0], bg_color)
+        set_cell_background(row_cells[1], bg_color)
+        set_cell_background(row_cells[2], bg_color)
+
+        # Col 1: Inspection (contains only node name and result metrics)
+        p1 = row_cells[0].paragraphs[0]
+        p1.paragraph_format.space_before = DocxPt(0)
+        p1.paragraph_format.space_after = DocxPt(2)
+        
+        # Name
+        r_name = p1.add_run(f"{name}\n")
+        r_name.font.name = 'Arial'
+        r_name.font.size = DocxPt(10)
+        r_name.font.bold = True
+        r_name.font.color.rgb = DocxRGBColor(31, 41, 55) # #1F2937
+        
+        # Result Metrics List
+        res_text = ""
+        if raw_insp == 'thermal_inspection':
+            threshold = point.get('Threshold', 'N/A')
+            min_temp = csv_res.get('min_temperature', 'N/A')
+            max_temp = csv_res.get('max_temperature', 'N/A')
+            res_text = f"• Status: {level.upper()}\n• Threshold: {threshold}°C\n• Temperature: {min_temp}-{max_temp}°C"
+        elif raw_insp == 'leakage_inspection':
+            is_leak = csv_res.get('is_leak', 'N/A')
+            res_text = f"• Status: {level.upper()}\n• Is Leak: {is_leak}"
+        elif raw_insp == 'vibration_inspection':
+            k_thresh = point.get('Kurtosis_threshold', 'N/A')
+            p_thresh = point.get('Peak_threshold', 'N/A')
+            k_val = csv_res.get('kurtosis', 'N/A')
+            p_val = csv_res.get('peak_factor', 'N/A')
+            res_text = (f"• Status: {level.upper()}\n"
+                        f"• Kurtosis Thresh/Value: {k_thresh} / {k_val}\n"
+                        f"• Peak Factor Thresh/Value: {p_thresh} / {p_val}")
+        else:
+            det_status = csv_res.get('detection_status', 'N/A')
+            res_text = f"• Status: {level.upper()}\n• Detection Status: {det_status}"
+            
+        r_res_body = p1.add_run(res_text)
+        r_res_body.font.name = 'Arial'
+        r_res_body.font.size = DocxPt(8.5)
+        r_res_body.font.color.rgb = DocxRGBColor(75, 85, 99) # #4B5563
+
+        # Col 2: Result (contains images side-by-side)
+        # Find and insert images
+        images = find_docx_images(name, raw_insp)
+        img_paths = [path for path in images.values() if os.path.exists(path)]
+        
+        if len(img_paths) == 1:
+            p2 = row_cells[1].paragraphs[0]
+            p2.text = ""
+            p2.paragraph_format.space_before = DocxPt(0)
+            p2.paragraph_format.space_after = DocxPt(0)
+            p2.alignment = 1 # Center
+            r_img = p2.add_run()
+            try:
+                r_img.add_picture(img_paths[0], width=DocxInches(1.3), height=DocxInches(0.9))
+            except Exception as e:
+                print(f"Error adding picture {img_paths[0]}: {e}")
+        elif len(img_paths) >= 2:
+            # Create a nested table inside the cell
+            nested_table = row_cells[1].add_table(rows=1, cols=2)
+            nested_table.alignment = 1 # Center
+            nested_table.allow_autofit = False
+            
+            # Remove borders from nested table
+            nested_tblPr = nested_table._tbl.tblPr
+            nested_tblBorders = OxmlElement('w:tblBorders')
+            for border_name in ['top', 'left', 'bottom', 'right', 'insideH', 'insideV']:
+                border = OxmlElement(f'w:{border_name}')
+                border.set(qn('w:val'), 'none')
+                nested_tblBorders.append(border)
+            nested_tblPr.append(nested_tblBorders)
+            
+            nested_widths = [DocxInches(1.48), DocxInches(1.48)]
+            for col_idx, col in enumerate(nested_table.columns):
+                col.width = nested_widths[col_idx]
+                
+            n_cells = nested_table.rows[0].cells
+            for col_idx in range(2):
+                n_cells[col_idx].width = nested_widths[col_idx]
+                set_cell_margins(n_cells[col_idx], top=0, bottom=0, left=36, right=36) # very tiny padding
+                set_cell_background(n_cells[col_idx], bg_color)
+                
+                # Add picture
+                np_para = n_cells[col_idx].paragraphs[0]
+                np_para.text = ""
+                np_para.paragraph_format.space_before = DocxPt(0)
+                np_para.paragraph_format.space_after = DocxPt(0)
+                np_para.alignment = 1 # Center
+                
+                run = np_para.add_run()
+                try:
+                    run.add_picture(img_paths[col_idx], width=DocxInches(1.3), height=DocxInches(0.9))
+                except Exception as e:
+                    print(f"Error adding picture {img_paths[col_idx]}: {e}")
+            
+            # Delete the default empty paragraph to prevent extra vertical space
+            p_default = row_cells[1].paragraphs[0]
+            p_default._element.getparent().remove(p_default._element)
+        else:
+            p2 = row_cells[1].paragraphs[0]
+            p2.text = ""
+            p2.paragraph_format.space_before = DocxPt(0)
+            p2.paragraph_format.space_after = DocxPt(0)
+
+        # Col 3: Note/Remark
+        p3 = row_cells[2].paragraphs[0]
+        p3.text = ""
+        p3.paragraph_format.space_before = DocxPt(0)
+        p3.paragraph_format.space_after = DocxPt(0)
+        p3.alignment = 3 # Justified alignment
+        
+        discussion_text = get_discussion(name, raw_insp, csv_res, level.title())
+        r_note = p3.add_run(discussion_text)
+        r_note.font.name = 'Arial'
+        r_note.font.size = DocxPt(9.0)
+        r_note.font.color.rgb = DocxRGBColor(75, 85, 99) # #4B5563
+
+    doc.save(output_docx_path)
+
+
 def main():
-    json_path = '/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/resource/path/dry_1st_floor.json'
-    output_path = f'/home/nontanan/Gensurv/NestleCat/X30_GS_Simulator/inspection-{MISSION_ID}.pptx'
+    global MISSION_ID, MISSION_DIR, LOGO_PATH
+    
+    # --- Configuration ---
+    MISSION_ID = 'mission-62'
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_dry_first_floor.json')
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_dry_first_floor_test.json')
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_dry_second_floor.json')
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_packing.json')
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_packing_test.json')
+    json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_packing_test_1month.json')
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_filling_1month.json')
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_filling_1month_old.json')
+    
+    # Derived Paths
+    MISSION_DIR = os.path.join(PROJECT_ROOT, 'resource', MISSION_ID)
+    LOGO_PATH = os.path.join(PROJECT_ROOT, 'resource', 'gensurv-logo.jpg')
+    output_path = os.path.join(PROJECT_ROOT, f'inspection-{MISSION_ID}.pptx')
+    
+    load_notifications()
+    # ---------------------
     
     if not os.path.exists(json_path):
         print(f"Error: {json_path} not found.")
@@ -609,8 +1164,19 @@ def main():
     add_summary_slide(prs, inspection_points, notifications)
     
     prs.save(output_path)
-
     print(f"Successfully generated {output_path}")
+
+    # Generate Word Document (.docx) report (Original)
+    docx_output_path = os.path.join(PROJECT_ROOT, f'inspection-{MISSION_ID}.docx')
+    print("Generating Word Document (.docx) report...")
+    generate_docx(docx_output_path, inspection_points, notifications, include_all=False)
+    print(f"Successfully generated {docx_output_path}")
+
+    # Generate Word Document (.docx) report (All points)
+    docx_all_output_path = os.path.join(PROJECT_ROOT, f'inspection-{MISSION_ID}-all.docx')
+    print("Generating Word Document (.docx) report for all points...")
+    generate_docx(docx_all_output_path, inspection_points, notifications, include_all=True)
+    print(f"Successfully generated {docx_all_output_path}")
 
 if __name__ == "__main__":
     main()
