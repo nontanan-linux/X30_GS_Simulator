@@ -1,34 +1,10 @@
 [
     {
-        "Node_info": "ChargeOut",
-        "MapName": "1st_floor",
-        "Zone": "wet1-2",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 41.8443,
-        "PosY": -16.1638,
-        "PosZ": -0.2801,
-        "AngleYaw": -0.0763,
-        "Value": 0,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "thermal-100",
+        "Node_info": "gauge-1x",
         "MapName": "2nd_floor",
         "Zone": "dry1-2",
-        "MapID": 0,
-        "Gait": 2,
+        "MapID": 1,
+        "Gait": 0,
         "NavMode": 0,
         "Speed": 0,
         "Terrain": 0,
@@ -36,37 +12,36 @@
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
-        "PosX": 42.040424,
-        "PosY": -2.4565096,
-        "PosZ": -0.2638025,
-        "AngleYaw": 1.6052006,
-        "Value": 1,
+        "PosX": -12.084087,
+        "PosY": 58.577923,
+        "PosZ": 3.2927039,
+        "AngleYaw": -1.5507947,
+        "Value": 46,
         "CamPTZ": [
-            355.0,
-            47.0,
-            1.0
+            0.0,
+            24.0,
+            6.0
         ],
-        "Inspection": "thermal_inspection",
+        "Inspection": "gauge_inspection",
         "Roi": [
             [
                 [
-                    0.3063,
-                    0.3354
+                    0.1094,
+                    0.1094
                 ],
                 [
-                    0.6859,
-                    0.6917
+                    0.499,
+                    0.9444
                 ]
             ]
-        ],
-        "Threshold": 50.0
+        ]
     },
     {
-        "Node_info": "leakage-100",
+        "Node_info": "gauge-2x",
         "MapName": "2nd_floor",
         "Zone": "dry1-2",
-        "MapID": 0,
-        "Gait": 2,
+        "MapID": 1,
+        "Gait": 0,
         "NavMode": 0,
         "Speed": 0,
         "Terrain": 0,
@@ -74,29 +49,36 @@
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
-        "PosX": 42.071,
-        "PosY": 2.8857,
-        "PosZ": -0.181,
-        "AngleYaw": -3.0646,
-        "Value": 2,
+        "PosX": -12.081274,
+        "PosY": 58.577335,
+        "PosZ": 3.2853496,
+        "AngleYaw": -1.550493,
+        "Value": 47,
         "CamPTZ": [
             0.0,
-            24.9,
-            3.0
+            24.0,
+            6.0
         ],
-        "Inspection": "leakage_inspection",
-        "Frequency_range": [
-            11,
-            31
-        ],
-        "Energy_threshold": 10
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.524,
+                    0.0481
+                ],
+                [
+                    0.9448,
+                    0.6444
+                ]
+            ]
+        ]
     },
     {
-        "Node_info": "via-h2-02",
-        "MapName": "1st_floor",
-        "Zone": "wet1-2",
-        "MapID": 0,
-        "Gait": 2,
+        "Node_info": "via-108",
+        "MapName": "2nd_floor",
+        "Zone": "dry1-2",
+        "MapID": 1,
+        "Gait": 0,
         "NavMode": 0,
         "Speed": 0,
         "Terrain": 0,
@@ -104,15 +86,15 @@
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
-        "PosX": 35.37291314695466,
-        "PosY": 2.607944956612812,
-        "PosZ": -0.1384768,
-        "AngleYaw": -3.1348433,
-        "Value": 3,
+        "PosX": -13.294253,
+        "PosY": 54.231941,
+        "PosZ": 3.2782199,
+        "AngleYaw": 1.692948,
+        "Value": 55,
         "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
+            346.0,
+            42.0,
+            3.0
         ]
     }
 ]

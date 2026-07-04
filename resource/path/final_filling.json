@@ -1986,7 +1986,7 @@
     {
         "Node_info": "via-312",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2010,7 +2010,7 @@
     {
         "Node_info": "loto-16",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2025,7 +2025,7 @@
         "PosZ": -0.073952,
         "AngleYaw": 1.3874471,
         "Value": 71,
-        "Inspection": "loto_inspection",
+        "Inspection": "asset_inspection",
         "Roi": [
             [
                 [
@@ -2129,7 +2129,7 @@
                 ]
             ]
         ],
-        "Threshold": 50.0,
+        "Threshold": 70.0,
         "CamPTZ": [
             8.0,
             19.0,
@@ -2354,7 +2354,7 @@
                 ]
             ]
         ],
-        "Threshold": 50.0,
+        "Threshold": 70.0,
         "CamPTZ": [
             10.0,
             39.0,
@@ -2496,7 +2496,7 @@
     {
         "Node_info": "loto-17",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling2",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2511,7 +2511,7 @@
         "PosZ": -0.0901897,
         "AngleYaw": 1.5624307,
         "Value": 88,
-        "Inspection": "loto_inspection",
+        "Inspection": "asset_inspection",
         "Roi": [
             [
                 [
@@ -2533,7 +2533,7 @@
     {
         "Node_info": "leakage-77",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling2",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2563,7 +2563,7 @@
     {
         "Node_info": "leakage-78",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2789,7 +2789,7 @@
                 ]
             ]
         ],
-        "Threshold": 50.0,
+        "Threshold": 70.0,
         "CamPTZ": [
             184.0,
             25.0,
@@ -2895,7 +2895,7 @@
     {
         "Node_info": "via-328",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,

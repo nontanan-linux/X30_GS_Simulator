@@ -1602,7 +1602,7 @@
     {
         "Node_info": "via-312",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -1626,7 +1626,7 @@
     {
         "Node_info": "loto-16",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2112,7 +2112,7 @@
     {
         "Node_info": "loto-17",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling2",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2149,7 +2149,7 @@
     {
         "Node_info": "leakage-77",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling2",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2179,7 +2179,7 @@
     {
         "Node_info": "leakage-78",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -2511,7 +2511,7 @@
     {
         "Node_info": "via-328",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "filling3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,

@@ -28,7 +28,7 @@ TEXT_SECONDARY = RGBColor(160, 174, 192)
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 
-MISSION_ID = 'mission-47'
+MISSION_ID = 'mission-69'
 MISSION_DIR = os.path.join(PROJECT_ROOT, 'resource', MISSION_ID)
 LOGO_PATH = os.path.join(PROJECT_ROOT, 'resource', 'gensurv-logo.jpg')
 
@@ -1123,13 +1123,14 @@ def main():
     global MISSION_ID, MISSION_DIR, LOGO_PATH
     
     # --- Configuration ---
-    MISSION_ID = 'mission-62'
+    MISSION_ID = 'mission-65'
     # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_dry_first_floor.json')
     # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_dry_first_floor_test.json')
     # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_dry_second_floor.json')
     # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_packing.json')
     # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_packing_test.json')
-    json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_packing_test_1month.json')
+    # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_packing_test_1month.json')
+    json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_filling.json')
     # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_filling_1month.json')
     # json_path = os.path.join(PROJECT_ROOT, 'resource', 'path', 'final_filling_1month_old.json')
     
