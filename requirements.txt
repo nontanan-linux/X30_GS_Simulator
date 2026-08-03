@@ -4,6 +4,7 @@ Pillow
 opencv-python
 numpy
 PyYAML
+nicegui
 
 # Data Analysis & Plotting Dependencies
 pandas
