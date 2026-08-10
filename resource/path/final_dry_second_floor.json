@@ -2,7 +2,7 @@
     {
         "Node_info": "ChargeOut-final",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -26,7 +26,7 @@
     {
         "Node_info": "via-c2-00",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -50,7 +50,7 @@
     {
         "Node_info": "via-c2-01",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -74,7 +74,7 @@
     {
         "Node_info": "via-c2-02",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -98,7 +98,7 @@
     {
         "Node_info": "via-c2-03",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -122,7 +122,7 @@
     {
         "Node_info": "via-c2-04",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -146,7 +146,7 @@
     {
         "Node_info": "via-c2-05",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -170,7 +170,7 @@
     {
         "Node_info": "via-c2-06",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -194,7 +194,7 @@
     {
         "Node_info": "via-c2-07",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -218,7 +218,7 @@
     {
         "Node_info": "via-c2-08",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -242,7 +242,7 @@
     {
         "Node_info": "via-c2-09",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -266,7 +266,7 @@
     {
         "Node_info": "via-c2-10",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -290,7 +290,7 @@
     {
         "Node_info": "via-c2-11",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -314,7 +314,7 @@
     {
         "Node_info": "via-c2-12",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -338,7 +338,7 @@
     {
         "Node_info": "via-c2-13",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -362,7 +362,7 @@
     {
         "Node_info": "via-c2-14",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -386,7 +386,7 @@
     {
         "Node_info": "via-c2-15",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -410,7 +410,7 @@
     {
         "Node_info": "via-c2-16",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -434,7 +434,7 @@
     {
         "Node_info": "via-c2-17",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -458,7 +458,7 @@
     {
         "Node_info": "via-c2-18",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -3241,7 +3241,7 @@
     {
         "Node_info": "via-2c-00",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -3265,7 +3265,7 @@
     {
         "Node_info": "via-2c-01",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -3289,7 +3289,7 @@
     {
         "Node_info": "via-2c-02",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -3313,7 +3313,7 @@
     {
         "Node_info": "via-2c-03",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -3337,7 +3337,7 @@
     {
         "Node_info": "via-2c-04",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -3361,7 +3361,7 @@
     {
         "Node_info": "via-2c-05",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -3385,7 +3385,7 @@
     {
         "Node_info": "via-2c-06",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3409,7 +3409,7 @@
     {
         "Node_info": "via-2c-07",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3433,7 +3433,7 @@
     {
         "Node_info": "via-2c-08",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3457,7 +3457,7 @@
     {
         "Node_info": "via-2c-09",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3481,7 +3481,7 @@
     {
         "Node_info": "via-2c-10",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3505,7 +3505,7 @@
     {
         "Node_info": "via-2c-11",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 1,
@@ -3529,7 +3529,7 @@
     {
         "Node_info": "via-2c-12",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3553,7 +3553,7 @@
     {
         "Node_info": "via-2c-13",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3577,7 +3577,7 @@
     {
         "Node_info": "via-2c-14",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3601,7 +3601,7 @@
     {
         "Node_info": "via-2c-15",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3625,7 +3625,7 @@
     {
         "Node_info": "via-2c-16",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3649,7 +3649,7 @@
     {
         "Node_info": "via-2c-17",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,
@@ -3697,7 +3697,7 @@
     {
         "Node_info": "ChargeIn-final",
         "MapName": "1st_floor",
-        "Zone": "packing-area",
+        "Zone": "packing3",
         "MapID": 0,
         "Gait": 0,
         "NavMode": 0,

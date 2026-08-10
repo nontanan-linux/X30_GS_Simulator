@@ -61,6 +61,26 @@ class NodeManager:
         self.nodes_file = path
         return True
 
+    def add_node(self, x, y, yaw=0.0, map_id=0, fix_yaw=True, node_id=None, name=None):
+        """Adds a new node to self.nodes and saves nodes.csv."""
+        if not node_id:
+            existing_ids = [row[0] for row in self.nodes if len(row) > 0]
+            max_num = 0
+            for eid in existing_ids:
+                nums = re.findall(r'\d+', str(eid))
+                if nums:
+                    max_num = max(max_num, int(nums[-1]))
+            node_id = f"node_{max_num + 1}"
+        if not name:
+            name = str(node_id)
+        fix_yaw_str = "1" if fix_yaw else "0"
+        pose_str = f"{{{float(x):.4f},{float(y):.4f},0,{float(yaw):.4f}}}"
+        new_row = [str(node_id), str(name), "1", pose_str, f"floor_{map_id}", str(map_id), "", fix_yaw_str]
+        self.nodes.append(new_row)
+        if self.nodes_file:
+            self.save_nodes()
+        return new_row
+
     def load_paths(self, csv_path):
         """Loads paths.csv where each row is kept exactly as read."""
         if not os.path.exists(csv_path):
@@ -177,15 +197,20 @@ class NodeManager:
         def sort_key(row):
             return [int(t) if t.isdigit() else t.lower() for t in re.split('([0-9]+)', str(row[0]) if len(row) > 0 else "")]
             
+        filtered_nodes = []
         for row in sorted(self.nodes, key=sort_key):
             if len(row) < 1: continue
             n_id = row[0]
             name = row[1] if len(row) > 1 else ""
             display_name = f"[{n_id}] {name}".strip()
-            
             if search_query and search_query not in display_name.lower():
                 continue
-                
+            filtered_nodes.append(row)
+            
+        total_matches = len(filtered_nodes)
+        for row in filtered_nodes[:100]:
+            n_id = row[0]
+            name = row[1] if len(row) > 1 else ""
             is_hidden = n_id in self.hidden_nodes
             is_selected = (n_id == getattr(self, 'selected_node_id', None))
             bg_color = '#0ea5e9' if is_selected else ('#002a55' if is_hidden else '#004080')
@@ -200,6 +225,9 @@ class NodeManager:
                 icon_name = 'visibility_off' if is_hidden else 'visibility'
                 ui.button(icon=icon_name, on_click=lambda e, nid=n_id: self._handle_node_eye(e, nid, on_update_callback)).props('flat dense').style('color: white; padding: 0; margin-right: 8px;')
                 ui.button(icon='delete', on_click=lambda e, nid=n_id: self._handle_node_delete(e, nid, on_update_callback)).props('flat dense color=red-9').style('padding: 0;')
+                
+        if total_matches > 100:
+            ui.label(f'... and {total_matches - 100} more. Use search.').classes('text-gray-400 text-xs mt-2 text-center w-full font-bold')
 
     def render_left_sidebar_paths(self, on_update_callback, search_query=""):
         """Renders the path list UI components using NiceGUI."""
@@ -207,14 +235,19 @@ class NodeManager:
         def sort_key(row):
             return [int(t) if t.isdigit() else t.lower() for t in re.split('([0-9]+)', str(row[0]) if len(row) > 0 else "")]
             
+        filtered_paths = []
         for row in sorted(self.paths, key=sort_key):
             if len(row) < 3: continue
             p_id, n1, n2 = row[0], row[1], row[2]
             name = f"{n1} ➡ {n2}"
-            
             if search_query and search_query not in name.lower() and search_query not in str(p_id):
                 continue
-                
+            filtered_paths.append(row)
+            
+        total_matches = len(filtered_paths)
+        for row in filtered_paths[:100]:
+            p_id, n1, n2 = row[0], row[1], row[2]
+            name = f"{n1} ➡ {n2}"
             is_hidden = p_id in self.hidden_paths
             is_selected = (p_id == self.selected_path_id)
             
@@ -230,3 +263,6 @@ class NodeManager:
                 icon_name = 'visibility_off' if is_hidden else 'visibility'
                 ui.button(icon=icon_name, on_click=lambda e, pid=p_id: self._handle_path_eye(e, pid, on_update_callback)).props('flat dense').style('color: white; padding: 0; margin-right: 8px;')
                 ui.button(icon='delete', on_click=lambda e, pid=p_id: self._handle_path_delete(e, pid, on_update_callback)).props('flat dense color=red-9').style('padding: 0;')
+
+        if total_matches > 100:
+            ui.label(f'... and {total_matches - 100} more. Use search.').classes('text-gray-400 text-xs mt-2 text-center w-full font-bold')

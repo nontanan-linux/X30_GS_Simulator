@@ -36,6 +36,7 @@ import importlib
 import node_manager
 importlib.reload(node_manager)
 from node_manager import NodeManager
+from dijkstra_planner import DijkstraPlanner
 
 try:
     from nicegui import ui, app, events
@@ -454,6 +455,24 @@ class SimulatorEngine:
                     end_u = int(u + arrow_len * math.cos(r_yaw))
                     end_v = int(v - arrow_len * math.sin(r_yaw))
                     cv2.arrowedLine(b_map, (int(u), int(v)), (end_u, end_v), color, thickness, tipLength=0.4)
+
+            # Highlight Planned Dijkstra Path overlay if calculated
+            planned_res = getattr(self, 'planned_route_result', None)
+            if planned_res and planned_res.get('steps'):
+                steps = planned_res['steps']
+                for i in range(len(steps) - 1):
+                    s1, s2 = steps[i], steps[i+1]
+                    u1, v1 = self.world_to_pixel(s1['x'], s1['y'], mid)
+                    u2, v2 = self.world_to_pixel(s2['x'], s2['y'], mid)
+                    cv2.line(b_map, (int(u1), int(v1)), (int(u2), int(v2)), (0, 255, 0), 4)
+                
+                # Start and Target circles
+                if len(steps) > 0:
+                    s_first, s_last = steps[0], steps[-1]
+                    u_s, v_s = self.world_to_pixel(s_first['x'], s_first['y'], mid)
+                    u_e, v_e = self.world_to_pixel(s_last['x'], s_last['y'], mid)
+                    cv2.circle(b_map, (int(u_s), int(v_s)), 10, (0, 255, 0), 3) # Green Start Ring
+                    cv2.circle(b_map, (int(u_e), int(v_e)), 10, (0, 0, 255), 3)   # Red Target Ring
 
             self.base_maps[mid] = b_map
 
@@ -1084,6 +1103,14 @@ def create_nicegui_app():
                         ui.menu_item('Load CSVs', on_click=lambda: load_node_paths_csv()).classes('text-white hover:bg-blue-900')
                         ui.menu_item('Save CSVs', on_click=lambda: save_node_paths_csv()).classes('text-white hover:bg-blue-900')
 
+                # Planner Button & Dropdown Menu (Positioned right BEFORE Simulate)
+                with ui.button('Planner', on_click=lambda: open_planner_tab()).style('background-color: #00264d; border: 2px solid white; color: white; border-radius: 10px; font-weight: bold; font-size: 15px; padding: 4px 16px;'):
+                    with ui.menu().style('background-color: #00264d; color: white; border: 2px solid white; border-radius: 10px; padding: 8px;'):
+                        ui.label('Path Planning').classes('text-xs font-bold text-gray-400 px-3 py-1')
+                        ui.menu_item('Open Planner View', on_click=lambda: open_planner_tab()).classes('text-white hover:bg-blue-900')
+                        ui.menu_item('Calculate Dijkstra Path', on_click=lambda: (open_planner_tab(), calculate_dijkstra_path_ui())).classes('text-white hover:bg-blue-900')
+                        ui.menu_item('Clear Planned Path', on_click=lambda: clear_dijkstra_path_ui()).classes('text-white hover:bg-blue-900')
+
                 # Simulate Button
                 sim_nav_btn = ui.button('Simulate', on_click=lambda: start_simulation()).style('background-color: #00264d; border: 2px solid white; color: white; border-radius: 10px; font-weight: bold; font-size: 15px; padding: 4px 16px;')
 
@@ -1159,6 +1186,7 @@ def create_nicegui_app():
                 insert_line_btn = ui.button('InsertPoint2Line', on_click=lambda: set_edit_mode('insert_line')).style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 140px; height: 35px;')
                 edit_point_btn = ui.button('EditPoint', on_click=lambda: set_edit_mode('edit_point')).style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
                 align_yaw_btn = ui.button('AlignYaw', on_click=lambda: set_edit_mode('align_yaw')).style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
+                add_node_btn = ui.button('AddNode', on_click=lambda: set_edit_mode('add_node')).style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
                 add_path_btn = ui.button('AddPath', on_click=lambda: on_add_path_click()).style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
                 undo_btn = ui.button('Undo', on_click=lambda: undo_last_edit()).style('background-color: #00264d; color: white; font-weight: bold; border-radius: 6px; width: 100px; height: 35px;')
         # ITEM 4 & ITEM 3: Main Canvas Viewport (Left) + Right Navbar Sidebar (Right)
@@ -1246,10 +1274,11 @@ def create_nicegui_app():
                             # Separator Line (#00264d height 2px)
                             ui.element('div').style('width: 100%; height: 2px; background-color: #00264d; margin: 10px 0;')
 
-                            # Mode Toggle Buttons: Informational View vs Waypoint Editor
+                            # Mode Toggle Buttons: Informational View vs Waypoint Editor vs Planner View
                             with ui.row().classes('w-full gap-2 mb-3 no-wrap'):
                                 info_mode_btn = ui.button('Info View', on_click=lambda: set_sidebar_mode('info')).style('flex: 1; background-color: #00264d; color: white; font-weight: bold; border-radius: 6px;')
                                 editor_mode_btn = ui.button('Editor View', on_click=lambda: set_sidebar_mode('editor')).style('flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
+                                planner_mode_btn = ui.button('Planner View', on_click=lambda: set_sidebar_mode('planner')).style('flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
 
                             # --- Panel 1: Informational View Container ---
                             info_frame_div = ui.element('div').style('width: 100%; display: flex; flex-direction: column; gap: 8px;')
@@ -1326,31 +1355,170 @@ def create_nicegui_app():
                             # --- Panel 3: Connected Information Container ---
                             connected_frame_div = ui.element('div').style('width: 100%; display: none; flex-direction: column; gap: 10px;')
 
+                            # --- Panel 4: Dijkstra Planner Container ---
+                            planner_frame_div = ui.element('div').style('width: 100%; display: none; flex-direction: column; gap: 8px;')
+                            with planner_frame_div:
+                                ui.label('🧭 Dijkstra Path Planner').style('color: #00264d; font-size: 16px; font-weight: bold; margin-bottom: 2px;')
+                                
+                                with ui.column().classes('w-full gap-2 p-3 rounded').style('background-color: #f0f4f8; border: 2px solid #00264d;'):
+                                    # Start Node Selection
+                                    ui.label('Start Node (จุดเริ่มต้น):').style('color: #00264d; font-weight: bold; font-size: 12px;')
+                                    with ui.row().classes('w-full items-center gap-1 no-wrap'):
+                                        planner_start_in = ui.input(value='nofr').props('outlined dense').style('flex: 1; background-color: white;')
+                                        ui.button('From Map', on_click=lambda: set_planner_start_from_selected()).style('background-color: #00264d; color: white; font-size: 11px; font-weight: bold; border-radius: 4px;')
+
+                                    # Target Node Selection
+                                    ui.label('Target Node (ปลายทาง):').style('color: #00264d; font-weight: bold; font-size: 12px;')
+                                    with ui.row().classes('w-full items-center gap-1 no-wrap'):
+                                        planner_target_in = ui.input(value='ChargeIn-final').props('outlined dense').style('flex: 1; background-color: white;')
+                                        ui.button('From Map', on_click=lambda: set_planner_target_from_selected()).style('background-color: #00264d; color: white; font-size: 11px; font-weight: bold; border-radius: 4px;')
+
+                                    # Calculate Route Button
+                                    ui.button('🚀 Calculate Dijkstra Path', on_click=lambda: calculate_dijkstra_path_ui()).style('width: 100%; background-color: #004080; color: white; font-weight: bold; font-size: 14px; height: 42px; border-radius: 6px; margin-top: 4px;')
+
+                                # Output Textbox
+                                planner_code_display = ui.code('=== DIJKSTRA PLANNER ===\nClick "Calculate Dijkstra Path" to compute route.', language='text').style('width: 100%; height: 230px; background-color: #00264d; color: #60a5fa; border: 2px solid #00264d; border-radius: 4px; font-weight: bold; overflow: auto; font-size: 12px; margin-top: 4px;')
+
+                                with ui.row().classes('w-full gap-2 mt-1 no-wrap'):
+                                    ui.button('Highlight Map Path', on_click=lambda: calculate_dijkstra_path_ui()).style('flex: 1; background-color: #16a34a; color: white; font-weight: bold; border-radius: 6px;')
+                                    ui.button('Clear Planned', on_click=lambda: clear_dijkstra_path_ui()).style('flex: 1; background-color: #dc2626; color: white; font-weight: bold; border-radius: 6px;')
 
     # =========================================================================
     # UI Mode Functions & Local File Import/Export Dialogs
     # =========================================================================
 
+    def open_planner_tab():
+        if not engine.sidebar_visible:
+            toggle_sidebar()
+        set_sidebar_mode('planner')
+
+    def set_planner_start_from_selected():
+        sel_node = getattr(engine.node_manager, 'selected_node_id', None)
+        if sel_node:
+            planner_start_in.set_value(str(sel_node))
+            ui.notify(f"Set Start Node: {sel_node}", type='info')
+        elif engine.selected_wp_idx is not None and engine.selected_wp_idx < len(engine.path_nodes):
+            wp = engine.path_nodes[engine.selected_wp_idx]
+            nid = wp.get('Node_info') or str(engine.selected_wp_idx)
+            planner_start_in.set_value(str(nid))
+            ui.notify(f"Set Start Node: {nid}", type='info')
+        else:
+            ui.notify("Please select a node or waypoint first", type='warning')
+
+    def set_planner_target_from_selected():
+        sel_node = getattr(engine.node_manager, 'selected_node_id', None)
+        if sel_node:
+            planner_target_in.set_value(str(sel_node))
+            ui.notify(f"Set Target Node: {sel_node}", type='info')
+        elif engine.selected_wp_idx is not None and engine.selected_wp_idx < len(engine.path_nodes):
+            wp = engine.path_nodes[engine.selected_wp_idx]
+            nid = wp.get('Node_info') or str(engine.selected_wp_idx)
+            planner_target_in.set_value(str(nid))
+            ui.notify(f"Set Target Node: {nid}", type='info')
+        else:
+            ui.notify("Please select a node or waypoint first", type='warning')
+
+    def calculate_dijkstra_path_ui():
+        planner = DijkstraPlanner()
+        # Build graph from active CSV nodes or active JSON waypoints
+        loaded = False
+        if engine.node_manager.nodes:
+            for row in engine.node_manager.nodes:
+                if len(row) < 4: continue
+                nid = str(row[0]).strip()
+                name = row[1].strip() if len(row) > 1 else nid
+                x, y, z, yaw = planner.parse_pose(row[3]) if len(row) > 3 else (0.0, 0.0, 0.0, 0.0)
+                planner.add_node(nid, name=name, x=x, y=y, z=z, yaw=yaw, raw=row)
+
+            if engine.node_manager.paths:
+                for row in engine.node_manager.paths:
+                    if len(row) < 3: continue
+                    planner.add_edge(row[1], row[2], path_id=row[0], bidirectional=True)
+            else:
+                node_ids = list(planner.nodes.keys())
+                for i in range(len(node_ids) - 1):
+                    planner.add_edge(node_ids[i], node_ids[i+1], bidirectional=True)
+            loaded = True
+
+        elif engine.path_nodes:
+            prev_id = None
+            for i, wp in enumerate(engine.path_nodes):
+                nid = str(wp.get('Node_info') or i)
+                x = float(wp.get('PosX', 0.0))
+                y = float(wp.get('PosY', 0.0))
+                z = float(wp.get('PosZ', 0.0))
+                yaw = float(wp.get('AngleYaw', 0.0))
+                planner.add_node(nid, name=nid, x=x, y=y, z=z, yaw=yaw, raw=wp)
+                if prev_id is not None:
+                    planner.add_edge(prev_id, nid, bidirectional=True)
+                prev_id = nid
+            loaded = True
+
+        if not loaded or not planner.nodes:
+            # Fallback to loading default CSV files
+            nodes_csv = os.path.join(engine.script_dir, '../resource/nodes.csv')
+            paths_csv = os.path.join(engine.script_dir, '../resource/paths.csv')
+            planner.load_from_csv(nodes_csv, paths_csv if os.path.exists(paths_csv) else None)
+
+        start_q = planner_start_in.value
+        target_q = planner_target_in.value
+        res = planner.find_shortest_path(start_q, target_q)
+
+        if res:
+            engine.planned_route_result = res
+            engine.precalculate_path_base_maps()
+            refresh_canvas(force=True)
+
+            out_text = f"✅ DIJKSTRA ROUTE FOUND\n"
+            out_text += f"• Start : {res['start_node']}\n"
+            out_text += f"• Target: {res['end_node']}\n"
+            out_text += f"• Dist  : {res['total_distance_m']} m ({res['node_count']} nodes)\n\n"
+            out_text += "Trajectory Steps:\n"
+            for step in res['steps']:
+                out_text += f" [{step['step']+1:02d}] {step['node_id']} ({step['name']}) -> {step['accumulated_distance']}m\n"
+
+            planner_code_display.set_content(out_text)
+            ui.notify(f"Path calculated! Total: {res['total_distance_m']}m", type='positive')
+        else:
+            engine.planned_route_result = None
+            engine.precalculate_path_base_maps()
+            refresh_canvas(force=True)
+            planner_code_display.set_content(f"❌ No route found from '{start_q}' to '{target_q}'.")
+            ui.notify(f"No path found between '{start_q}' and '{target_q}'", type='negative')
+
+    def clear_dijkstra_path_ui():
+        engine.planned_route_result = None
+        engine.precalculate_path_base_maps()
+        refresh_canvas(force=True)
+        planner_code_display.set_content("=== DIJKSTRA PLANNER ===\nPath cleared.")
+        ui.notify("Planned path cleared.", type='info')
+
     def set_sidebar_mode(mode):
         engine.sidebar_mode = mode
         if mode == 'info':
-            if right_sidebar_title.text == 'Connected Information':
-                connected_frame_div.style(replace='width: 100%; display: flex; flex-direction: column; gap: 10px;')
-                info_frame_div.style(replace='width: 100%; display: none;')
-                editor_frame_div.style(replace='width: 100%; display: none;')
-                update_connected_info()
-            else:
-                info_frame_div.style(replace='width: 100%; display: flex; flex-direction: column; gap: 8px;')
-                editor_frame_div.style(replace='width: 100%; display: none;')
-                connected_frame_div.style(replace='width: 100%; display: none;')
+            info_frame_div.style(replace='width: 100%; display: flex; flex-direction: column; gap: 8px;')
+            editor_frame_div.style(replace='width: 100%; display: none;')
+            connected_frame_div.style(replace='width: 100%; display: none;')
+            planner_frame_div.style(replace='width: 100%; display: none;')
             info_mode_btn.style(replace='flex: 1; background-color: #00264d; color: white; font-weight: bold; border-radius: 6px;')
-            editor_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: black; font-weight: bold; border-radius: 6px;')
-        else:
+            editor_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
+            planner_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
+        elif mode == 'editor':
             info_frame_div.style(replace='width: 100%; display: none;')
             connected_frame_div.style(replace='width: 100%; display: none;')
+            planner_frame_div.style(replace='width: 100%; display: none;')
             editor_frame_div.style(replace='width: 100%; display: flex; flex-direction: column; gap: 8px;')
-            info_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: black; font-weight: bold; border-radius: 6px;')
+            info_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
             editor_mode_btn.style(replace='flex: 1; background-color: #00264d; color: white; font-weight: bold; border-radius: 6px;')
+            planner_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
+        elif mode == 'planner':
+            info_frame_div.style(replace='width: 100%; display: none;')
+            editor_frame_div.style(replace='width: 100%; display: none;')
+            connected_frame_div.style(replace='width: 100%; display: none;')
+            planner_frame_div.style(replace='width: 100%; display: flex; flex-direction: column; gap: 8px;')
+            info_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
+            editor_mode_btn.style(replace='flex: 1; background-color: #9ca3af; color: #00264d; font-weight: bold; border-radius: 6px;')
+            planner_mode_btn.style(replace='flex: 1; background-color: #00264d; color: white; font-weight: bold; border-radius: 6px;')
 
     def refresh_right_sidebar_view():
         if right_sidebar_title.text == 'Connected Information':
@@ -1640,10 +1808,46 @@ def create_nicegui_app():
 
         sel_nid = getattr(engine.node_manager, 'selected_node_id', None)
         sel_pid = getattr(engine.node_manager, 'selected_path_id', None)
+
+        if engine.edit_mode == 'add_path' and sel_nid:
+            process_add_path_node(sel_nid)
+            return
+
         if sel_nid:
             select_csv_node_by_id(sel_nid)
         elif sel_pid:
             select_csv_path_by_id(sel_pid)
+
+    def process_add_path_node(clicked_id):
+        if not clicked_id:
+            return False
+        if getattr(engine, 'add_path_step', 1) == 1:
+            engine.add_path_node1 = clicked_id
+            engine.add_path_step = 2
+            update_status(f"AddPath: Node 1 selected [{clicked_id}]. Click Node 2 (End Node) on map or Left Bar.")
+            refresh_canvas(force=True)
+            return True
+        elif engine.add_path_step == 2:
+            push_undo_state()
+            engine.add_path_node2 = clicked_id
+            n1_id = engine.add_path_node1
+            n2_id = engine.add_path_node2
+            
+            p_id = f"path_{len(engine.node_manager.paths)+1}"
+            new_path_row = [p_id, n1_id, n2_id, "1.0", "1", ""]
+            engine.node_manager.paths.append(new_path_row)
+            engine.node_manager.save_paths()
+            
+            engine.precalculate_path_base_maps()
+            refresh_canvas(force=True)
+            refresh_left_sidebar()
+            update_status(f"Added Path [{p_id}]: {n1_id} -> {n2_id}")
+            
+            engine.add_path_step = 1
+            engine.add_path_node1 = None
+            engine.add_path_node2 = None
+            return True
+        return False
 
     def select_csv_node_by_id(n_id):
         if not n_id: return
@@ -1903,6 +2107,7 @@ def create_nicegui_app():
         insert_line_btn.style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 140px; height: 35px;')
         edit_point_btn.style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
         align_yaw_btn.style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
+        add_node_btn.style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
         add_path_btn.style('background-color: #b71836; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
 
         if mode == 'insert':
@@ -1931,6 +2136,11 @@ def create_nicegui_app():
             engine.align_p1_idx = None
             engine.align_p2_idx = None
             update_status('AlignYaw Mode: Click Point 1 (the point to update).')
+        elif mode == 'add_node':
+            add_node_btn.style('background-color: #90122a; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
+            update_status('AddNode Mode: Click anywhere on map to add a new Node.')
+            if engine.goal_pose_mode == 0:
+                toggle_goal_pose_mode()
         elif mode == 'add_path':
             add_path_btn.style('background-color: #90122a; color: white; font-weight: bold; border-radius: 6px; width: 120px; height: 35px;')
             engine.add_path_step = 1
@@ -2086,6 +2296,29 @@ def create_nicegui_app():
                 yaw_screen = -math.atan2(v_map - sv, u_map - su)
                 yaw = yaw_screen - engine.get_map_rotation_rad()
 
+                if engine.edit_mode == 'add_node':
+                    push_undo_state()
+                    added_msg = ""
+                    if hasattr(engine, 'node_manager') and getattr(engine.node_manager, 'nodes_file', None):
+                        new_row = engine.node_manager.add_node(wx, wy, yaw, engine.current_map_id)
+                        added_msg = f"CSV Node [{new_row[0]}]"
+                    else:
+                        new_wp = {'PosX': float(wx), 'PosY': float(wy), 'AngleYaw': float(yaw), 'fix_yaw': True, 'Node_info': f"wp_{len(engine.path_nodes)}"}
+                        engine.path_nodes.append(new_wp)
+                        json_file = engine.waypoints_file
+                        if json_file and os.path.exists(json_file):
+                            with open(json_file, 'w') as f:
+                                json.dump(engine.path_nodes, f, indent=4)
+                        added_msg = f"Waypoint [{len(engine.path_nodes)-1}]"
+
+                    engine.precalculate_path_base_maps()
+                    refresh_canvas(force=True)
+                    refresh_left_sidebar()
+                    update_status(f"Added {added_msg} at ({wx:.2f}, {wy:.2f}). Click map to add another node.")
+                    engine.goal_pose_mode = 1
+                    engine.temp_goal = None
+                    return
+
                 set_sidebar_mode('editor')
                 engine.selected_wp_idx = None
 
@@ -2182,32 +2415,8 @@ def create_nicegui_app():
             if engine.edit_mode == 'add_path':
                 clicked_id = clicked_node_id
                 if clicked_id:
-                    if getattr(engine, 'add_path_step', 1) == 1:
-                        engine.add_path_node1 = clicked_id
-                        engine.add_path_step = 2
-                        update_status(f"AddPath: Node 1 selected [{clicked_id}]. Click Node 2 (End Node).")
-                        refresh_canvas(force=True)
-                        return
-                    elif engine.add_path_step == 2:
-                        push_undo_state()
-                        engine.add_path_node2 = clicked_id
-                        n1_id = engine.add_path_node1
-                        n2_id = engine.add_path_node2
-                        
-                        p_id = f"path_{len(engine.node_manager.paths)+1}"
-                        new_path_row = [p_id, n1_id, n2_id, "1.0", "1", ""]
-                        engine.node_manager.paths.append(new_path_row)
-                        engine.node_manager.save_paths()
-                        
-                        engine.precalculate_path_base_maps()
-                        refresh_canvas(force=True)
-                        refresh_left_sidebar()
-                        update_status(f"Added Path [{p_id}]: {n1_id} -> {n2_id}")
-                        
-                        engine.add_path_step = 1
-                        engine.add_path_node1 = None
-                        engine.add_path_node2 = None
-                        return
+                    process_add_path_node(clicked_id)
+                    return
 
             # If in EditPoint mode, first check if user clicked an arrow tip to rotate yaw
             if engine.edit_mode == 'edit_point':
@@ -2355,6 +2564,7 @@ def create_nicegui_app():
                 set_sidebar_mode('info')
                 engine.precalculate_path_base_maps()
                 refresh_canvas(force=True)
+                refresh_left_sidebar()
                 update_status('Ready (Deselected all).')
 
         elif e.type == 'mousemove':
