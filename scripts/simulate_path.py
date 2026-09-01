@@ -279,7 +279,7 @@ class SimulatorEngine:
             if isinstance(self.path_nodes, list):
                 for node in self.path_nodes:
                     if isinstance(node, dict) and 'fix_yaw' not in node:
-                        node['fix_yaw'] = True
+                        node['fix_yaw'] = "1"
             if self.maps:
                 self.precalculate_path_base_maps()
                 if self.path_nodes:
@@ -369,8 +369,8 @@ class SimulatorEngine:
                 u, v = self.world_to_pixel(node['PosX'], node['PosY'], mid)
                 name = str(node.get('Node_info', ''))
                 n_category = NodeManager.get_node_type(name)
-                val_fix_yaw = node.get('fix_yaw', True)
-                fix_yaw = False if (val_fix_yaw is False or str(val_fix_yaw).lower() in ['0', 'false']) else True
+                val_fix_yaw = str(node.get('fix_yaw', '1')).strip()
+                fix_yaw = True if val_fix_yaw in ['0', '1'] else False
                 
                 # Via: Blue (255,0,0), Inspection: Red (0,0,255)
                 palette = [(255, 0, 0), (0, 0, 255)] if node_mid == 0 else [(255, 180, 100), (255, 0, 255)]
@@ -394,8 +394,8 @@ class SimulatorEngine:
                 n_name = row[1] if len(row) > 1 else ''
                 n_type = row[4].lower() if len(row) > 4 else ''
                 pose_str = row[3].strip('{}')
-                fix_yaw_raw = row[7] if len(row) > 7 else "1"
-                fix_yaw = False if str(fix_yaw_raw).lower() in ['0', 'false'] else True
+                fix_yaw_raw = str(row[7]).strip() if len(row) > 7 else "1"
+                fix_yaw = True if fix_yaw_raw in ['0', '1'] else False
                 try:
                     parts = pose_str.split(',')
                     x, y, z, yaw = map(float, parts)
@@ -465,6 +465,31 @@ class SimulatorEngine:
                     u1, v1 = self.world_to_pixel(s1['x'], s1['y'], mid)
                     u2, v2 = self.world_to_pixel(s2['x'], s2['y'], mid)
                     cv2.line(b_map, (int(u1), int(v1)), (int(u2), int(v2)), (0, 255, 0), 4)
+                
+                # Draw arrows for every node to indicate Yaw and distinguish by PointInfo
+                for step in steps:
+                    u, v = self.world_to_pixel(step['x'], step['y'], mid)
+                    r_yaw = step['yaw'] + self.get_map_rotation_rad()
+                    point_info = step.get('point_info', 0)
+                    if getattr(self, 'planner_go_home', False):
+                        point_info = 0
+                    
+                    if point_info == 1:
+                        # Action node: Magenta, same size as Via node
+                        arrow_len = 25
+                        color = (255, 0, 255) # Magenta (BGR)
+                        thickness = 2
+                        cv2.circle(b_map, (int(u), int(v)), 5, color, -1)
+                    else:
+                        # Via node (PointInfo = 0 or others): Orange, normal arrow
+                        arrow_len = 25
+                        color = (0, 165, 255) # Orange (BGR)
+                        thickness = 2
+                        cv2.circle(b_map, (int(u), int(v)), 5, color, -1)
+                        
+                    end_u = int(u + arrow_len * math.cos(r_yaw))
+                    end_v = int(v - arrow_len * math.sin(r_yaw))
+                    cv2.arrowedLine(b_map, (int(u), int(v)), (end_u, end_v), color, thickness, tipLength=0.35)
                 
                 # Start and Target circles
                 if len(steps) > 0:
@@ -1203,7 +1228,26 @@ def create_nicegui_app():
                             left_sidebar_title.set_text('Path List')
                         refresh_left_sidebar()
                         
-                    left_sidebar_title = ui.label('Path List').classes('cursor-pointer hover:text-red-400').style('color: white; font-size: 18px; font-weight: bold; text-align: center; width: 100%; margin-bottom: 12px; transition: color 0.2s;').on('click', on_switch_click)
+                    with ui.row().classes('w-full items-center justify-between').style('margin-bottom: 12px;'):
+                        left_sidebar_title = ui.label('Path List').classes('cursor-pointer hover:text-red-400').style('color: white; font-size: 18px; font-weight: bold; transition: color 0.2s;').on('click', on_switch_click)
+                        
+                        def on_toggle_all_visibility():
+                            is_path = (left_sidebar_title.text == 'Path List')
+                            if is_path:
+                                if len(engine.node_manager.hidden_paths) > 0:
+                                    engine.node_manager.hidden_paths.clear()
+                                else:
+                                    engine.node_manager.hidden_paths = set(p[0] for p in engine.node_manager.paths if len(p) > 0)
+                            else:
+                                if len(engine.node_manager.hidden_nodes) > 0:
+                                    engine.node_manager.hidden_nodes.clear()
+                                else:
+                                    engine.node_manager.hidden_nodes = set(n[0] for n in engine.node_manager.nodes if len(n) > 0)
+                            engine.precalculate_path_base_maps()
+                            refresh_left_sidebar()
+                            refresh_canvas(force=True)
+                            
+                        ui.button(icon='visibility', on_click=on_toggle_all_visibility).props('flat dense').style('color: white;')
                     
                     # Search Box for Left Sidebar
                     left_search_input = ui.input(placeholder='Search point...').props('outlined dense clearable').style('width: 100%; background-color: white; color: black; border-radius: 4px; margin-bottom: 12px;')
@@ -1347,7 +1391,7 @@ def create_nicegui_app():
                                 with create_field_row('Posture'):
                                     posture_select = ui.select(list(engine.posture_map.keys()), value='Normal').props('outlined dense bg-color="white"').style('flex: 1; color: #00264d;')
                                 with create_field_row('Fix Yaw'):
-                                    fix_yaw_select = ui.select(['True', 'False'], value='True').props('outlined dense bg-color="white"').style('flex: 1; color: #00264d;')
+                                    fix_yaw_select = ui.select(['0', '1', '2'], value='1').props('outlined dense bg-color="white"').style('flex: 1; color: #00264d;')
 
                                 # Save Point Button (#00264d Navy Blue, height 50px, bold white font)
                                 ui.button('Save Point', on_click=lambda: save_waypoint_from_editor()).style('background-color: #00264d; color: #FFFFFF; font-weight: bold; font-size: 16px; height: 50px; width: 100%; border-radius: 10px; margin-top: 8px;')
@@ -1372,16 +1416,20 @@ def create_nicegui_app():
                                     with ui.row().classes('w-full items-center gap-1 no-wrap'):
                                         planner_target_in = ui.input(value='ChargeIn-final').props('outlined dense').style('flex: 1; background-color: white;')
                                         ui.button('From Map', on_click=lambda: set_planner_target_from_selected()).style('background-color: #00264d; color: white; font-size: 11px; font-weight: bold; border-radius: 4px;')
+                                        
+                                    planner_go_home_chk = ui.checkbox('Go Home Mission', on_change=lambda e: [setattr(engine, 'planner_go_home', e.value), refresh_canvas(force=True)]).style('color: #00264d; font-weight: bold; font-size: 12px;')
 
                                     # Calculate Route Button
                                     ui.button('🚀 Calculate Dijkstra Path', on_click=lambda: calculate_dijkstra_path_ui()).style('width: 100%; background-color: #004080; color: white; font-weight: bold; font-size: 14px; height: 42px; border-radius: 6px; margin-top: 4px;')
+                                    ui.button('🔄 Sync with Waypoint Template', on_click=lambda: sync_with_template_ui()).style('width: 100%; background-color: #0d9488; color: white; font-weight: bold; font-size: 14px; height: 42px; border-radius: 6px; margin-top: 2px;')
 
                                 # Output Textbox
-                                planner_code_display = ui.code('=== DIJKSTRA PLANNER ===\nClick "Calculate Dijkstra Path" to compute route.', language='text').style('width: 100%; height: 230px; background-color: #00264d; color: #60a5fa; border: 2px solid #00264d; border-radius: 4px; font-weight: bold; overflow: auto; font-size: 12px; margin-top: 4px;')
+                                planner_code_display = ui.code('=== DIJKSTRA PLANNER ===\nClick "Calculate Dijkstra Path" to compute route.', language='text').style('width: 100%; height: 35vh; min-height: 250px; background-color: #00264d; color: #60a5fa; border: 2px solid #00264d; border-radius: 4px; font-weight: bold; overflow: auto; font-size: 12px; margin-top: 4px; margin-bottom: 4px;')
 
-                                with ui.row().classes('w-full gap-2 mt-1 no-wrap'):
-                                    ui.button('Highlight Map Path', on_click=lambda: calculate_dijkstra_path_ui()).style('flex: 1; background-color: #16a34a; color: white; font-weight: bold; border-radius: 6px;')
+                                with ui.row().classes('w-full gap-2 mt-auto no-wrap'):
                                     ui.button('Clear Planned', on_click=lambda: clear_dijkstra_path_ui()).style('flex: 1; background-color: #dc2626; color: white; font-weight: bold; border-radius: 6px;')
+                                    ui.button('Export Path', on_click=lambda: export_planned_path_ui(simulate=False)).style('flex: 1; background-color: #16a34a; color: white; font-weight: bold; border-radius: 6px;')
+                                ui.button('Simulate Planned Path', on_click=lambda: simulate_planned_path_ui()).style('width: 100%; background-color: #d97706; color: white; font-weight: bold; font-size: 14px; height: 42px; border-radius: 6px; margin-bottom: 8px;')
 
     # =========================================================================
     # UI Mode Functions & Local File Import/Export Dialogs
@@ -1397,11 +1445,38 @@ def create_nicegui_app():
         if sel_node:
             planner_start_in.set_value(str(sel_node))
             ui.notify(f"Set Start Node: {sel_node}", type='info')
+            
+            # Move Robot to the selected CSV node
+            row = engine.node_manager.get_node_by_id(sel_node)
+            if row and len(row) > 5:
+                try:
+                    parts = row[3].strip('{}').split(',')
+                    x, y, yaw = float(parts[0]), float(parts[1]), float(parts[3]) if len(parts)>3 else 0.0
+                    mid = int(row[5])
+                    if engine.current_map_id != mid:
+                        engine.current_map_id = mid
+                        refresh_floor_buttons()
+                    u, v = engine.world_to_pixel(x, y, mid)
+                    engine.robot_pose = {'u': u, 'v': v, 'yaw': yaw, 'step': 0}
+                    refresh_canvas(force=True)
+                except Exception:
+                    pass
+
         elif engine.selected_wp_idx is not None and engine.selected_wp_idx < len(engine.path_nodes):
             wp = engine.path_nodes[engine.selected_wp_idx]
             nid = wp.get('Node_info') or str(engine.selected_wp_idx)
             planner_start_in.set_value(str(nid))
             ui.notify(f"Set Start Node: {nid}", type='info')
+            
+            # Move Robot to the selected JSON waypoint
+            mid = wp.get('MapID', 0)
+            if engine.current_map_id != mid:
+                engine.current_map_id = mid
+                refresh_floor_buttons()
+            u, v = engine.world_to_pixel(wp.get('PosX', 0), wp.get('PosY', 0), mid)
+            yaw = wp.get('AngleYaw', 0)
+            engine.robot_pose = {'u': u, 'v': v, 'yaw': yaw, 'step': 0}
+            refresh_canvas(force=True)
         else:
             ui.notify("Please select a node or waypoint first", type='warning')
 
@@ -1433,11 +1508,11 @@ def create_nicegui_app():
             if engine.node_manager.paths:
                 for row in engine.node_manager.paths:
                     if len(row) < 3: continue
-                    planner.add_edge(row[1], row[2], path_id=row[0], bidirectional=True)
+                    planner.add_edge(row[1], row[2], path_id=row[0], bidirectional=False)
             else:
                 node_ids = list(planner.nodes.keys())
                 for i in range(len(node_ids) - 1):
-                    planner.add_edge(node_ids[i], node_ids[i+1], bidirectional=True)
+                    planner.add_edge(node_ids[i], node_ids[i+1], bidirectional=False)
             loaded = True
 
         elif engine.path_nodes:
@@ -1462,10 +1537,38 @@ def create_nicegui_app():
 
         start_q = planner_start_in.value
         target_q = planner_target_in.value
-        res = planner.find_shortest_path(start_q, target_q)
+        is_go_home = getattr(engine, 'planner_go_home', False)
+        res = planner.find_shortest_path(start_q, target_q, is_go_home=is_go_home)
 
         if res:
             engine.planned_route_result = res
+            
+            # Move robot to the resolved start node (first step of the result)
+            if res.get('steps'):
+                start_step = res['steps'][0]
+                x, y, yaw = start_step['x'], start_step['y'], start_step.get('yaw', 0.0)
+                start_nid = start_step['node_id']
+                mid = engine.current_map_id # fallback
+                
+                # Retrieve map ID
+                row = engine.node_manager.get_node_by_id(start_nid)
+                if row and len(row) > 5:
+                    try:
+                        mid = int(row[5])
+                    except: pass
+                else:
+                    for wp in engine.path_nodes:
+                        if str(wp.get('Node_info') or '') == start_nid:
+                            mid = wp.get('MapID', 0)
+                            break
+                            
+                if engine.current_map_id != mid:
+                    engine.current_map_id = mid
+                    refresh_floor_buttons()
+                    
+                u, v = engine.world_to_pixel(x, y, mid)
+                engine.robot_pose = {'u': u, 'v': v, 'yaw': yaw, 'step': 0}
+
             engine.precalculate_path_base_maps()
             refresh_canvas(force=True)
 
@@ -1475,7 +1578,7 @@ def create_nicegui_app():
             out_text += f"• Dist  : {res['total_distance_m']} m ({res['node_count']} nodes)\n\n"
             out_text += "Trajectory Steps:\n"
             for step in res['steps']:
-                out_text += f" [{step['step']+1:02d}] {step['node_id']} ({step['name']}) -> {step['accumulated_distance']}m\n"
+                out_text += f" [{step['step']+1:02d}] {step['node_id']} ({step['name']}) -> {step['accumulated_distance']}m, Heading: {step['yaw']:.4f} rad\n"
 
             planner_code_display.set_content(out_text)
             ui.notify(f"Path calculated! Total: {res['total_distance_m']}m", type='positive')
@@ -1486,12 +1589,204 @@ def create_nicegui_app():
             planner_code_display.set_content(f"❌ No route found from '{start_q}' to '{target_q}'.")
             ui.notify(f"No path found between '{start_q}' and '{target_q}'", type='negative')
 
+    def sync_with_template_ui():
+        if not engine.path_nodes:
+            ui.notify("Please load a Waypoint Template JSON first.", type='warning')
+            return
+
+        # Extract ordered sequence of node IDs/names from loaded template
+        template_queries = []
+        for wp in engine.path_nodes:
+            nid = wp.get('Node_info') or wp.get('id') or wp.get('ID')
+            if nid:
+                template_queries.append(str(nid).strip())
+
+        if len(template_queries) < 2:
+            ui.notify("Waypoint Template must contain at least 2 nodes.", type='warning')
+            return
+
+        planner = DijkstraPlanner()
+        # Build graph from active CSV nodes
+        loaded = False
+        if engine.node_manager.nodes:
+            for row in engine.node_manager.nodes:
+                if len(row) < 4: continue
+                nid = str(row[0]).strip()
+                name = row[1].strip() if len(row) > 1 else nid
+                x, y, z, yaw = planner.parse_pose(row[3]) if len(row) > 3 else (0.0, 0.0, 0.0, 0.0)
+                planner.add_node(nid, name=name, x=x, y=y, z=z, yaw=yaw, raw=row)
+
+            if engine.node_manager.paths:
+                for row in engine.node_manager.paths:
+                    if len(row) < 3: continue
+                    planner.add_edge(row[1], row[2], path_id=row[0], bidirectional=False)
+            else:
+                node_ids = list(planner.nodes.keys())
+                for i in range(len(node_ids) - 1):
+                    planner.add_edge(node_ids[i], node_ids[i+1], bidirectional=False)
+            loaded = True
+
+        if not loaded or not planner.nodes:
+            # Fallback to loading default CSV files
+            nodes_csv = os.path.join(engine.script_dir, '../resource/nodes.csv')
+            paths_csv = os.path.join(engine.script_dir, '../resource/paths.csv')
+            planner.load_from_csv(nodes_csv, paths_csv if os.path.exists(paths_csv) else None)
+
+        is_go_home = getattr(engine, 'planner_go_home', False)
+        
+        # Display calculating status
+        ui.notify("Syncing route with waypoint template...", type='info')
+        res = planner.plan_multi_segment_path(template_queries, is_go_home=is_go_home)
+
+        if res:
+            engine.planned_route_result = res
+            
+            # Move robot to the resolved start node (first step of the result)
+            if res.get('steps'):
+                start_step = res['steps'][0]
+                x, y, yaw = start_step['x'], start_step['y'], start_step.get('yaw', 0.0)
+                start_nid = start_step['node_id']
+                mid = engine.current_map_id # fallback
+                
+                # Retrieve map ID
+                row = engine.node_manager.get_node_by_id(start_nid)
+                if row and len(row) > 5:
+                    try:
+                        mid = int(row[5])
+                    except: pass
+                else:
+                    for wp in engine.path_nodes:
+                        if str(wp.get('Node_info') or '') == start_nid:
+                            mid = wp.get('MapID', 0)
+                            break
+                            
+                if engine.current_map_id != mid:
+                    engine.current_map_id = mid
+                    refresh_floor_buttons()
+                    
+                u, v = engine.world_to_pixel(x, y, mid)
+                engine.robot_pose = {'u': u, 'v': v, 'yaw': yaw, 'step': 0}
+
+            engine.precalculate_path_base_maps()
+            refresh_canvas(force=True)
+
+            out_text = f"✅ ROUTE SYNCED WITH TEMPLATE\n"
+            out_text += f"• Template: {len(template_queries)} points\n"
+            out_text += f"• Start   : {res['start_node']}\n"
+            out_text += f"• Target  : {res['end_node']}\n"
+            out_text += f"• Dist    : {res['total_distance_m']} m ({res['node_count']} nodes)\n\n"
+            out_text += "Stitched Trajectory Steps:\n"
+            for step in res['steps']:
+                out_text += f" [{step['step']+1:02d}] {step['node_id']} ({step['name']}) -> {step['accumulated_distance']}m, Heading: {step['yaw']:.4f} rad\n"
+
+            planner_code_display.set_content(out_text)
+            ui.notify(f"Synced route generated! Total: {res['total_distance_m']}m", type='positive')
+        else:
+            engine.planned_route_result = None
+            engine.precalculate_path_base_maps()
+            refresh_canvas(force=True)
+            planner_code_display.set_content(f"❌ Failed to sync/stitch route with template.\nQueries tried: {template_queries}")
+            ui.notify("No path could be stitched between all template waypoints.", type='negative')
+
     def clear_dijkstra_path_ui():
         engine.planned_route_result = None
         engine.precalculate_path_base_maps()
         refresh_canvas(force=True)
         planner_code_display.set_content("=== DIJKSTRA PLANNER ===\nPath cleared.")
         ui.notify("Planned path cleared.", type='info')
+
+    def export_planned_path_ui(simulate=False):
+        if getattr(engine, 'planned_route_result', None) is None:
+            ui.notify("Please calculate a Dijkstra Path first.", type='warning')
+            return
+            
+        res = engine.planned_route_result
+        calc_json_path = os.path.join(engine.script_dir, '../resource/path/calc_tracect.json')
+        
+        exported_waypoints = []
+        for step in res['steps']:
+            nid = step['node_id']
+            # Try to find original JSON dictionary from currently loaded path
+            raw_data = None
+            for wp in getattr(engine, 'path_nodes', []):
+                if str(wp.get('Node_info') or '') == nid or str(wp.get('id') or '') == nid:
+                    raw_data = wp
+                    break
+            
+            # If not in JSON, construct a template from nodes.csv
+            if not raw_data:
+                row = engine.node_manager.get_node_by_id(nid)
+                if row:
+                    map_id = int(row[5]) if len(row) > 5 and str(row[5]).strip() else 0
+                    map_name = row[6] if len(row) > 6 and str(row[6]).strip() else f"floor_{map_id}"
+                    name = row[1] if len(row) > 1 and str(row[1]).strip() else nid
+                    zone = row[4] if len(row) > 4 and str(row[4]).strip() else "default"
+                    
+                    gait = int(row[7]) if len(row) > 7 and str(row[7]).strip() else 0
+                    nav_mode = int(row[8]) if len(row) > 8 and str(row[8]).strip() else 0
+                    speed = int(row[9]) if len(row) > 9 and str(row[9]).strip() else 0
+                    terrain = int(row[10]) if len(row) > 10 and str(row[10]).strip() else 0
+                    point_info = int(row[11]) if len(row) > 11 and str(row[11]).strip() else 0
+                    obs_mode = int(row[12]) if len(row) > 12 and str(row[12]).strip() else 0
+                    manner = int(row[13]) if len(row) > 13 and str(row[13]).strip() else 0
+                    posture = int(row[14]) if len(row) > 14 and str(row[14]).strip() else 0
+                    value = int(row[15]) if len(row) > 15 and str(row[15]).strip() else 0
+
+                    raw_data = {
+                        "Node_info": name, "MapName": map_name, "Zone": zone, "MapID": map_id,
+                        "Gait": gait, "NavMode": nav_mode, "Speed": speed, "Terrain": terrain,
+                        "PointInfo": point_info, "ObsMode": obs_mode, "Manner": manner, "Posture": posture,
+                        "PosX": step['x'], "PosY": step['y'], "PosZ": step['z'],
+                        "AngleYaw": step['yaw'], "Value": value, "CamPTZ": [0.0, 0.0, 0.0]
+                    }
+                    n_type = str(row[2]) if len(row) > 2 else "1"
+                    if n_type == "2":
+                        if any(k in name.lower() for k in ['vibration', 'acoustic', 'leakage', 'thermal']):
+                            raw_data['PointInfo'] = 1
+                            raw_data['Inspection'] = f"{name.split('-')[0]}_inspection"
+                            
+            if not raw_data: # Absolute fallback
+                raw_data = {
+                    "Node_info": nid, "MapName": "1st_floor", "Zone": "default", "MapID": 0,
+                    "PosX": step['x'], "PosY": step['y'], "PosZ": step['z'], "AngleYaw": step['yaw']
+                }
+                
+            wp_dict = dict(raw_data) # Clone to avoid modifying memory references
+            wp_dict['PosX'] = step['x']
+            wp_dict['PosY'] = step['y']
+            wp_dict['PosZ'] = step['z']
+            wp_dict['AngleYaw'] = step['yaw']
+            
+            if planner_go_home_chk.value:
+                wp_dict['PointInfo'] = 0
+                if 'Inspection' in wp_dict:
+                    del wp_dict['Inspection']
+            
+            exported_waypoints.append(wp_dict)
+            
+        if planner_go_home_chk.value and len(exported_waypoints) > 0:
+            exported_waypoints[-1]['Task'] = 'go_home'
+            
+        try:
+            os.makedirs(os.path.dirname(calc_json_path), exist_ok=True)
+            with open(calc_json_path, 'w', encoding='utf-8') as f:
+                json.dump(exported_waypoints, f, indent=4)
+            ui.notify(f"Exported calculated path to calc_tracect.json", type='positive')
+            
+            if simulate:
+                # Load the new json into the simulator and start running
+                engine.load_waypoints_from_file(calc_json_path)
+                engine.precalculate_path_base_maps()
+                refresh_canvas(force=True)
+                refresh_left_sidebar()
+                set_sidebar_mode('info')
+                start_simulation()
+            
+        except Exception as e:
+            ui.notify(f"Error saving {calc_json_path}: {e}", type='negative')
+
+    def simulate_planned_path_ui():
+        export_planned_path_ui(simulate=True)
 
     def set_sidebar_mode(mode):
         engine.sidebar_mode = mode
@@ -1833,7 +2128,16 @@ def create_nicegui_app():
             n1_id = engine.add_path_node1
             n2_id = engine.add_path_node2
             
-            p_id = f"path_{len(engine.node_manager.paths)+1}"
+            max_id = 0
+            for r in engine.node_manager.paths:
+                if len(r) > 0:
+                    val = str(r[0])
+                    if val.startswith("path_") and val[5:].isdigit():
+                        max_id = max(max_id, int(val[5:]))
+                    elif val.isdigit():
+                        max_id = max(max_id, int(val))
+            
+            p_id = f"path_{max_id + 1}"
             new_path_row = [p_id, n1_id, n2_id, "1.0", "1", ""]
             engine.node_manager.paths.append(new_path_row)
             engine.node_manager.save_paths()
@@ -1855,8 +2159,8 @@ def create_nicegui_app():
         if not hit_csv_node: return
 
         engine.selected_wp_idx = None
-        fix_yaw_raw = hit_csv_node[7] if len(hit_csv_node) > 7 else "1"
-        fix_yaw_val = False if str(fix_yaw_raw).lower() in ['0', 'false'] else True
+        fix_yaw_raw = str(hit_csv_node[7]).strip() if len(hit_csv_node) > 7 else "1"
+        if fix_yaw_raw not in ['0', '1', '2']: fix_yaw_raw = "1"
 
         node_dict = {
             "ID": n_id,
@@ -1866,7 +2170,7 @@ def create_nicegui_app():
             "Type": hit_csv_node[4] if len(hit_csv_node) > 4 else "",
             "MapID": hit_csv_node[5] if len(hit_csv_node) > 5 else "",
             "Zone": hit_csv_node[6] if len(hit_csv_node) > 6 else "",
-            "fix_yaw": fix_yaw_val
+            "fix_yaw": fix_yaw_raw
         }
         
         formatted_json = "=== CSV NODE ===\n" + json.dumps(node_dict, indent=2)
@@ -1887,7 +2191,7 @@ def create_nicegui_app():
             pass
             
         zone_in.set_value(node_dict["Zone"])
-        fix_yaw_select.set_value('True' if fix_yaw_val else 'False')
+        fix_yaw_select.set_value(fix_yaw_raw)
         
         photo_path = engine.find_inspection_photo(node_dict["ID"])
         if photo_path and os.path.exists(photo_path):
@@ -1971,7 +2275,7 @@ def create_nicegui_app():
 
         curr_node = engine.path_nodes[idx]
         if 'fix_yaw' not in curr_node:
-            curr_node['fix_yaw'] = True
+            curr_node['fix_yaw'] = "1"
         formatted_json = "=== CURRENT WAYPOINT ===\n" + json.dumps(curr_node, indent=2)
         wp_json_display.set_content(formatted_json)
         update_connected_info()
@@ -2000,8 +2304,9 @@ def create_nicegui_app():
         obs_select.set_value(engine.obs_mode_rev_map.get(curr_node.get('ObsMode', 0), 'Enable'))
         manner_select.set_value(engine.manner_rev_map.get(curr_node.get('Manner', 0), 'Forward'))
         posture_select.set_value(engine.posture_rev_map.get(curr_node.get('Posture', 0), 'Normal'))
-        val_fix_yaw = curr_node.get('fix_yaw', True)
-        fix_yaw_select.set_value('True' if (val_fix_yaw is True or str(val_fix_yaw).lower() == 'true') else 'False')
+        val_fix_yaw = str(curr_node.get('fix_yaw', '1')).strip()
+        if val_fix_yaw not in ['0', '1', '2']: val_fix_yaw = "1"
+        fix_yaw_select.set_value(val_fix_yaw)
 
         # Inspection photo search
         node_info = curr_node.get('Node_info', '')
@@ -2039,7 +2344,7 @@ def create_nicegui_app():
                 "ObsMode": engine.obs_mode_map[obs_select.value],
                 "Manner": engine.manner_map[manner_select.value],
                 "Posture": engine.posture_map[posture_select.value],
-                "fix_yaw": (fix_yaw_select.value == 'True' or fix_yaw_select.value is True),
+                "fix_yaw": str(fix_yaw_select.value),
                 "PosX": float(pos_x_in.value),
                 "PosY": float(pos_y_in.value),
                 "PosZ": float(pos_z_in.value),
@@ -2060,7 +2365,7 @@ def create_nicegui_app():
                     if len(row) > 5: row[5] = str(map_id_in.value)
                     if len(row) > 6: row[6] = zone_in.value
                     while len(row) < 8: row.append("0")
-                    row[7] = "1" if (fix_yaw_select.value == 'True' or fix_yaw_select.value is True) else "0"
+                    row[7] = str(fix_yaw_select.value)
                     engine.node_manager.save_nodes()
                     update_status(f"Updated CSV node [{sel_nid}]")
             elif engine.insert_idx is not None:
@@ -2303,7 +2608,7 @@ def create_nicegui_app():
                         new_row = engine.node_manager.add_node(wx, wy, yaw, engine.current_map_id)
                         added_msg = f"CSV Node [{new_row[0]}]"
                     else:
-                        new_wp = {'PosX': float(wx), 'PosY': float(wy), 'AngleYaw': float(yaw), 'fix_yaw': True, 'Node_info': f"wp_{len(engine.path_nodes)}"}
+                        new_wp = {'PosX': float(wx), 'PosY': float(wy), 'AngleYaw': float(yaw), 'fix_yaw': "1", 'Node_info': f"wp_{len(engine.path_nodes)}"}
                         engine.path_nodes.append(new_wp)
                         json_file = engine.waypoints_file
                         if json_file and os.path.exists(json_file):
@@ -2422,8 +2727,8 @@ def create_nicegui_app():
             if engine.edit_mode == 'edit_point':
                 hit_rotate_json = None
                 for i, node in enumerate(engine.path_nodes):
-                    val_fix_yaw = node.get('fix_yaw', True)
-                    fix_yaw = False if (val_fix_yaw is False or str(val_fix_yaw).lower() in ['0', 'false']) else True
+                    val_fix_yaw = str(node.get('fix_yaw', '1')).strip()
+                    fix_yaw = True if val_fix_yaw in ['0', '1'] else False
                     if fix_yaw:
                         u, v = engine.world_to_pixel(node['PosX'], node['PosY'], engine.current_map_id)
                         yaw = node.get('AngleYaw', 0) + engine.get_map_rotation_rad()
@@ -2447,8 +2752,8 @@ def create_nicegui_app():
                 hit_rotate_csv = None
                 for row in engine.node_manager.nodes:
                     if len(row) < 6: continue
-                    fix_yaw_raw = row[7] if len(row) > 7 else "1"
-                    fix_yaw = False if str(fix_yaw_raw).lower() in ['0', 'false'] else True
+                    fix_yaw_raw = str(row[7]).strip() if len(row) > 7 else "1"
+                    fix_yaw = True if fix_yaw_raw in ['0', '1'] else False
                     if fix_yaw:
                         try:
                             if int(row[5]) != engine.current_map_id and not getattr(engine, 'show_all_floors', False): continue
@@ -2561,7 +2866,9 @@ def create_nicegui_app():
                 engine.align_p2_idx = None
                 engine.selected_edge_idx = None
 
-                set_sidebar_mode('info')
+                if getattr(engine, 'sidebar_mode', 'info') not in ['planner', 'editor']:
+                    set_sidebar_mode('info')
+                
                 engine.precalculate_path_base_maps()
                 refresh_canvas(force=True)
                 refresh_left_sidebar()

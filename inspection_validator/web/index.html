@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics CAT - Inspection Result Validator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-cat"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Robotics CAT <span>Validator</span></h1>
+                    <p class="subtitle">Inspection Result & Template Integrity Verification System</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <div class="status-pill" id="activeMissionPill">
+                    <i class="fa-solid fa-folder-open"></i> <span id="currentMissionText">No Mission Loaded</span>
+                </div>
+                <div class="status-pill" id="activeTemplatePill">
+                    <i class="fa-solid fa-file-code"></i> <span id="currentTemplateText">No Template Loaded</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Process Navigation Tabs -->
+        <nav class="process-nav">
+            <button class="nav-tab active" data-tab="tab-import" id="btnTabImport">
+                <span class="tab-step">1</span>
+                <span class="tab-icon"><i class="fa-solid fa-file-import"></i></span>
+                <span class="tab-label">Import Data</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-results" id="btnTabResults">
+                <span class="tab-step">2</span>
+                <span class="tab-icon"><i class="fa-solid fa-list-check"></i></span>
+                <span class="tab-label">Inspection Result</span>
+            </button>
+            <button class="nav-tab" data-tab="tab-validate" id="btnTabValidate">
+                <span class="tab-step">3</span>
+                <span class="tab-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                <span class="tab-label">Validate</span>
+            </button>
+        </nav>
+
+        <!-- Main Content View Areas -->
+        <main class="content-area">
+
+            <!-- PROCESS 1: IMPORT DATA -->
+            <section id="tab-import" class="tab-content active">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-database"></i> Process 1: Import Data</h2>
+                    <p>Select the mission execution folder and matching JSON inspection template for validation.</p>
+                </div>
+
+                <div class="grid-2col">
+                    <!-- Mission Selector Card -->
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-folder-tree text-accent"></i> Select Mission Data</h3>
+                            <span class="badge badge-info" id="badgeMissionCount">Scanning...</span>
+                        </div>
+                        <div class="card-body">
+                            <label for="selectMission">Available Mission Folders (resource/mission-xx):</label>
+                            <select id="selectMission" class="form-control">
+                                <option value="">-- Choose Mission Folder --</option>
+                            </select>
+                            
+                            <div class="meta-box" id="missionMetaBox">
+                                <div class="meta-row"><span class="meta-key">CSV File:</span> <span class="meta-val" id="mMetaCsv">-</span></div>
+                                <div class="meta-row"><span class="meta-key">Total Media Files:</span> <span class="meta-val" id="mMetaMedia">-</span></div>
+                                <div class="meta-row"><span class="meta-key">Images (.jpg/.png):</span> <span class="meta-val" id="mMetaImages">-</span></div>
+                                <div class="meta-row"><span class="meta-key">Videos (.mp4):</span> <span class="meta-val" id="mMetaVideos">-</span></div>
+                                <div class="meta-row"><span class="meta-key">Audio (.wav):</span> <span class="meta-val" id="mMetaAudio">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Template Selector Card -->
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-file-invoice text-accent"></i> Select Inspection Template (.json)</h3>
+                            <span class="badge badge-info" id="badgeTemplateCount">Scanning...</span>
+                        </div>
+                        <div class="card-body">
+                            <label for="selectTemplate">Available Inspection Templates (resource/path/*.json):</label>
+                            <select id="selectTemplate" class="form-control">
+                                <option value="">-- Choose Template JSON --</option>
+                            </select>
+
+                            <div class="meta-box" id="templateMetaBox">
+                                <div class="meta-row"><span class="meta-key">Template File:</span> <span class="meta-val" id="tMetaFile">-</span></div>
+                                <div class="meta-row"><span class="meta-key">Total Waypoints:</span> <span class="meta-val" id="tMetaWaypoints">-</span></div>
+                                <div class="meta-row"><span class="meta-key">Inspection Points:</span> <span class="meta-val" id="tMetaInspections">-</span></div>
+                                <div class="meta-row"><span class="meta-key">Via/Nav Points:</span> <span class="meta-val" id="tMetaVia">-</span></div>
+                                <div class="meta-row"><span class="meta-key">File Size:</span> <span class="meta-val" id="tMetaSize">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="action-bar-center">
+                    <button class="btn btn-primary btn-lg" id="btnImportSubmit">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Import & Load Mission Data
+                    </button>
+                </div>
+
+                <!-- Loaded Summary Panel -->
+                <div class="glass-card margin-top" id="importedSummaryCard" style="display:none;">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-circle-check text-success"></i> Data Successfully Imported</h3>
+                        <span class="badge badge-success">READY</span>
+                    </div>
+                    <div class="card-body grid-3col">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                            <div class="stat-info">
+                                <h4 id="statCsvRows">0</h4>
+                                <p>Inspection Results (CSV)</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                            <div class="stat-info">
+                                <h4 id="statTemplatePoints">0</h4>
+                                <p>Template Inspection Points</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fa-solid fa-photo-film"></i></div>
+                            <div class="stat-info">
+                                <h4 id="statTotalMedia">0</h4>
+                                <p>Physical Media Files</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer align-right">
+                        <button class="btn btn-secondary" id="btnGoResults">Proceed to Inspection Results <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PROCESS 2: INSPECTION RESULT -->
+            <section id="tab-results" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-list-check"></i> Process 2: Inspection Result</h2>
+                    <p>Review parsed inspection records, details, and media files recorded by the Robotics CAT.</p>
+                </div>
+
+                <!-- Controls & Filters -->
+                <div class="controls-card glass-card">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="inputResultSearch" placeholder="Search point name, inspection type, level, or result text...">
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Level:</span>
+                        <button class="btn-filter active" data-filter-level="all">All</button>
+                        <button class="btn-filter btn-filter-pass" data-filter-level="pass">Pass</button>
+                        <button class="btn-filter btn-filter-notification" data-filter-level="notification">Notifications</button>
+                        <button class="btn-filter btn-filter-missing" data-filter-level="missing">Missing</button>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Type:</span>
+                        <button class="btn-filter active" data-filter-type="all">All Types</button>
+                        <button class="btn-filter" data-filter-type="thermal">Thermal</button>
+                        <button class="btn-filter" data-filter-type="leakage">Leakage</button>
+                        <button class="btn-filter" data-filter-type="vibration">Vibration</button>
+                        <button class="btn-filter" data-filter-type="gauge">Gauge</button>
+                        <button class="btn-filter" data-filter-type="loto">LOTO</button>
+                        <button class="btn-filter" data-filter-type="asset">Asset</button>
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-card glass-card">
+                    <div class="table-header-info">
+                        <span>Showing <strong id="lblVisibleCount">0</strong> of <strong id="lblTotalCount">0</strong> records</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" id="tableResults">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">No.</th>
+                                    <th style="width: 170px;">Timestamp</th>
+                                    <th>Action Name</th>
+                                    <th>Inspection Result</th>
+                                    <th style="width: 110px;">Level</th>
+                                    <th style="width: 140px; text-align: center;">Dev Eval</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyResults">
+                                <tr>
+                                    <td colspan="6" class="empty-state">No data loaded. Please import a mission first.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- INSPECTION SUMMARY REPORT SECTION -->
+                <div class="glass-card summary-report-card margin-top" id="summaryReportSection">
+                    <div class="summary-report-header">
+                        <h2>Inspection Summary Report</h2>
+                    </div>
+
+                    <!-- 4 KPI Boxes -->
+                    <div class="kpi-grid">
+                        <div class="kpi-box clickable-kpi" data-filter-level="all" title="Click to view all inspection points in table">
+                            <div class="kpi-label">TOTAL POINTS</div>
+                            <div class="kpi-val text-white" id="kpiTotalPoints">0</div>
+                        </div>
+                        <div class="kpi-box clickable-kpi" data-filter-level="pass" title="Click to filter table by TOTAL PASS">
+                            <div class="kpi-label">TOTAL PASS</div>
+                            <div class="kpi-val text-success" id="kpiTotalPass">0</div>
+                        </div>
+                        <div class="kpi-box clickable-kpi" data-filter-level="notification" title="Click to filter table by NOTIFICATIONS">
+                            <div class="kpi-label">NOTIFICATIONS</div>
+                            <div class="kpi-val text-danger" id="kpiNotifications">0</div>
+                        </div>
+                        <div class="kpi-box clickable-kpi" data-filter-level="missing" title="Click to filter table by MISSING DATA">
+                            <div class="kpi-label">MISSING DATA</div>
+                            <div class="kpi-val text-warning" id="kpiMissingData">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Breakdown Table -->
+                    <div class="breakdown-section margin-top">
+                        <h3 class="breakdown-title">Breakdown by Inspection Type</h3>
+                        <div class="table-responsive margin-top">
+                            <table class="summary-breakdown-table" id="tableSummaryBreakdown">
+                                <thead>
+                                    <tr>
+                                        <th>Inspection Type</th>
+                                        <th style="text-align: center;">Pass Count</th>
+                                        <th style="text-align: center;">Notification</th>
+                                        <th style="text-align: center;">Missing</th>
+                                        <th style="text-align: center;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodySummaryBreakdown">
+                                    <tr>
+                                        <td colspan="5" class="empty-state">Import data to view summary breakdown.</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot id="tfootSummaryBreakdown">
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PROCESS 3: VALIDATION & CONFUSION MATRIX -->
+            <section id="tab-validate" class="tab-content">
+                <div class="section-header flex-between">
+                    <div>
+                        <h2><i class="fa-solid fa-shield-halved"></i> Process 3: Validate</h2>
+                        <p>Perform formal classification performance verification based on developer evaluations.</p>
+                    </div>
+                    <button class="btn btn-primary btn-lg" id="btnRunValidation">
+                        <i class="fa-solid fa-play"></i> Execute Validation Audit
+                    </button>
+                </div>
+
+                <!-- Validation Results Dashboard -->
+                <div id="validationResultArea">
+
+                    <!-- CONFUSION MATRIX SECTION IN PROCESS 3 -->
+                    <div class="glass-card margin-top confusion-matrix-card">
+                        <div class="cm-header flex-between">
+                            <div>
+                                <h3><i class="fa-solid fa-table-cells text-accent"></i> Developer Evaluation Confusion Matrix</h3>
+                                <p class="text-muted" style="font-size: 13px;">Classification performance matrix derived from Process 2 developer evaluations.</p>
+                            </div>
+                        </div>
+
+                        <!-- 2x2 Matrix Grid & Performance KPIs -->
+                        <div class="cm-dashboard-grid margin-top">
+                            <!-- Matrix Table Container -->
+                            <div class="cm-matrix-container">
+                                <table class="cm-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="cm-corner-cell">Actual \ Predicted</th>
+                                            <th>Predicted Positive<br><small>(Alert / Critical)</small></th>
+                                            <th>Predicted Negative<br><small>(Pass / Normal)</small></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th class="cm-row-hdr">Actual Positive<br><small>(Actual Anomaly)</small></th>
+                                            <td class="cm-cell cm-tp-cell">
+                                                <div class="cm-cell-wrapper">
+                                                    <div class="cm-cell-code">TP</div>
+                                                    <div class="cm-cell-num cmValTP">0</div>
+                                                    <div class="cm-cell-desc">True Positive</div>
+                                                </div>
+                                            </td>
+                                            <td class="cm-cell cm-fn-cell">
+                                                <div class="cm-cell-wrapper">
+                                                    <div class="cm-cell-code">FN</div>
+                                                    <div class="cm-cell-num cmValFN">0</div>
+                                                    <div class="cm-cell-desc">False Negative (Missed Defect)</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="cm-row-hdr">Actual Negative<br><small>(Normal Operating)</small></th>
+                                            <td class="cm-cell cm-fp-cell">
+                                                <div class="cm-cell-wrapper">
+                                                    <div class="cm-cell-code">FP</div>
+                                                    <div class="cm-cell-num cmValFP">0</div>
+                                                    <div class="cm-cell-desc">False Positive (False Alarm)</div>
+                                                </div>
+                                            </td>
+                                            <td class="cm-cell cm-tn-cell">
+                                                <div class="cm-cell-wrapper">
+                                                    <div class="cm-cell-code">TN</div>
+                                                    <div class="cm-cell-num cmValTN">0</div>
+                                                    <div class="cm-cell-desc">True Negative</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Performance Metrics Panel -->
+                            <div class="cm-stats-panel">
+                                <h4 class="cm-stats-title">Model Performance Metrics</h4>
+                                <div class="cm-stat-item">
+                                    <div class="cm-stat-lbl">Accuracy <small>(TP + TN / Total)</small></div>
+                                    <div class="cm-stat-bar-bg"><div class="cm-stat-bar-fill bg-blue-highlight barAccuracy" style="width: 0%;"></div></div>
+                                    <div class="cm-stat-num cmValAccuracy">0.0%</div>
+                                </div>
+                                <div class="cm-stat-item margin-top-sm">
+                                    <div class="cm-stat-lbl">Precision <small>(TP / TP + FP)</small></div>
+                                    <div class="cm-stat-bar-bg"><div class="cm-stat-bar-fill bg-blue-highlight barPrecision" style="width: 0%;"></div></div>
+                                    <div class="cm-stat-num cmValPrecision">0.0%</div>
+                                </div>
+                                <div class="cm-stat-item margin-top-sm">
+                                    <div class="cm-stat-lbl">Recall / Sensitivity <small>(TP / TP + FN)</small></div>
+                                    <div class="cm-stat-bar-bg"><div class="cm-stat-bar-fill bg-blue-highlight barRecall" style="width: 0%;"></div></div>
+                                    <div class="cm-stat-num cmValRecall">0.0%</div>
+                                </div>
+                                <div class="cm-stat-item margin-top-sm">
+                                    <div class="cm-stat-lbl">F1 Score <small>(Harmonic Mean)</small></div>
+                                    <div class="cm-stat-bar-bg"><div class="cm-stat-bar-fill bg-blue-highlight barF1Score" style="width: 0%;"></div></div>
+                                    <div class="cm-stat-num cmValF1Score">0.0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MATHEMATICAL FORMULAS REFERENCE CARD -->
+                    <div class="glass-card margin-top">
+                        <div class="formula-section-title">
+                            <i class="fa-solid fa-square-root-variable text-accent"></i>
+                            <span>Mathematical Calculation Formulations & Live Values</span>
+                        </div>
+                        <p class="text-muted" style="font-size: 13px;">Standard statistical equations with real-time numerical substitution derived from Process 2 Developer Evaluations.</p>
+
+                        <div class="formula-grid">
+                            <!-- Accuracy -->
+                            <div class="formula-card-item">
+                                <div class="formula-name"><i class="fa-solid fa-bullseye text-accent"></i> Accuracy</div>
+                                <div class="math-equation-box">
+                                    <span class="math-lhs">Accuracy</span>
+                                    <span class="math-equals">=</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num">TP + TN</span>
+                                        <span class="math-denom">TP + TN + FP + FN</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num eqAccSub">0 + 0</span>
+                                        <span class="math-denom eqAccDenomSub">0 + 0 + 0 + 0</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <span class="math-rhs text-accent cmValAccuracy">0.0%</span>
+                                </div>
+                                <div class="formula-desc">Ratio of all correct evaluations (True Positives + True Negatives) relative to total inspection points.</div>
+                            </div>
+
+                            <!-- Precision -->
+                            <div class="formula-card-item">
+                                <div class="formula-name"><i class="fa-solid fa-filter text-accent"></i> Precision</div>
+                                <div class="math-equation-box">
+                                    <span class="math-lhs">Precision</span>
+                                    <span class="math-equals">=</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num">TP</span>
+                                        <span class="math-denom">TP + FP</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num eqPrecSub">0</span>
+                                        <span class="math-denom eqPrecDenomSub">0 + 0</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <span class="math-rhs text-accent cmValPrecision">0.0%</span>
+                                </div>
+                                <div class="formula-desc">Precision of anomaly identification — proportion of actual anomaly events among all system-detected positive predictions.</div>
+                            </div>
+
+                            <!-- Recall (Sensitivity) -->
+                            <div class="formula-card-item">
+                                <div class="formula-name"><i class="fa-solid fa-eye text-accent"></i> Recall (Sensitivity)</div>
+                                <div class="math-equation-box">
+                                    <span class="math-lhs">Recall</span>
+                                    <span class="math-equals">=</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num">TP</span>
+                                        <span class="math-denom">TP + FN</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num eqRecSub">0</span>
+                                        <span class="math-denom eqRecDenomSub">0 + 0</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <span class="math-rhs text-accent cmValRecall">0.0%</span>
+                                </div>
+                                <div class="formula-desc">Anomaly detection completeness — proportion of actual anomaly events successfully detected by the vision system.</div>
+                            </div>
+
+                            <!-- F1-Score -->
+                            <div class="formula-card-item">
+                                <div class="formula-name"><i class="fa-solid fa-scale-balanced text-accent"></i> F1-Score</div>
+                                <div class="math-equation-box">
+                                    <span class="math-lhs">F1-Score</span>
+                                    <span class="math-equals">=</span>
+                                    <span class="math-lhs" style="margin-right: 2px;">2</span>
+                                    <span class="math-times">&times;</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num">Precision &times; Recall</span>
+                                        <span class="math-denom">Precision + Recall</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <span class="math-lhs" style="margin-right: 2px;">2</span>
+                                    <span class="math-times">&times;</span>
+                                    <div class="math-fraction">
+                                        <span class="math-num eqF1NumSub">0.0% &times; 0.0%</span>
+                                        <span class="math-denom eqF1DenomSub">0.0% + 0.0%</span>
+                                    </div>
+                                    <span class="math-equals">=</span>
+                                    <span class="math-rhs text-accent cmValF1Score">0.0%</span>
+                                </div>
+                                <div class="formula-desc">Harmonic mean of Precision and Recall, measuring the overall balanced classification performance of the model.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- DETAIL MODAL & MEDIA VIEWER -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalPointTitle">Inspection Point Details</h3>
+                    <span class="badge" id="modalLevelBadge">PASS</span>
+                </div>
+                <button class="modal-close" id="btnModalClose">&times;</button>
+            </div>
+            <div class="modal-body grid-modal">
+                <!-- Left Column: Key Details & JSON Result -->
+                <div class="modal-info-panel">
+                    <h4><i class="fa-solid fa-circle-info"></i> Point Information</h4>
+                    <table class="info-table">
+                        <tr><th>Action Name:</th><td id="mCellAction">-</td></tr>
+                        <tr><th>Inspection Index:</th><td id="mCellIndex">-</td></tr>
+                        <tr><th>Timestamp:</th><td id="mCellTimestamp">-</td></tr>
+                        <tr><th>Level:</th><td id="mCellLevel">-</td></tr>
+                    </table>
+
+                    <h4 class="margin-top"><i class="fa-solid fa-code"></i> Result Parameters</h4>
+                    <pre class="json-code" id="mCodeResult">{}</pre>
+                </div>
+
+                <!-- Right Column: Media Gallery & Players -->
+                <div class="modal-media-panel">
+                    <h4><i class="fa-solid fa-photo-film"></i> Associated Media Files</h4>
+                    <div class="media-tabs" id="modalMediaTabs">
+                        <!-- Media items dynamically generated -->
+                    </div>
+                    <div class="media-preview-container" id="modalMediaContainer">
+                        <div class="media-placeholder">Select a media file above to view preview.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Summary Points List Modal Dialog -->
+    <div class="modal-overlay" id="modalKpiList" style="display: none;">
+        <div class="modal-card" style="max-width: 900px; width: 90%;">
+            <div class="modal-header flex-between">
+                <div>
+                    <h3 id="mKpiTitle">Inspection Points List</h3>
+                    <p class="text-muted" id="mKpiSubtitle" style="font-size: 13px; margin-top: 4px;">Matching points list for selected summary category</p>
+                </div>
+                <button class="modal-close" id="btnModalKpiClose">&times;</button>
+            </div>
+            <div class="modal-body" style="max-height: 65vh; overflow-y: auto; padding: 20px;">
+                <table class="data-table" id="tableModalKpiPoints">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">No.</th>
+                            <th style="width: 170px;">Timestamp</th>
+                            <th>Action Name / Point Name</th>
+                            <th style="width: 140px;">Type</th>
+                            <th style="width: 110px;">Level</th>
+                            <th style="width: 100px; text-align: center;">Dev Eval</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyModalKpiPoints">
+                        <!-- Content populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer flex-end" style="padding: 14px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                <button class="btn btn-secondary" id="btnModalKpiCloseFooter">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

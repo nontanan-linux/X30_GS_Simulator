@@ -1,5 +1,553 @@
 [
     {
+        "Node_info": "via-285",
+        "MapName": "1st_floor",
+        "Zone": "packing3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 4.7218785,
+        "PosY": -61.335865,
+        "PosZ": -0.289195,
+        "AngleYaw": 1.6388679,
+        "Value": 16,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "asset-16",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 2.1996067,
+        "PosY": -59.36784,
+        "PosZ": -0.2741717,
+        "AngleYaw": -1.5814399,
+        "Value": 17,
+        "Inspection": "asset_inspection",
+        "CamPTZ": [
+            0.0,
+            10.0,
+            1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.1323,
+                    0.0037
+                ],
+                [
+                    0.9365,
+                    0.9981
+                ]
+            ]
+        ]
+    },
+    {
+        "Node_info": "via-286",
+        "MapName": "1st_floor",
+        "Zone": "",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 4.3972,
+        "PosY": -56.2493,
+        "PosZ": -0.2876,
+        "AngleYaw": 1.5965,
+        "Value": 18,
+        "CamPTZ": [
+            323.0,
+            4.0,
+            2.0
+        ]
+    },
+    {
+        "Node_info": "via-287",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 4.4236,
+        "PosY": -52.6137,
+        "PosZ": -0.3126942,
+        "AngleYaw": 0.0238897,
+        "Value": 19,
+        "CamPTZ": [
+            359.9,
+            10.1,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-288",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 10.230209,
+        "PosY": -52.794205,
+        "PosZ": -0.3437955,
+        "AngleYaw": -0.0255896,
+        "Value": 20,
+        "CamPTZ": [
+            359.9,
+            10.1,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "loto-6",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 9.6493292,
+        "PosY": -56.580807,
+        "PosZ": -0.3416575,
+        "AngleYaw": 0.0138018,
+        "Value": 21,
+        "Inspection": "asset_inspection",
+        "Roi": [
+            [
+                [
+                    0.5062,
+                    0.7296
+                ],
+                [
+                    0.7927,
+                    0.9815
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            0.0,
+            10.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "asset-17",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 9.8979568,
+        "PosY": -58.047691,
+        "PosZ": -0.3364432,
+        "AngleYaw": 0.0091164,
+        "Value": 22,
+        "Inspection": "asset_inspection",
+        "CamPTZ": [
+            0.0,
+            10.0,
+            1.0
+        ],
+        "Roi": [
+            [
+                [
+                    0.2219,
+                    0.0037
+                ],
+                [
+                    0.9094,
+                    0.9944
+                ]
+            ]
+        ]
+    },
+    {
+        "Node_info": "via-289",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 9.3159838,
+        "PosY": -52.569702,
+        "PosZ": -0.35687,
+        "AngleYaw": -3.1392739,
+        "Value": 23,
+        "CamPTZ": [
+            359.9,
+            10.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-290",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 4.5216918,
+        "PosY": -52.591106,
+        "PosZ": -0.3368266,
+        "AngleYaw": 1.5913378,
+        "Value": 24,
+        "CamPTZ": [
+            0.0,
+            10.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "loto-7",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 4.1799684,
+        "PosY": -42.056477,
+        "PosZ": -0.2854147,
+        "AngleYaw": -3.1265795,
+        "Value": 25,
+        "Inspection": "asset_inspection",
+        "Roi": [
+            [
+                [
+                    0.3073,
+                    0.1204
+                ],
+                [
+                    0.825,
+                    0.7704
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            360.0,
+            10.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "thermal-117",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 3.9773474,
+        "PosY": -36.07325,
+        "PosZ": -0.2402833,
+        "AngleYaw": 2.2245319,
+        "Value": 26,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.1688,
+                    0.2188
+                ],
+                [
+                    0.8922,
+                    0.6771
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            2.0,
+            -1.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "vibration-53",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 1,
+        "PosX": 3.5913835,
+        "PosY": -35.596039,
+        "PosZ": -0.4223761,
+        "AngleYaw": -0.9689899,
+        "Value": 27,
+        "Inspection": "vibration_inspection",
+        "Frequency_range": [
+            30,
+            40
+        ],
+        "Energy_threshold": 20,
+        "Kurtosis_threshold": 5.0,
+        "Peak_threshold": 5.0,
+        "CamPTZ": [
+            2.0,
+            -0.9,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-291",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 6.7476573,
+        "PosY": -35.888309,
+        "PosZ": -0.3058234,
+        "AngleYaw": -1.5640013,
+        "Value": 28,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Node_info": "thermal-118",
+        "MapName": "1st_floor",
+        "Zone": "filling2",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 6.999279,
+        "PosY": -40.545525,
+        "PosZ": -0.283773,
+        "AngleYaw": -0.0755023,
+        "Value": 29,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.3484,
+                    0.3438
+                ],
+                [
+                    0.6828,
+                    0.7688
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            358.0,
+            3.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "thermal-119",
+        "MapName": "1st_floor",
+        "Zone": "filling2",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 9.4388895,
+        "PosY": -33.916588,
+        "PosZ": -0.316409,
+        "AngleYaw": 0.1899223,
+        "Value": 30,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.2562,
+                    0.0833
+                ],
+                [
+                    0.7688,
+                    0.9104
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            358.0,
+            5.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-292",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 10.2299,
+        "PosY": -33.1259,
+        "PosZ": -0.3368266,
+        "AngleYaw": 1.5811,
+        "Value": 31,
+        "CamPTZ": [
+            0.0,
+            10.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "thermal-120",
+        "MapName": "1st_floor",
+        "Zone": "filling2",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 10.295872,
+        "PosY": -28.820892,
+        "PosZ": -0.3348744,
+        "AngleYaw": 1.0143965,
+        "Value": 32,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.2797,
+                    0.1333
+                ],
+                [
+                    0.7922,
+                    0.9167
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            2.0,
+            5.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "via-293",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 10.200852600799521,
+        "PosY": -31.835295248909006,
+        "PosZ": -0.3368,
+        "AngleYaw": -1.5525,
+        "Value": 33,
+        "CamPTZ": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
         "Node_info": "via-294",
         "MapName": "1st_floor",
         "Zone": "filling3",
@@ -126,6 +674,44 @@
         ]
     },
     {
+        "Node_info": "thermal-122",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 5.2906451,
+        "PosY": -23.456306,
+        "PosZ": -0.2257503,
+        "AngleYaw": 2.1538,
+        "Value": 38,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.2875,
+                    0.0708
+                ],
+                [
+                    0.85,
+                    0.9167
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            359.0,
+            4.0,
+            1.0
+        ]
+    },
+    {
         "Node_info": "via-295",
         "MapName": "1st_floor",
         "Zone": "filling3",
@@ -194,6 +780,44 @@
         "CamPTZ": [
             358.9,
             4.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "thermal-123",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 1.1300076,
+        "PosY": -16.063881,
+        "PosZ": -0.0947086,
+        "AngleYaw": -1.544263,
+        "Value": 42,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.2469,
+                    0.3
+                ],
+                [
+                    0.8609,
+                    0.7812
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            334.0,
+            1.0,
             1.0
         ]
     },
@@ -288,6 +912,44 @@
         "CamPTZ": [
             1.0,
             9.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "thermal-125",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 0.8375694,
+        "PosY": -29.976145,
+        "PosZ": -0.1140655,
+        "AngleYaw": -2.4042368,
+        "Value": 46,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.1938,
+                    0.1125
+                ],
+                [
+                    0.8391,
+                    0.9417
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            8.0,
+            15.0,
             1.0
         ]
     },
@@ -554,6 +1216,82 @@
         ]
     },
     {
+        "Node_info": "thermal-126",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 2.8016233,
+        "PosY": -14.579963,
+        "PosZ": -0.085339,
+        "AngleYaw": -2.9370587,
+        "Value": 57,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.0437,
+                    0.1417
+                ],
+                [
+                    0.4313,
+                    0.6271
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            11.0,
+            9.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "thermal-127",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 2.8016233,
+        "PosY": -14.579963,
+        "PosZ": -0.085339,
+        "AngleYaw": -2.9370587,
+        "Value": 58,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.4,
+                    0.4333
+                ],
+                [
+                    0.7984,
+                    0.8292
+                ]
+            ]
+        ],
+        "Threshold": 70.0,
+        "CamPTZ": [
+            11.0,
+            9.0,
+            1.0
+        ]
+    },
+    {
         "Node_info": "via-306",
         "MapName": "1st_floor",
         "Zone": "filling3",
@@ -602,6 +1340,104 @@
         ]
     },
     {
+        "Node_info": "via-nf-00",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 1,
+        "PosX": 3.6950667,
+        "PosY": -9.8633299,
+        "PosZ": -0.0826958,
+        "AngleYaw": -3.0620623,
+        "Value": 61,
+        "CamPTZ": [
+            8.0,
+            19.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "gauge-11",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 3.6950667,
+        "PosY": -9.8633299,
+        "PosZ": -0.0826958,
+        "AngleYaw": -3.0620623,
+        "Value": 61,
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.4396,
+                    0.5093
+                ],
+                [
+                    0.6198,
+                    0.7685
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            8.0,
+            19.0,
+            1.0
+        ]
+    },
+    {
+        "Node_info": "gauge-12",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 3.6900437,
+        "PosY": -9.8578558,
+        "PosZ": -0.0852211,
+        "AngleYaw": -3.062649,
+        "Value": 62,
+        "Inspection": "gauge_inspection",
+        "Roi": [
+            [
+                [
+                    0.3396,
+                    0.2352
+                ],
+                [
+                    0.5635,
+                    0.5519
+                ]
+            ]
+        ],
+        "CamPTZ": [
+            8.0,
+            19.0,
+            1.0
+        ]
+    },
+    {
         "Node_info": "via-308",
         "MapName": "1st_floor",
         "Zone": "filling3",
@@ -613,7 +1449,7 @@
         "PointInfo": 0,
         "ObsMode": 0,
         "Manner": 1,
-        "Posture": 0,
+        "Posture": 1,
         "PosX": 6.0801659,
         "PosY": -9.6523972,
         "PosZ": -0.1146151,
@@ -623,6 +1459,29 @@
             8.0,
             15.0,
             1.0
+        ]
+    },
+    {
+        "Node_info": "via-nf-01",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 1,
+        "Posture": 1,
+        "PosX": 3.4304204,
+        "PosY": -9.943944,
+        "PosZ": -0.074916,
+        "AngleYaw": 0.1025603,
+        "Value": 64,
+        "Frequency_range": [
+            30,
+            40
         ]
     },
     {
@@ -667,7 +1526,7 @@
         "PointInfo": 1,
         "ObsMode": 0,
         "Manner": 0,
-        "Posture": 0,
+        "Posture": 1,
         "PosX": 3.3761439,
         "PosY": -9.7658195,
         "PosZ": -0.1053297,
@@ -734,6 +1593,30 @@
         ]
     },
     {
+        "Node_info": "via-nf-02",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 1,
+        "PosX": 3.4774926,
+        "PosY": -5.9073839,
+        "PosZ": -0.0988345,
+        "AngleYaw": 0.9249592,
+        "Value": 68,
+        "CamPTZ": [
+            7.9,
+            19.1,
+            1.0
+        ]
+    },
+    {
         "Node_info": "leakage-50",
         "MapName": "1st_floor",
         "Zone": "filling3",
@@ -764,6 +1647,30 @@
         ]
     },
     {
+        "Node_info": "via-311",
+        "MapName": "1st_floor",
+        "Zone": "filling3",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 0,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 1,
+        "PosX": 5.8241,
+        "PosY": -5.0416,
+        "PosZ": -0.0623685,
+        "AngleYaw": -1.5429,
+        "Value": 69,
+        "CamPTZ": [
+            8.1,
+            19.0,
+            1.0
+        ]
+    },
+    {
         "Node_info": "via-312",
         "MapName": "1st_floor",
         "Zone": "filling2",
@@ -788,93 +1695,9 @@
         ]
     },
     {
-        "Node_info": "leakage-73",
+        "Node_info": "loto-16",
         "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 1,
-        "Posture": 1,
-        "PosX": 11.157842,
-        "PosY": -2.2133541,
-        "PosZ": -0.1767241,
-        "AngleYaw": 1.8418676,
-        "Value": 72,
-        "Inspection": "leakage_inspection",
-        "Frequency_range": [
-            11,
-            31
-        ],
-        "Energy_threshold": 30,
-        "CamPTZ": [
-            27.0,
-            -4.0,
-            3.0
-        ]
-    },
-    {
-        "Node_info": "leakage-74",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 1,
-        "PosX": 17.619959,
-        "PosY": -1.7240915,
-        "PosZ": -0.2105688,
-        "AngleYaw": 1.6303866,
-        "Value": 77,
-        "Inspection": "leakage_inspection",
-        "Frequency_range": [
-            11,
-            31
-        ],
-        "Energy_threshold": 30,
-        "CamPTZ": [
-            25.0,
-            -4.0,
-            3.0
-        ]
-    },
-    {
-        "Node_info": "via-316",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 18.584021,
-        "PosY": -1.5257053,
-        "PosZ": -0.0856348,
-        "AngleYaw": -0.7855303,
-        "Value": 78,
-        "CamPTZ": [
-            25.0,
-            -3.9,
-            3.0
-        ]
-    },
-    {
-        "Node_info": "leakage-75",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
+        "Zone": "filling2",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -884,27 +1707,34 @@
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
-        "PosX": 27.356108,
-        "PosY": -8.0669203,
-        "PosZ": -0.1472109,
-        "AngleYaw": 2.1845946,
-        "Value": 83,
-        "Inspection": "leakage_inspection",
-        "Frequency_range": [
-            45,
-            60
+        "PosX": 11.325531,
+        "PosY": -0.1613964,
+        "PosZ": -0.073952,
+        "AngleYaw": 1.3874471,
+        "Value": 71,
+        "Inspection": "loto_inspection",
+        "Roi": [
+            [
+                [
+                    0.1375,
+                    0.3093
+                ],
+                [
+                    0.7573,
+                    0.9963
+                ]
+            ]
         ],
-        "Energy_threshold": 10,
         "CamPTZ": [
             10.0,
-            39.0,
-            1.0
+            15.0,
+            2.0
         ]
     },
     {
-        "Node_info": "leakage-76",
+        "Node_info": "loto-17",
         "MapName": "1st_floor",
-        "Zone": "filling1",
+        "Zone": "filling2",
         "MapID": 0,
         "Gait": 2,
         "NavMode": 0,
@@ -914,44 +1744,27 @@
         "ObsMode": 0,
         "Manner": 0,
         "Posture": 0,
-        "PosX": 27.287127,
-        "PosY": -8.1943359,
-        "PosZ": -0.1379557,
-        "AngleYaw": 1.3472024,
-        "Value": 84,
-        "Inspection": "leakage_inspection",
-        "Frequency_range": [
-            45,
-            60
+        "PosX": 21.56427,
+        "PosY": 1.5769714,
+        "PosZ": -0.0901897,
+        "AngleYaw": 1.5624307,
+        "Value": 88,
+        "Inspection": "loto_inspection",
+        "Roi": [
+            [
+                [
+                    0.1469,
+                    0.0093
+                ],
+                [
+                    0.7417,
+                    0.9889
+                ]
+            ]
         ],
-        "Energy_threshold": 10,
         "CamPTZ": [
-            10.0,
-            39.0,
-            1.0
-        ]
-    },
-    {
-        "Node_info": "via-321",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 19.250734,
-        "PosY": -2.7580323,
-        "PosZ": -0.1169704,
-        "AngleYaw": 1.3028096,
-        "Value": 87,
-        "CamPTZ": [
-            10.0,
-            39.1,
+            5.0,
+            8.0,
             1.0
         ]
     },
@@ -1184,6 +1997,44 @@
         ]
     },
     {
+        "Node_info": "thermal-151",
+        "MapName": "1st_floor",
+        "Zone": "filling1",
+        "MapID": 0,
+        "Gait": 2,
+        "NavMode": 0,
+        "Speed": 0,
+        "Terrain": 0,
+        "PointInfo": 1,
+        "ObsMode": 0,
+        "Manner": 0,
+        "Posture": 0,
+        "PosX": 32.65015,
+        "PosY": -7.0623708,
+        "PosZ": -0.1964537,
+        "AngleYaw": 2.3646209,
+        "Value": 97,
+        "Inspection": "thermal_inspection",
+        "Roi": [
+            [
+                [
+                    0.2938,
+                    0.1
+                ],
+                [
+                    0.7375,
+                    0.7958
+                ]
+            ]
+        ],
+        "Threshold": 50.0,
+        "CamPTZ": [
+            184.0,
+            25.0,
+            2.0
+        ]
+    },
+    {
         "Node_info": "via-324",
         "MapName": "1st_floor",
         "Zone": "filling1",
@@ -1304,248 +2155,6 @@
         ]
     },
     {
-        "Node_info": "via-329",
-        "MapName": "1st_floor",
-        "Zone": "wet1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 6.163109228442835,
-        "PosY": -17.369151274312628,
-        "PosZ": 0.0,
-        "AngleYaw": -0.006,
-        "Value": 103,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "thermal-128",
-        "MapName": "1st_floor",
-        "Zone": "filling2",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 10.483836,
-        "PosY": -17.498339,
-        "PosZ": -0.1816679,
-        "AngleYaw": -0.2626956,
-        "Value": 104,
-        "Inspection": "thermal_inspection",
-        "Roi": [
-            [
-                [
-                    0.25,
-                    0.4062
-                ],
-                [
-                    0.6719,
-                    0.7875
-                ]
-            ]
-        ],
-        "Threshold": 70.0,
-        "CamPTZ": [
-            6.0,
-            1.0,
-            1.0
-        ]
-    },
-    {
-        "Node_info": "via-330",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 10.381238,
-        "PosY": -13.034265,
-        "PosZ": -0.1922147,
-        "AngleYaw": 1.6267654,
-        "Value": 107,
-        "CamPTZ": [
-            5.9,
-            -5.0,
-            1.0
-        ]
-    },
-    {
-        "Node_info": "leakage-51",
-        "MapName": "1st_floor",
-        "Zone": "filling2",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 12.469609,
-        "PosY": -12.408572,
-        "PosZ": -0.1663019,
-        "AngleYaw": -1.6161079,
-        "Value": 106,
-        "Inspection": "leakage_inspection",
-        "Frequency_range": [
-            11,
-            31
-        ],
-        "Energy_threshold": 30,
-        "CamPTZ": [
-            6.0,
-            -5.0,
-            1.0
-        ]
-    },
-    {
-        "Node_info": "via-330",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 10.381238,
-        "PosY": -13.034265,
-        "PosZ": -0.1922147,
-        "AngleYaw": 1.6267654,
-        "Value": 107,
-        "CamPTZ": [
-            5.9,
-            -5.0,
-            1.0
-        ]
-    },
-    {
-        "Node_info": "via-331",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 10.256513,
-        "PosY": -7.2444878,
-        "PosZ": -0.1232178,
-        "AngleYaw": 1.5549518,
-        "Value": 108,
-        "CamPTZ": [
-            6.3,
-            -5.0,
-            1.0
-        ]
-    },
-    {
-        "Node_info": "leakage-52",
-        "MapName": "1st_floor",
-        "Zone": "filling2",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 11.720727,
-        "PosY": -8.3032417,
-        "PosZ": -0.1229218,
-        "AngleYaw": 1.9195356,
-        "Value": 114,
-        "Inspection": "leakage_inspection",
-        "Frequency_range": [
-            11,
-            31
-        ],
-        "Energy_threshold": 30,
-        "CamPTZ": [
-            15.0,
-            -7.0,
-            1.0
-        ]
-    },
-    {
-        "Node_info": "via-335",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 10.319674,
-        "PosY": -9.8561459,
-        "PosZ": -0.119212,
-        "AngleYaw": -1.5581614,
-        "Value": 115,
-        "CamPTZ": [
-            27.0,
-            -4.0,
-            3.0
-        ]
-    },
-    {
-        "Node_info": "via-336",
-        "MapName": "1st_floor",
-        "Zone": "filling1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 10.366712,
-        "PosY": -17.688852,
-        "PosZ": -0.1697739,
-        "AngleYaw": -3.1142697,
-        "Value": 116,
-        "CamPTZ": [
-            27.1,
-            -3.9,
-            3.0
-        ]
-    },
-    {
         "Node_info": "via-337",
         "MapName": "1st_floor",
         "Zone": "wet1",
@@ -1591,370 +2200,6 @@
             0.0,
             0.0,
             0.0
-        ]
-    },
-    {
-        "Node_info": "via-339",
-        "MapName": "1st_floor",
-        "Zone": "wet1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 1.8625722663691135,
-        "PosY": -35.41022671218471,
-        "PosZ": 0.0,
-        "AngleYaw": -2.9534,
-        "Value": 119,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "via-340",
-        "MapName": "1st_floor",
-        "Zone": "wet1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": -0.6503020946530853,
-        "PosY": -37.002856013885605,
-        "PosZ": 0.0,
-        "AngleYaw": -2.5088,
-        "Value": 120,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "via-341",
-        "MapName": "1st_floor",
-        "Zone": "wet1",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": -6.9843640585609705,
-        "PosY": -36.56948380188538,
-        "PosZ": 0.0,
-        "AngleYaw": 3.1368,
-        "Value": 121,
-        "CamPTZ": [
-            0.0,
-            0.0,
-            0.0
-        ]
-    },
-    {
-        "Node_info": "thermal-136",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": -6.8444023,
-        "PosY": -26.03326,
-        "PosZ": 0.0918895,
-        "AngleYaw": 0.5211399,
-        "Value": 142,
-        "Inspection": "thermal_inspection",
-        "Roi": [
-            [
-                [
-                    0.0469,
-                    0.1958
-                ],
-                [
-                    0.6172,
-                    0.8271
-                ]
-            ]
-        ],
-        "Threshold": 70.0,
-        "CamPTZ": [
-            7.0,
-            9.0,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "vibration-62",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 1,
-        "Posture": 0,
-        "PosX": -5.2697291,
-        "PosY": -25.436459,
-        "PosZ": -0.0046366,
-        "AngleYaw": -2.7226026,
-        "Value": 143,
-        "Inspection": "vibration_inspection",
-        "Frequency_range": [
-            30,
-            40
-        ],
-        "Energy_threshold": 20,
-        "Kurtosis_threshold": 5.0,
-        "Peak_threshold": 5.0,
-        "CamPTZ": [
-            7.0,
-            9.1,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "via-347",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": -7.9023557,
-        "PosY": -26.50717,
-        "PosZ": 0.0836237,
-        "AngleYaw": -1.5640013,
-        "Value": 145,
-        "CamPTZ": [
-            7.1,
-            9.2,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "thermal-141",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": -5.8218207,
-        "PosY": -35.60075,
-        "PosZ": 0.0811109,
-        "AngleYaw": 0.9309195,
-        "Value": 151,
-        "Inspection": "thermal_inspection",
-        "Roi": [
-            [
-                [
-                    0.3406,
-                    0.2833
-                ],
-                [
-                    0.9531,
-                    0.7604
-                ]
-            ]
-        ],
-        "Threshold": 70.0,
-        "CamPTZ": [
-            352.0,
-            -1.0,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "via-348",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 1,
-        "Posture": 0,
-        "PosX": -4.2385345,
-        "PosY": -33.323654,
-        "PosZ": -0.1315547,
-        "AngleYaw": -2.106751,
-        "Value": 152,
-        "CamPTZ": [
-            352.0,
-            -1.0,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "vibration-63",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 1,
-        "Posture": 1,
-        "PosX": -4.2385345,
-        "PosY": -33.323654,
-        "PosZ": -0.1315547,
-        "AngleYaw": -2.106751,
-        "Value": 153,
-        "Inspection": "vibration_inspection",
-        "Frequency_range": [
-            30,
-            40
-        ],
-        "Energy_threshold": 20,
-        "Kurtosis_threshold": 5.0,
-        "Peak_threshold": 5.0,
-        "CamPTZ": [
-            352.0,
-            -1.0,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "via-349",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": -6.976017,
-        "PosY": -36.946148,
-        "PosZ": 0.1247461,
-        "AngleYaw": 0.0128856,
-        "Value": 154,
-        "CamPTZ": [
-            352.0,
-            -0.9,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "via-350",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": -0.5899974,
-        "PosY": -36.960594,
-        "PosZ": -0.0866332,
-        "AngleYaw": 0.5134405,
-        "Value": 156,
-        "CamPTZ": [
-            322.8,
-            4.1,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "via-351",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 0,
-        "ObsMode": 0,
-        "Manner": 0,
-        "Posture": 0,
-        "PosX": 1.9953715,
-        "PosY": -35.400131,
-        "PosZ": -0.2053574,
-        "AngleYaw": -0.017875,
-        "Value": 157,
-        "CamPTZ": [
-            322.9,
-            4.0,
-            2.0
-        ]
-    },
-    {
-        "Node_info": "vibration-64",
-        "MapName": "1st_floor",
-        "Zone": "filling3",
-        "MapID": 0,
-        "Gait": 2,
-        "NavMode": 0,
-        "Speed": 0,
-        "Terrain": 0,
-        "PointInfo": 1,
-        "ObsMode": 0,
-        "Manner": 1,
-        "Posture": 1,
-        "PosX": 1.1990921,
-        "PosY": -35.159309,
-        "PosZ": -0.3260083,
-        "AngleYaw": -0.4454185,
-        "Value": 158,
-        "Inspection": "vibration_inspection",
-        "Frequency_range": [
-            30,
-            40
-        ],
-        "Energy_threshold": 20,
-        "Kurtosis_threshold": 5.0,
-        "Peak_threshold": 5.0,
-        "CamPTZ": [
-            323.1,
-            4.0,
-            2.0
         ]
     },
     {

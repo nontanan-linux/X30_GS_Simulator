@@ -1,5 +1,4 @@
 # Core Simulator GUI Dependencies
-customtkinter
 Pillow
 opencv-python
 numpy

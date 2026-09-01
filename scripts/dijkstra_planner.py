@@ -104,14 +104,22 @@ class DijkstraPlanner:
             print(f"[DijkstraPlanner] Loading paths from {paths_csv_path}...")
             with open(paths_csv_path, 'r', encoding='utf-8') as f:
                 reader = csv.reader(f)
-                header = next(reader, None)
+                first_row = next(reader, None)
+                if first_row:
+                    # Check if the first row is a header
+                    if len(first_row) > 0 and (first_row[0].lower() in ['id', 'path_id'] or not first_row[0].isdigit() and not first_row[0].startswith('path_')):
+                        pass # It's a header, skip it
+                    else:
+                        # It's data, process it
+                        if len(first_row) >= 3:
+                            self.add_edge(first_row[1].strip(), first_row[2].strip(), path_id=first_row[0].strip(), bidirectional=False)
                 for row in reader:
                     if len(row) < 3:
                         continue
                     pid = row[0].strip()
                     n1 = row[1].strip()
                     n2 = row[2].strip()
-                    self.add_edge(n1, n2, path_id=pid, bidirectional=True)
+                    self.add_edge(n1, n2, path_id=pid, bidirectional=False)
         else:
             # If no paths CSV is provided, connect nearest neighbor nodes automatically (mesh graph)
             print("[DijkstraPlanner] No paths.csv provided. Auto-generating sequential/proximity graph...")
@@ -171,7 +179,7 @@ class DijkstraPlanner:
 
         return None
 
-    def find_shortest_path(self, start_query: str, end_query: str) -> Optional[Dict[str, Any]]:
+    def find_shortest_path(self, start_query: str, end_query: str, is_go_home: bool = False) -> Optional[Dict[str, Any]]:
         """
         Run Dijkstra's algorithm to find the shortest path from start_query to end_query.
         Returns a dict containing path nodes, total distance, and trajectory steps.
@@ -234,12 +242,55 @@ class DijkstraPlanner:
             nid = path_ids[i]
             node_info = self.nodes[nid]
             step_dist = 0.0
+            step_yaw = node_info['yaw']
+            
             if i > 0:
                 prev_info = self.nodes[path_ids[i-1]]
-                step_dist = math.sqrt((node_info['x'] - prev_info['x'])**2 + 
-                                      (node_info['y'] - prev_info['y'])**2 + 
-                                      (node_info['z'] - prev_info['z'])**2)
+                dx = node_info['x'] - prev_info['x']
+                dy = node_info['y'] - prev_info['y']
+                dz = node_info['z'] - prev_info['z']
+                step_dist = math.sqrt(dx**2 + dy**2 + dz**2)
                 accumulated += step_dist
+
+            # Calculate directional yaw pointing to the NEXT node
+            if i < len(path_ids) - 1:
+                next_info = self.nodes[path_ids[i+1]]
+                dx_next = next_info['x'] - node_info['x']
+                dy_next = next_info['y'] - node_info['y']
+                step_yaw = math.atan2(dy_next, dx_next)
+            else:
+                # For the final node, inherit the arrival angle
+                if i > 0:
+                    prev_info = self.nodes[path_ids[i-1]]
+                    dx_prev = node_info['x'] - prev_info['x']
+                    dy_prev = node_info['y'] - prev_info['y']
+                    step_yaw = math.atan2(dy_prev, dx_prev)
+                else:
+                    step_yaw = node_info['yaw']
+
+            raw = node_info.get('raw', [])
+            point_info = 0
+            if isinstance(raw, list) and len(raw) > 11:
+                val = str(raw[11]).strip()
+                point_info = int(val) if val.isdigit() else 0
+            elif isinstance(raw, dict):
+                point_info = int(raw.get('PointInfo', 0))
+
+            # Fix Yaw logic based on '0', '1', '2'
+            fix_yaw_val = "1"
+            if isinstance(raw, list) and len(raw) > 7:
+                fix_yaw_val = str(raw[7]).strip()
+            elif isinstance(raw, dict):
+                fix_yaw_val = str(raw.get('fix_yaw', '1')).strip()
+            
+            preserve_yaw = False
+            if fix_yaw_val == '0':
+                preserve_yaw = True
+            elif fix_yaw_val == '1':
+                preserve_yaw = not is_go_home
+
+            if preserve_yaw:
+                step_yaw = node_info['yaw']
 
             steps.append({
                 'step': i,
@@ -248,9 +299,10 @@ class DijkstraPlanner:
                 'x': node_info['x'],
                 'y': node_info['y'],
                 'z': node_info['z'],
-                'yaw': node_info['yaw'],
+                'yaw': round(step_yaw, 4),
                 'step_distance': round(step_dist, 4),
                 'accumulated_distance': round(accumulated, 4),
+                'point_info': point_info,
                 'via_path_id': edge_used.get(nid, "")
             })
 
@@ -264,6 +316,65 @@ class DijkstraPlanner:
         }
 
         return result
+
+    def plan_multi_segment_path(self, query_nodes: List[str], is_go_home: bool = False) -> Optional[Dict[str, Any]]:
+        """
+        Calculate a continuous path through a sequence of query nodes.
+        Stitches individual Dijkstra paths together, avoiding duplicate boundary nodes.
+        """
+        if len(query_nodes) < 2:
+            print("[Error] Multi-segment path requires at least 2 nodes.")
+            return None
+
+        stitched_steps = []
+        total_dist = 0.0
+        path_nodes = []
+        step_counter = 0
+
+        # Run Dijkstra between each consecutive pair
+        for i in range(len(query_nodes) - 1):
+            start_q = query_nodes[i]
+            end_q = query_nodes[i+1]
+            segment = self.find_shortest_path(start_q, end_q, is_go_home=is_go_home)
+            if not segment:
+                print(f"[Error] Failed to calculate segment from '{start_q}' to '{end_q}'")
+                return None
+
+            segment_steps = segment['steps']
+            if not segment_steps:
+                continue
+
+            # Accumulate distance
+            total_dist += segment['total_distance_m']
+
+            # Stitch path nodes
+            segment_nodes = segment['path_nodes']
+            if i == 0:
+                path_nodes.extend(segment_nodes)
+            else:
+                path_nodes.extend(segment_nodes[1:])
+
+            # Stitch steps
+            start_idx = 0 if i == 0 else 1
+            for step in segment_steps[start_idx:]:
+                cloned_step = dict(step)
+                cloned_step['step'] = step_counter
+                cloned_step['accumulated_distance'] = round((stitched_steps[-1]['accumulated_distance'] if stitched_steps else 0.0) + step['step_distance'], 4)
+                stitched_steps.append(cloned_step)
+                step_counter += 1
+
+        if not stitched_steps:
+            return None
+
+        return {
+            'start_node': stitched_steps[0]['node_id'],
+            'end_node': stitched_steps[-1]['node_id'],
+            'total_distance_m': round(total_dist, 4),
+            'node_count': len(path_nodes),
+            'path_nodes': path_nodes,
+            'steps': stitched_steps
+        }
+
 
 
 def main():
